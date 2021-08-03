@@ -11,14 +11,16 @@ function SignIn() {
     email: null,
   });
   //   only works on sign up for now
-  const signUp = () => {
+  const signUp = async () => {
     const { username, password, email } = form;
-    let response = AuthAPI.signUp(username, password, email);
-    if (typeof response == "string") {
+    let response = await AuthAPI.signUp(username, password, email); // async function
+    
+    if (typeof response === "string") {
       console.log(response);
     } else {
-      setUser(response);
+      setUser(response.username);
       console.log(user);
+      // switch to confirm screen
     }
   };
   return (
