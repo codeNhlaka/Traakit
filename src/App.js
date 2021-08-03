@@ -1,10 +1,12 @@
-import './css/global/global.css';
-import Dashboard from './containers/dashboard';
+import "./css/global/global.css";
+import Dashboard from "./containers/dashboard";
+import SignIn from "./components/SignIn";
 
 function App() {
   return (
     <div className="App">
-        <Dashboard/>
+      {/* <Dashboard/> */}
+      <SignIn />
     </div>
   );
 }
