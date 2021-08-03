@@ -2,16 +2,31 @@ import React, { useState } from "react";
 import AuthAPI from "../api/auth";
 import style from "./signInStyles.module.css";
 
-// console.log(AuthAPI);
-
 function SignIn() {
   const [signIn, setSignIn] = useState(true);
-
+  const [user, setUser] = useState();
+  const [form, setForm] = useState({
+    username: null,
+    password: null,
+    email: null,
+  });
+  //   only works on sign up for now
+  const signUp = () => {
+    const { username, password, email } = form;
+    let response = AuthAPI.signUp(username, password, email);
+    if (typeof response == "string") {
+      console.log(response);
+    } else {
+      setUser(response);
+      console.log(user);
+    }
+  };
   return (
     <>
       <nav className={style.navbar}>
         <div>Logo here</div>
       </nav>
+      <pre>{JSON.stringify(form, null, 2)}</pre>
       <header>
         {signIn ? (
           <>
@@ -45,12 +60,27 @@ function SignIn() {
             type="email"
             placeholder="JohnDoe@hotmail.com"
             required
+            onChange={(e) => {
+              setForm((prev) => {
+                return { ...prev, email: e.target.value };
+              });
+            }}
           />
         </div>
-        {signIn && (
+        {!signIn && (
           <div>
             <label htmlFor="name">Username</label>
-            <input id="name" type="text" placeholder="JoeDoe" required />
+            <input
+              id="name"
+              type="text"
+              placeholder="JoeDoe"
+              required
+              onChange={(e) => {
+                setForm((prev) => {
+                  return { ...prev, username: e.target.value };
+                });
+              }}
+            />
           </div>
         )}
         <div>
@@ -60,12 +90,25 @@ function SignIn() {
             type="password"
             placeholder="Password1234"
             required
+            onChange={(e) => {
+              setForm((prev) => {
+                return { ...prev, password: e.target.value };
+              });
+            }}
           />
         </div>
 
         {/* anchor for some new shit */}
         {signIn && <a href="target=_blank">Forgot Password</a>}
-        <button type="submit">Continue</button>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            signUp();
+          }}
+        >
+          Continue
+        </button>
       </form>
     </>
   );
