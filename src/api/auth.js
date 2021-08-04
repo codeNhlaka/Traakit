@@ -9,6 +9,17 @@ Amplify.configure({
   },
 });
 class AuthAPI {
+
+  static async getCurrentAuthenticatedUser(){
+    let user;
+    try {
+      user = await Auth.currentAuthenticatedUser();
+      return user;
+    } catch(error){
+      return error;
+    }
+  }
+
   static async signIn(username, password) {
     try {
       const user = await Auth.signIn(username, password);
