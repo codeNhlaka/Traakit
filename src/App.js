@@ -33,8 +33,8 @@ function App() {
   } else {
     return (
       <div className="App">
-        <SignIn/>
-        {/* <HandleAuthentication/> */} 
+        {/* <SignIn/> */}
+        <HandleAuthentication/> 
       </div>
     );
   }
