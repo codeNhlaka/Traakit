@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ForgotPassword from './forgotPassword.component';
 
+
 {/* <h1>SignIn Component</h1>
 <button onClick={() => props.toggle("signUp")}>Create Account</button>
 <button onClick={() => setHasCredentials(false)}>Forgot Password</button> */}
@@ -13,9 +14,12 @@ function SignIn(props){
             <>
                 <div className="greet-section"></div>
                 <div className="form-section">
-                    <div className="bg-gray-600 md:container">
-                        
-                    </div>
+                    <form>
+                        <div>
+                            <h1>Continue with</h1>
+                            <h3>Sign In</h3>
+                        </div>
+                    </form>
                 </div>
             </>
         )
