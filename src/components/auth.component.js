@@ -3,7 +3,7 @@ import SignIn from './auth/signIn.component';
 import SignUp from './auth/signUp.component';
 import '../css/authentication/auth.css';
 
-export default function HandleAuthentication(){
+export default function HandleAuthentication(props){
     const [hasAccount, setHasAccount] = useState(true);
     
     function switchRenderedComponent(option){
@@ -16,12 +16,12 @@ export default function HandleAuthentication(){
 
     return hasAccount ? (
             <section className="fullwidth">
-                <SignIn toggle={ switchRenderedComponent }/> 
+                <SignIn confirmAuthentication={props.confirmAuthentication} toggle={ switchRenderedComponent }/> 
             </section>
         ) 
         : (
             <section className="fullwidth">
-                <SignUp toggle={ switchRenderedComponent }/>
+                <SignUp confirmAuthentication={props.confirmAuthentication} toggle={ switchRenderedComponent }/>
             </section>
         )
 }

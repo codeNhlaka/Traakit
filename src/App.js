@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./containers/dashboard";
 import HandleAuthentication from "./components/auth.component";
 import AuthAPI from "./api/auth";
@@ -7,6 +7,10 @@ import AuthAPI from "./api/auth";
 function App() {
   const [user, setUser] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
+
+  async function confirmAuthentication(){
+    return setUser(true);
+  }
   
   useEffect(() => {
     async function getUser(){
@@ -27,7 +31,7 @@ function App() {
     <Router>
        <Switch>
           <Route exact path="/">
-            { user ? <Dashboard/> : <HandleAuthentication/>}
+            { user ? <Dashboard/> : <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>}
           </Route>
         </Switch>
     </Router>

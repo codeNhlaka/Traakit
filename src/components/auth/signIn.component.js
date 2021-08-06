@@ -10,9 +10,8 @@ function SignIn(props){
     async function signIn(){
         let user = undefined;
         if (username && password){
-            // sign user in
+            return props.confirmAuthentication();
         }
-
     }
     
     if (hasCredentials){
