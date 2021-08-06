@@ -9,6 +9,8 @@ function App() {
   const noAuthenticatedUserMessage = "The user is not authenticated";
 
   async function confirmAuthentication(){
+    // check if the user is authenticated
+    // then render the dashboard
     return setUser(true);
   }
   
