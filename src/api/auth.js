@@ -24,6 +24,7 @@ class AuthAPI {
     try {
       const user = await Auth.signIn(username, password);
     } catch (error) {
+      console.log(error);
       let message = "error signing in:" + error;
       return message;
     }
