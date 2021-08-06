@@ -12764,6 +12764,11 @@ table@^6.0.9:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
 
+tailwind-forms@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/tailwind-forms/-/tailwind-forms-1.0.6.tgz#0850fda72cd80aeb7cb4d7306d41e6fe636c31cd"
+  integrity sha512-NcqVdBVu9CBj/fEDKFixAEoiQ4qUd6SeXKg4e3hWJrrqjWa20yFjAoKfdZOQ18Bk/axcTnxtV4JtMRA6FIJB2Q==
+
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"

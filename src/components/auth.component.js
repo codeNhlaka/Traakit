@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import SignIn from './auth/signIn.component';
 import SignUp from './auth/signUp.component';
+import '../css/authentication/auth.css';
 
 export default function HandleAuthentication(){
     const [hasAccount, setHasAccount] = useState(true);
 
-    // toggle between signIn and signOut
     function changeTo(option){
         if (option === "signIn"){
             return setHasAccount(true)
@@ -14,6 +14,14 @@ export default function HandleAuthentication(){
         } else return;
     }
     
-
-    return hasAccount ? <SignIn toggle={ changeTo }/> : <SignUp toggle={changeTo}/>
+    return hasAccount ? (
+            <section className="fullwidth">
+                <SignIn toggle={ changeTo }/> 
+            </section>
+        ) 
+        : (
+            <section className="fullwidth">
+                <SignUp toggle={changeTo}/>
+            </section>
+        )
 }

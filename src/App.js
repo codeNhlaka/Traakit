@@ -1,4 +1,3 @@
-import "./css/global/global.css";
 import { useEffect, useState } from "react";
 import Dashboard from "./containers/dashboard";
 import SignIn from "./components/SignIn";

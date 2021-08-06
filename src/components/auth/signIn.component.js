@@ -7,13 +7,17 @@ import ForgotPassword from './forgotPassword.component';
 
 function SignIn(props){
     const [hasCredentials, setHasCredentials] = useState(true);
-
+    
     if (hasCredentials){
         return (
-            <section>
-                <div></div>
-                <div></div>
-            </section>
+            <>
+                <div className="greet-section"></div>
+                <div className="form-section">
+                    <div className="bg-gray-600 md:container">
+                        
+                    </div>
+                </div>
+            </>
         )
     } else {
         return <ForgotPassword/>
@@ -22,3 +26,10 @@ function SignIn(props){
 }
 
 export default SignIn;
+
+
+
+
+
+
+
