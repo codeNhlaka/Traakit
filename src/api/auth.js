@@ -50,8 +50,7 @@ class AuthAPI {
 
       return user;
     } catch (error) {
-      let message = "error signing up:" + error;
-      return message;
+        return error;
     }
   }
 
