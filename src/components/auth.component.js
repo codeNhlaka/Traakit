@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import SignIn from './auth/signIn.component';
 import SignUp from './auth/signUp.component';
 import '../css/authentication/auth.css';
 
 export default function HandleAuthentication(props){
-    const [hasAccount, setHasAccount] = useState(false);
+    const [hasAccount, setHasAccount] = useState(true);
     
     function switchRenderedComponent(option){
         if (option === "signIn"){

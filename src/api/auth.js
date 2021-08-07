@@ -57,8 +57,9 @@ class AuthAPI {
   static async confirmSignUp(username, code) {
     try {
       await Auth.confirmSignUp(username, code);
+      return true;
     } catch (error) {
-      let message = "confirmation error:" + error;
+      const { message } = error;
       return message;
     }
   }
@@ -66,8 +67,9 @@ class AuthAPI {
   static async resendConfirmationCode(username) {
     try {
       await Auth.resendSignUp(username);
-    } catch (err) {
-      let message = "resend confirmation error:" + err;
+      return true;
+    } catch (error) {
+      const { message } = error;
       return message;
     }
   }
