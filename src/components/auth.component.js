@@ -4,7 +4,7 @@ import SignUp from './auth/signUp.component';
 import '../css/authentication/auth.css';
 
 export default function HandleAuthentication(props){
-    const [hasAccount, setHasAccount] = useState(true);
+    const [hasAccount, setHasAccount] = useState(false);
     
     function switchRenderedComponent(option){
         if (option === "signIn"){
