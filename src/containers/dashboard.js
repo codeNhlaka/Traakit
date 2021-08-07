@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { DashboardComponent } from '../components/app.component';
 
-function Dashboard(){
+function Dashboard(props){
     useEffect(() => {
         // intended for backend
         // edit this file if neccessary
     }, []);
-    return <DashboardComponent/>
+    return <DashboardComponent confirmSignOut={props.confirmSignOut}/>
 }
 
 export default Dashboard;

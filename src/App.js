@@ -8,6 +8,10 @@ function App() {
   const [user, setUser] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
 
+  function confirmSignOut(){
+    setUser(false);
+  }
+
   async function confirmAuthentication(){
     // check if the user is authenticated
     // then render the dashboard
@@ -33,7 +37,7 @@ function App() {
     <Router>
        <Switch>
           <Route exact path="/">
-            { user ? <Dashboard/> : <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>}
+            { user ? <Dashboard confirmSignOut={confirmSignOut} /> : <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>}
           </Route>
         </Switch>
     </Router>
