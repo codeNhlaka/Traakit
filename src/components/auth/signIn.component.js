@@ -61,8 +61,8 @@ function SignIn(props){
                         setHasCredentials(false);
                     }}>Forgot password?</button>
 
-                        </div>
                 </div>
+            </div>
             </>
         )
     } else {
