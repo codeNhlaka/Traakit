@@ -3,8 +3,25 @@ import ForgotPassword from './forgotPassword.component';
 import AuthAPI from '../../api/auth';
 import { Formik, Form, Field } from 'formik';
 
-const FormikSignIn = () => (
-    <Formik>
+const FormikSignIn = (props) => (
+    <Formik
+        initialValues={{
+            username: '',
+            password: ''
+        }}
+        onSubmit={async ({username, password}) => {
+            const signInFailureMessage = 'Incorrect username or password.'
+            const signInUser = await AuthAPI.signIn(username, password);
+            if (signInUser){
+                if (typeof signInUser === "string" && signInUser === signInFailureMessage){
+                    // handle error;
+                    return signInFailureMessage;
+                }
+
+                return props.confirmAuthentication();
+            }
+        }}
+    >
         {({isSubmitting}) => (
            <Form>
                <div>
