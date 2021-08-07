@@ -4,10 +4,18 @@ import AuthAPI from '../../api/auth';
 import { useFormik } from 'formik';
 
 function FormikSignIn(props){
+    const [authenticated, setAuthenticated] = useState(false);
+
     async function handleSignIn(username, password){
         let user;
         if (username && password){
-            return props.confirmAuthentication();
+            const authenticateUser = await AuthAPI.SignIn(username, password);
+            if (authenticateUser){
+                // check if sign in was success
+                setAuthenticated(true); // if success
+            }
+
+            return authenticated ? props.confirmAuthentication() : null;
         }
     }
 
