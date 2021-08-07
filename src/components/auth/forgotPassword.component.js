@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {Formik, Form, Field } from 'formik';
 
-const FormikNewPassword = () => (
+const FormikNewPassword = (props) => (
     <Formik
         initialValues={{
             code: '',
@@ -9,6 +9,7 @@ const FormikNewPassword = () => (
         }}
         onSubmit={async ({code, newPassword}) => {
             console.log(code, newPassword);
+            return props.provideCredentials();
         }}
     >
         {({isSubmitting}) => (
@@ -27,11 +28,11 @@ const FormikNewPassword = () => (
     </Formik>
 )
 
-function SetNewPassword(){
+function SetNewPassword(props){
     return (
         <div>
             <h1>Set New Password Component</h1>
-            <FormikNewPassword/>
+            <FormikNewPassword provideCredentials={props.provideCredentials}/>
         </div>
     )
 }
@@ -60,7 +61,7 @@ const FormikForgotPassword = (props) => (
     </Formik>
 )
 
-function ForgotPassword(){
+function ForgotPassword(props){
     const [accountVerificationComplete, setAccountVerificationComplete] = useState(false); 
     function verificationConfirmation(){
         return setAccountVerificationComplete(true);
@@ -73,7 +74,7 @@ function ForgotPassword(){
                 <FormikForgotPassword confirmVerification={verificationConfirmation}/>
             </div>
         )
-    } else return <SetNewPassword/>
+    } else return <SetNewPassword provideCredentials={props.provideNewCredentials} />
 }
 
 export default ForgotPassword;

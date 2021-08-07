@@ -41,6 +41,10 @@ const FormikSignIn = (props) => (
 function SignIn(props){
     const [hasCredentials, setHasCredentials] = useState(true);
     
+    function provideNewCredentials(){
+        return setHasCredentials(true);
+    }
+
     if (hasCredentials){
         return (
             <>
@@ -66,7 +70,7 @@ function SignIn(props){
             </>
         )
     } else {
-        return <ForgotPassword/>
+        return <ForgotPassword provideNewCredentials={provideNewCredentials}/>
     }
 
 }
