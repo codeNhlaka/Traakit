@@ -1,50 +1,25 @@
 import { useState } from 'react';
 import ForgotPassword from './forgotPassword.component';
 import AuthAPI from '../../api/auth';
-import { useFormik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
-function FormikSignIn(props){
-    const [authenticated, setAuthenticated] = useState(false);
-
-    async function handleSignIn(username, password){
-        let user;
-        if (username && password){
-            const authenticateUser = await AuthAPI.SignIn(username, password);
-            if (authenticateUser){
-                // check if sign in was success
-                setAuthenticated(true); // if success
-            }
-
-            return authenticated ? props.confirmAuthentication() : null;
-        }
-    }
-
-    const formik = useFormik({
-        initialValues: {
-            username: '',
-            password: ''
-          },
-        onSubmit: values => {
-            const {username, password} = values;
-            console.log(username, password);
-            return handleSignIn(username, password);
-        }
-    })
-
-    return (
-        <form onSubmit={formik.handleSubmit}> 
-            <div>
-                <label htmlFor="username">Username</label>
-                <input type="text" value={formik.values.username} name="username" onChange={formik.handleChange} placeholder="JohnDoe" maxLength="12"/>
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input type="password" value={formik.values.password} name="password" onChange={formik.handleChange} placeholder="Password132@" maxLength="14"/>
-            </div>
-            <button type="submit">Continue</button>
-        </form>
-    )
-}
+const FormikSignIn = () => (
+    <Formik>
+        {({isSubmitting}) => (
+           <Form>
+               <div>
+                   <label htmlFor="username">Username</label>
+                   <Field name="username" placeholder="codeNhlaka"/>
+               </div>
+               <div>
+                   <label>Password</label>
+                   <Field type="password" name="password" placeholder="Password123"/>
+               </div>
+               <button type="submit" disabled={isSubmitting}>Continue</button>
+           </Form>
+        )}
+    </Formik>
+)
 
 function SignIn(props){
     const [hasCredentials, setHasCredentials] = useState(true);
