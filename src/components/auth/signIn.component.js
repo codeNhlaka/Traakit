@@ -1,53 +1,67 @@
 import { useState } from 'react';
 import ForgotPassword from './forgotPassword.component';
 import AuthAPI from '../../api/auth';
+import { useFormik } from 'formik';
 
-function SignIn(props){
-    const [hasCredentials, setHasCredentials] = useState(true);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    async function signIn(){
-        let user = undefined;
+function FormikSignIn(props){
+    async function handleSignIn(username, password){
+        let user;
         if (username && password){
             return props.confirmAuthentication();
         }
     }
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: ''
+          },
+        onSubmit: values => {
+            const {username, password} = values;
+            console.log(username, password);
+            return handleSignIn(username, password);
+        }
+    })
+
+    return (
+        <form onSubmit={formik.handleSubmit}> 
+            <div>
+                <label htmlFor="username">Username</label>
+                <input type="text" value={formik.values.username} name="username" onChange={formik.handleChange} placeholder="JohnDoe" maxLength="12"/>
+            </div>
+            <div>
+                <label htmlFor="password">Password</label>
+                <input type="password" value={formik.values.password} name="password" onChange={formik.handleChange} placeholder="Password132@" maxLength="14"/>
+            </div>
+            <button type="submit">Continue</button>
+        </form>
+    )
+}
+
+function SignIn(props){
+    const [hasCredentials, setHasCredentials] = useState(true);
     
     if (hasCredentials){
         return (
             <>
-                <div className="greet-section"></div>
-                <div className="form-section">
-                    <form>
-                        <div>
-                            <h1>Continue with</h1>
-                            <h3>Sign In</h3>
-                            <button onClick={e => {
-                                e.preventDefault();
-                                props.toggle("signUp")
-                            }}>Or create Account</button>
-                            <div>
-                                <label htmlFor="username">Username</label>
-                                <input name="username" type="text" maxLength="12" placeholder="John Doe" onChange={e => setUsername(e.target.value)}/>
-                            </div>
-                            <div>
-                                <label htmlFor="password">Password</label>
-                                <input name="password" type="password" maxLength="12" placeholder="Password123@" onChange={e => setPassword(e.target.value)}/>
-                            </div>
+            <div className="greet-section"></div>
+            <div className="form-section">
+                <div>
+                    <h1>Continue with</h1>
+                    <h3>Sign In</h3>
+                    <button onClick={e => {
+                        e.preventDefault();
+                        props.toggle("signUp")
+                    }}>Or create Account</button>
 
-                            <button onClick={e => {
-                                e.preventDefault();
-                                signIn()
-                            }}>Continue</button>
+                    <FormikSignIn confirmAuthentication={props.confirmAuthentication}/>
 
-                            <button onClick={e => {
-                                e.preventDefault();
-                                setHasCredentials(false);
-                            }}>Forgot password?</button>
+                    <button onClick={e => {
+                        e.preventDefault();
+                        setHasCredentials(false);
+                    }}>Forgot password?</button>
 
                         </div>
-                    </form>
                 </div>
             </>
         )
