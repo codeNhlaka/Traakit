@@ -30,10 +30,19 @@ const FormikSignUp = () => (
                 <div>
                     <label htmlFor="password">Password</label>
                     <Field type="password" name="password" placeholder="Password123"/>
+                    <ul>
+                        <li>Password must at least have 8 characters</li>
+                        <li>Include at least one capital character</li>
+                        <li>Include at least one lowercase character</li>
+                        <li>Include at least one number</li>
+                    </ul>
                 </div>
                 <div>
                     <label htmlFor="confirm password">Confirm Password</label>
                     <Field type="confirm password" name="confirm password" placeholder="Password123"/>
+                    <ul>
+                        <li>Password does not match</li>
+                    </ul>
                 </div>
                 <button type="submit" disabled={ isSubmitting }>Continue</button>
             </Form>
