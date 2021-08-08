@@ -25,6 +25,7 @@ class AuthAPI {
       const user = await Auth.signIn(username, password);
       return user;
     } catch (error) {
+      console.log(error);
       const { message } = error;
       return message;
     }
@@ -75,9 +76,13 @@ class AuthAPI {
   }
 
   static async forgotPassword(username) {
-    Auth.forgotPassword(username)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    try {
+      const data = await Auth.forgotPassword(username);
+      return data;
+    } catch (error){
+      const { message } = error;
+      return message;
+    }
   }
 
   static async changePassword() {
@@ -90,9 +95,13 @@ class AuthAPI {
   }
 
   static async setNewPassword(username, code, new_password) {
-    Auth.forgotPasswordSubmit(username, code, new_password)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    try {
+      const data = await Auth.forgotPasswordSubmit(username, code, new_password);
+      return data;
+    } catch(error){
+      const { message } = error;
+      return message;
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {Formik, Form, Field } from 'formik';
+import AuthAPI from '../../api/auth';
 
 const FormikNewPassword = (props) => (
     <Formik
@@ -8,8 +9,18 @@ const FormikNewPassword = (props) => (
             newPassword: ''
         }}
         onSubmit={async ({code, newPassword}) => {
-            console.log(code, newPassword);
-            return props.provideCredentials();
+            const invalidVerificationCodeMessage = 'Invalid verification code provided, please try again.'
+            
+            const setNewPasswordRequest = await AuthAPI.setNewPassword(props.username, code, newPassword);
+            if (setNewPasswordRequest){
+                if (setNewPasswordRequest === invalidVerificationCodeMessage){
+                    // handle error;
+                    const error = setNewPasswordRequest;
+                    return;
+                }
+
+                return props.provideCredentials();
+            }
         }}
     >
         {({isSubmitting}) => (
@@ -21,6 +32,7 @@ const FormikNewPassword = (props) => (
                 <div>
                     <label htmlFor="newPassword">New Password</label>
                     <Field name="newPassword" type="password" placeholder="Password1234"/>
+                    <p>- have at least 8 characters</p>
                 </div>
                 <button type="submit" disabled={isSubmitting}>Continue</button>
             </Form>
@@ -32,7 +44,7 @@ function SetNewPassword(props){
     return (
         <div>
             <h1>Set New Password Component</h1>
-            <FormikNewPassword provideCredentials={props.provideCredentials}/>
+            <FormikNewPassword username={props.username} provideCredentials={props.provideCredentials}/>
         </div>
     )
 }
@@ -45,8 +57,18 @@ const FormikForgotPassword = (props) => (
             }
         }
         onSubmit={async ({username}) => {
-            // make necesssary api calls
-            props.confirmVerification();
+            const noUserFoundErrorMessage = 'Username/client id combination not found.';
+            const resetPasswordRequest = await AuthAPI.forgotPassword(username);
+            
+            if (resetPasswordRequest){
+                if (typeof resetPasswordRequest === "string" && resetPasswordRequest === noUserFoundErrorMessage ){
+                    // handle error;
+                    console.log(resetPasswordRequest)
+                    return;
+                }
+
+                props.confirmVerification(username);
+            }
         }}
     >
         {({isSubmitting}) => ( 
@@ -54,6 +76,7 @@ const FormikForgotPassword = (props) => (
                 <div>
                     <label htmlFor="username">Username</label>
                     <Field name="username" placeholder="codeNhlaka"/>
+                    <p>We'll send a verification code to your email</p>
                 </div>
                 <button type="submit" disabled={isSubmitting}>Continue</button>
             </Form>
@@ -62,8 +85,11 @@ const FormikForgotPassword = (props) => (
 )
 
 function ForgotPassword(props){
-    const [accountVerificationComplete, setAccountVerificationComplete] = useState(false); 
-    function verificationConfirmation(){
+    const [accountVerificationComplete, setAccountVerificationComplete] = useState(true); 
+    const [username, setUsername] = useState('');
+
+    function verificationConfirmation(username){
+        if (username) setUsername(username);
         return setAccountVerificationComplete(true);
     }
 
@@ -74,7 +100,7 @@ function ForgotPassword(props){
                 <FormikForgotPassword confirmVerification={verificationConfirmation}/>
             </div>
         )
-    } else return <SetNewPassword provideCredentials={props.provideNewCredentials} />
+    } else return <SetNewPassword provideCredentials={props.provideNewCredentials} username={username} />
 }
 
 export default ForgotPassword;
