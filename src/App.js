@@ -5,7 +5,7 @@ import HandleAuthentication from "./components/auth.component";
 import AuthAPI from "./api/auth";
 
 function App() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   const noAuthenticatedUserMessage = "The user is not authenticated";
 
   function confirmSignOut(){
@@ -30,7 +30,7 @@ function App() {
       } 
     } 
 
-    getUser(); // check if user is authenticated;
+    // getUser(); // check if user is authenticated;
   }, []);
 
   return (
