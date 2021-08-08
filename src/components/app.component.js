@@ -1,4 +1,5 @@
 import AuthAPI from "../api/auth";
+import Navigation from "./app/nagivation.component";
 
 export function DashboardComponent(props) {
   async function signOut(){
@@ -6,8 +7,9 @@ export function DashboardComponent(props) {
     return props.confirmSignOut();
   }
 
-  return <div>
-    <h1>Welcome to the dashboard</h1>
-    <button onClick={() => signOut()}>Sign Out</button>
-  </div>;
+  return (
+    <div>
+      <Navigation/>
+    </div>
+  )
 }
