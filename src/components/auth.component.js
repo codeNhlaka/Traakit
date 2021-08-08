@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import SignIn from './auth/signIn.component';
 import SignUp from './auth/signUp.component';
-import '../css/authentication/auth.css';
 
 export default function HandleAuthentication(props){
     const [hasAccount, setHasAccount] = useState(true);
