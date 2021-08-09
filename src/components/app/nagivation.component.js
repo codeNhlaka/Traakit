@@ -13,10 +13,18 @@ const UserDetails = () => (
 const DashboardOptions = () => (
     <div>
         <ul>
-            <li>Dashboard</li>
-            <li>Applications</li>
-            <li>Notifications</li>
-            <li>Documents</li>
+            <Link to="/">
+                <li>Dashboard</li>
+            </Link>
+            <Link to="/applications">
+                <li>Applications</li>
+            </Link>
+            <Link to="/notifications">
+                <li>Notifications</li>
+            </Link>
+            <Link to="/documents">
+                <li>Documents</li>
+            </Link>
         </ul>
     </div>
 )
