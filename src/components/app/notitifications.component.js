@@ -1,5 +1,10 @@
+import Navigation from "./nagivation.component";
+
 const NotificationsComponent = () => (
-    <div>Hello this is notifications</div>
+    <div>
+        <Navigation/>
+        <div>Hello this is notifications</div>
+    </div>
 )
 
 export default NotificationsComponent;

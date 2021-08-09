@@ -1,5 +1,10 @@
+import Navigation from "./nagivation.component";
+
 const DocumentsComponent = (props) => (
-    <div>Hello this is documents</div>
+    <div>
+        <Navigation/>
+        <div>Hello this is documents</div>
+    </div>
 )
 
 export default DocumentsComponent;

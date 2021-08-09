@@ -1,5 +1,10 @@
+import Navigation from "./nagivation.component";
+
 const DashboardComponent = () => (
-    <div>Hello this is dashboard</div>
+    <div>
+        <Navigation/>
+        <div>Hello This is Dashboard</div>
+    </div>
 );
 
 

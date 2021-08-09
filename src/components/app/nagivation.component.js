@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AuthAPI from "../../api/auth";
 
 const UserDetails = () => (
     <div>
@@ -21,7 +22,7 @@ const DashboardOptions = () => (
 )
 
 
-function SignOutSection(){
+function SignOutSection(props){
     async function signOut(){
         await AuthAPI.signOut();
         return props.confirmSignOut();
