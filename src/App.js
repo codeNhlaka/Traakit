@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from "./containers/dashboard";
+import Dashboard from "./containers/app/dashboard";
+import Notifications from "./containers/app/notifications";
+import Documents from "./components/app/documents.component";
+import Applications from "./containers/app/applications";
 import HandleAuthentication from "./components/auth.component";
 import AuthAPI from "./api/auth";
+
+// confirmSignOut={confirmSignOut} 
 
 function App() {
   const [user, setUser] = useState(true);
@@ -29,19 +34,28 @@ function App() {
         return setUser(true);
       } 
     } 
-
     // getUser(); // check if user is authenticated;
   }, []);
-
-  return (
-    <Router>
-       <Switch>
-          <Route exact path="/">
-            { user ? <Dashboard confirmSignOut={confirmSignOut} /> : <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>}
-          </Route>
-        </Switch>
-    </Router>
-  )
+  if (user){
+    return (
+      <Router>
+        <Switch>
+            <Route exact path="/">
+              <Dashboard/> 
+            </Route>
+            <Route path="/applications">
+              <Applications/>
+            </Route>
+            <Route path="/documents">
+              <Documents/>
+            </Route>
+            <Route path="/notifications">
+              <Notifications/>
+            </Route>
+          </Switch>
+      </Router>
+    )
+  } else return <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>
 }
 
 export default App;
