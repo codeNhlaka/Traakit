@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { Formik, Form, Field} from 'formik';
 import AuthAPI from '../../api/auth';
+import { authConfirmationContext } from "../../appContext";
 
 const FormikConfirm = (props) => (
     <Formik
@@ -17,7 +19,7 @@ const FormikConfirm = (props) => (
                     }
 
                     console.log(accountVerified);
-                    return props.confirmAuthentication();
+                    return props.confirmAuth();
                 }
         }}
     >
@@ -36,7 +38,13 @@ const FormikConfirm = (props) => (
 
 
 function ConfirmAccount(props){
+    const confirmAuth = useContext(authConfirmationContext);
+
     const { username } = props;
+    /**
+     * Requests a new verification code
+     * @returns A message that confirms that the verification code was successfully sent
+     */
 
     async function requestConfirmationCode(){
         if (username){
@@ -56,7 +64,7 @@ function ConfirmAccount(props){
         <div>
             <h1>Continue with</h1>
             <h3>Account Confirmation</h3>
-            <FormikConfirm username={username} confirmAuthentication={props.confirmAuthentication }/>
+            <FormikConfirm confirmAuth={confirmAuth} username={username} />
             <button onClick={ () => requestConfirmationCode()}>Resend code</button>
         </div>
     )

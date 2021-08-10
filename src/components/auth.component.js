@@ -8,7 +8,7 @@ export default function HandleAuthentication(props){
     const [hasAccount, setHasAccount] = useState(true);
     
     /**
-     * 
+     * Toggles between signIn and signUp component when invoked
      * @param { String } option Option provides clear indication on which component should be rendered 
      * @returns JSX Element based on option [signIn/SignOut]
      */

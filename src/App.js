@@ -7,6 +7,8 @@ import Applications from "./containers/app/applications";
 import HandleAuthentication from "./components/auth.component";
 import AuthAPI from "./api/auth";
 import { isMobile } from "react-device-detect"; 
+import { authConfirmationContext } from "./appContext";
+
 
 function App() {
   const [user, setUser] = useState(false);
@@ -64,7 +66,13 @@ function App() {
             </Switch>
         </Router>
       )
-    } else return <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>
+    } else {
+      return (
+        <authConfirmationContext.Provider value={ confirmAuthentication }>
+          <HandleAuthentication/>
+        </authConfirmationContext.Provider>
+      )
+    }
   }
 }
 

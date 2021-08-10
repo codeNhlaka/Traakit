@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ConfirmAccount from './confirmAccount.component';
 import { Formik, Form, Field } from 'formik';
 import AuthAPI from '../../api/auth';
+import { toggleOption } from '../auth.component';
+
 
 const FormikSignUp = (props) => (
     <Formik
@@ -11,14 +13,16 @@ const FormikSignUp = (props) => (
         password: '',
         confirmPassword: ''
       }}
-      onSubmit={async ({username, email, password}) => {        
-        try {
+      onSubmit={async ({username, email, password}) => {  
+            // create a new user account      
             const createUserAccount = await AuthAPI.signUp(username, password, email);
-            return props.userCreated(true, createUserAccount.username);
-        } catch(error){
-            // handle error!
-            console.log(error);
-        }
+            // check if the account was created successfully
+            if (createUserAccount && createUserAccount['username']){
+                return props.userAccountCreated(true, createUserAccount.username);
+            } else {
+                // handle errors
+                return
+            }
       }}
     >
     {({ isSubmitting }) => (
@@ -43,11 +47,18 @@ const FormikSignUp = (props) => (
     </Formik>
 );
 
-function SignUp(props){
+function SignUp(){
     const [user, setUser] = useState(false);
     const [authenticatedUsername, setAuthenticatedUsername] = useState('');
+    const switchRenderedComponent = useContext(toggleOption);
 
-    function userCreated(complete, username){
+    /**
+     * Sets the SignUp component to recognize the new user and renders the ConfirmAccount component
+     * @param { Boolean } complete Complete confirms the user account was successfully created
+     * @param { String} username Username returns the username of the newly created user account
+     */
+
+    function userAccountCreated(complete, username){
         setAuthenticatedUsername(username);
 
         if (complete){
@@ -55,8 +66,9 @@ function SignUp(props){
         }
     }
 
-    if (user){
-       return <ConfirmAccount confirmAuthentication={ props.confirmAuthentication } username={authenticatedUsername}/>
+     if (user){
+         // if a new account is created, return the confirm component to handle the account confirmation process
+       return <ConfirmAccount username={authenticatedUsername}/>
     } else {
         return (
             <>
@@ -65,12 +77,11 @@ function SignUp(props){
                 <div>
                     <h1>Continue with</h1>
                     <h3>Sign Up</h3>
-                    <button onClick={e => {
-                        e.preventDefault();
-                        props.toggle("signIn")
+                    <button onClick={() => {
+                        switchRenderedComponent("signIn")
                     }}>Already a member</button>
 
-                    <FormikSignUp userCreated={userCreated}/>
+                    <FormikSignUp userAccountCreated={ userAccountCreated }/>
                 </div>
             </div>
             </>
