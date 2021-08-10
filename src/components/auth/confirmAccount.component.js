@@ -10,16 +10,15 @@ const FormikConfirm = (props) => (
         }}
         onSubmit={async ({verificationCode}) => {
             const invalidVerificationCodeMessage = 'Invalid verification code provided, please try again.'
-            const accountVerified = await AuthAPI.confirmSignUp('codeNhlaka', verificationCode);
-            if (accountVerified){
-                    if (typeof accountVerified === "string" && accountVerified === invalidVerificationCodeMessage){
+            const confirmAccount = await AuthAPI.confirmSignUp(props.username, verificationCode);
+            if (confirmAccount){
+                    if (typeof confirmAccount === "string" && confirmAccount === invalidVerificationCodeMessage){
                         // handle error;
-                        console.log(accountVerified)
+                        console.log(confirmAccount)
                         return;
                     }
 
-                    console.log(accountVerified);
-                    return props.confirmAuth();
+                    // require sign in...
                 }
         }}
     >
