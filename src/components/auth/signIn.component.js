@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import ForgotPassword from './forgotPassword.component';
 import AuthAPI from '../../api/auth';
 import { Formik, Form, Field } from 'formik';
+import { toggleOption } from '../auth.component';
+import { authConfirmationContext } from "../../appContext";
 
 const FormikSignIn = (props) => (
     <Formik
@@ -18,7 +20,7 @@ const FormikSignIn = (props) => (
                     return signInFailureMessage;
                 }
 
-                return props.confirmAuthentication();
+                return props.confirmAuth();
             }
         }}
     >
@@ -38,9 +40,11 @@ const FormikSignIn = (props) => (
     </Formik>
 )
 
-function SignIn(props){
+function SignIn(){
     const [hasCredentials, setHasCredentials] = useState(true);
-    
+    const switchRenderedComponent = useContext(toggleOption);
+    const confirmAuth = useContext(authConfirmationContext);
+
     function provideNewCredentials(){
         return setHasCredentials(true);
     }
@@ -55,10 +59,10 @@ function SignIn(props){
                     <h3>Sign In</h3>
                     <button onClick={e => {
                         e.preventDefault();
-                        props.toggle("signUp")
+                        switchRenderedComponent("signUp")
                     }}>Or create Account</button>
 
-                    <FormikSignIn confirmAuthentication={props.confirmAuthentication}/>
+                    <FormikSignIn confirmAuth={ confirmAuth }/>
 
                     <button onClick={e => {
                         e.preventDefault();
