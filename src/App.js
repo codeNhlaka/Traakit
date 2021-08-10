@@ -6,25 +6,29 @@ import Documents from "./components/app/documents.component";
 import Applications from "./containers/app/applications";
 import HandleAuthentication from "./components/auth.component";
 import AuthAPI from "./api/auth";
-
-// confirmSignOut={confirmSignOut} 
+import { isMobile } from "react-device-detect"; 
 
 function App() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
 
+  // Set user to false then render the Authentication component;
   function confirmSignOut(){
     setUser(false);
   }
 
+  // Check if the current user is authenticated then renders the Dashboard
   async function confirmAuthentication(){
-    // check if the user is authenticated
-    // then render the dashboard
-    return setUser(true);
+    const isAuthenticated = await AuthAPI.getCurrentAuthenticatedUser();
+    if (isAuthenticated && isAuthenticated['username']){
+          return setUser(true);
+    } 
+
+    return;
   }
   
   useEffect(() => {
-    async function getUser(){
+    async function getCurrentAuthenticatedUser(){
       const authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser();
       if (authenticatedUser){
         if (authenticatedUser === noAuthenticatedUserMessage){
@@ -34,28 +38,34 @@ function App() {
         return setUser(true);
       } 
     } 
-    // getUser(); // check if user is authenticated;
+    
+    getCurrentAuthenticatedUser(); 
   }, []);
-  if (user){
-    return (
-      <Router>
-        <Switch>
-            <Route exact path="/">
-              <Dashboard/> 
-            </Route>
-            <Route path="/applications">
-              <Applications/>
-            </Route>
-            <Route path="/documents">
-              <Documents/>
-            </Route>
-            <Route path="/notifications">
-              <Notifications/>
-            </Route>
-          </Switch>
-      </Router>
-    )
-  } else return <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>
+  
+  if (isMobile){
+    return <></> // no mobile support for now
+  } else {
+    if (user){
+      return (
+        <Router>
+          <Switch>
+              <Route exact path="/">
+                <Dashboard/> 
+              </Route>
+              <Route path="/applications">
+                <Applications/>
+              </Route>
+              <Route path="/documents">
+                <Documents/>
+              </Route>
+              <Route path="/notifications">
+                <Notifications/>
+              </Route>
+            </Switch>
+        </Router>
+      )
+    } else return <HandleAuthentication confirmAuthentication={ confirmAuthentication }/>
+  }
 }
 
 export default App;
