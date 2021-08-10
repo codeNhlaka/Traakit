@@ -1,6 +1,8 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import SignIn from './auth/signIn.component';
 import SignUp from './auth/signUp.component';
+
+export const toggleOption = React.createContext(null);
 
 export default function HandleAuthentication(props){
     const [hasAccount, setHasAccount] = useState(true);
@@ -10,7 +12,7 @@ export default function HandleAuthentication(props){
      * @param { String } option Option provides clear indication on which component should be rendered 
      * @returns JSX Element based on option [signIn/SignOut]
      */
-    
+
     function switchRenderedComponent(option){
         if (option === "signIn"){
             return setHasAccount(true)
@@ -20,13 +22,17 @@ export default function HandleAuthentication(props){
     }
 
     return hasAccount ? (
-            <section className="fullwidth">
-                <SignIn confirmAuthentication={props.confirmAuthentication} toggle={ switchRenderedComponent }/> 
-            </section>
+            <toggleOption.Provider value={ switchRenderedComponent }>
+                <section className="fullwidth">
+                    <SignIn toggleOption={ switchRenderedComponent } /> 
+                </section>
+            </toggleOption.Provider>
         ) 
         : (
-            <section className="fullwidth">
-                <SignUp confirmAuthentication={props.confirmAuthentication} toggle={ switchRenderedComponent }/>
-            </section>
+            <toggleOption.Provider value={ switchRenderedComponent }>
+                <section className="fullwidth">
+                    <SignUp/>
+                </section>
+            </toggleOption.Provider>
         )
 }
