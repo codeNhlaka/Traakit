@@ -1,7 +1,7 @@
 import Navigation from "./nagivation.component";
 
 const DashboardComponent = () => (
-    <div>
+    <div className='None:container relative h-screen bg-selectgray'>
         <Navigation/>
         <div>Dashboard</div>
     </div>
