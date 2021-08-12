@@ -19,8 +19,6 @@ function ProfileSettingsComponent(props){
     // hide component context
     const toggleProfileSettings = useContext(profileSettingsContext);
 
-    
-    
     return (
         <div {...bindPosition()} className="container absolute transition shadow-lg bg-white ml-auto h-4/5 rounded w-1/3"
             style={
