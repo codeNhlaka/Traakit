@@ -1,9 +1,9 @@
 import Navigation from "./nagivation.component";
 
 const NotificationsComponent = () => (
-    <div>
+    <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
         <Navigation/>
-        <div>Notifications</div>
+        <div></div>
     </div>
 )
 

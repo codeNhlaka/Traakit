@@ -1,9 +1,9 @@
 import Navigation from "./nagivation.component";
 
 const ApplicationsComponent = (props) => (
-    <div>
+    <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
         <Navigation/>
-        <div>Applications</div>
+        <div></div>
     </div>
 );
 
