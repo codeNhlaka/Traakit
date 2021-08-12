@@ -5,14 +5,24 @@ import Notifications from "./containers/app/notifications";
 import Documents from "./components/app/documents.component";
 import Applications from "./containers/app/applications";
 import HandleAuthentication from "./components/auth.component";
+import ProfileSettings from "./components/app/profile_setting.component";
 import AuthAPI from "./api/auth";
 import { isMobile } from "react-device-detect"; 
-import { authConfirmationContext } from "./appContext";
+import { authConfirmationContext, profileSettingsContext } from "./appContext";
 
 
 function App() {
-  const [user, setUser] = useState(false);
+  const [profileSettingsVisible, setProfileSettings] = useState(false);
+  const [user, setUser] = useState(true);
   const noAuthenticatedUserMessage = "The user is not authenticated";
+
+  /**
+   * Displays the profile settings component
+   * @returns sets the state to the toggle value
+   */
+  function toggleProfileSettings(){
+    return setProfileSettings(!profileSettingsVisible);
+  }
 
   // Set user to false then render the Authentication component;
   function confirmSignOut(){
@@ -41,7 +51,7 @@ function App() {
       } 
     } 
     
-    getCurrentAuthenticatedUser(); 
+    // getCurrentAuthenticatedUser(); 
   }, []);
   
   if (isMobile){
@@ -49,22 +59,25 @@ function App() {
   } else {
     if (user){
       return (
-        <Router>
-          <Switch>
-              <Route exact path="/">
-                <Dashboard/> 
-              </Route>
-              <Route path="/applications">
-                <Applications/>
-              </Route>
-              <Route path="/documents">
-                <Documents/>
-              </Route>
-              <Route path="/notifications">
-                <Notifications/>
-              </Route>
-            </Switch>
-        </Router>
+        <profileSettingsContext.Provider value={ toggleProfileSettings }>
+          {profileSettingsVisible ? <ProfileSettings/> : null}
+          <Router>
+            <Switch>
+                <Route exact path="/">
+                  <Dashboard/> 
+                </Route>
+                <Route path="/applications">
+                  <Applications/>
+                </Route>
+                <Route path="/documents">
+                  <Documents/>
+                </Route>
+                <Route path="/notifications">
+                  <Notifications/>
+                </Route>
+              </Switch>
+          </Router>
+        </profileSettingsContext.Provider>
       )
     } else {
       return (
