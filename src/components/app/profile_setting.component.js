@@ -4,17 +4,19 @@ import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "react-spring";
 
 function ProfileSettingsComponent(props){
-    const [visible, setVisible] = useState(false);
+    
     const componentPosition = useSpring({
         x: 400,
         y: 100
     });
 
+    // drag component
     const bindPosition = useDrag((params) => {
         componentPosition.x.set(params.offset[0]);
         componentPosition.y.set(params.offset[1]);
     });
 
+    // hide component
     const toggleProfileSettings = useContext(profileSettingsContext);
     
     return (
