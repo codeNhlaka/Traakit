@@ -10,9 +10,11 @@ const DashboardContent = () => (
         <div className="application-summery flex items-centercards w-full h-20 mt-3">
             <div className="card rounded select-none bg-coolgray ml-5 w-72 h-20">
                 <h1 className="relative text-white ml-2 top-2 w-auto h-auto text-sm uppercase">Total applications</h1>
+                <h1 className="relative text-white top-4 text-3xl w-auto ml-2">140</h1>
             </div>
             <div className="card rounded select-none bg-coolgray ml-5 w-72 h-20">
                 <h1 className="relative text-white ml-2 top-2 w-auto h-auto text-sm uppercase">Applications today</h1>
+                <h1 className="relative text-white top-4 text-3xl w-auto ml-2">20</h1>
             </div>
         </div>
     </div>
