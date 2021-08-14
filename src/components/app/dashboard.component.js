@@ -1,6 +1,5 @@
 import Navigation from "./nagivation.component";
-import Chart from "./charts/barchart.component";
-import Example from "./charts/radarchart.component";
+import AreaChartComponent from "./charts/areachart.component";
 
 const DashboardContent = () => (
     <div style={
@@ -23,11 +22,13 @@ const DashboardContent = () => (
         </div>
 
         <div className="w-full h-80 mt-3 flex items-center">
-            <div className="chart w-3/6 cursor-pointer h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
-                <Chart/>
+            <div style={{
+                width: "57%"
+            }} className="chart w-6/12 h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
+                <AreaChartComponent/>
+
             </div>
-            <div className="chart cursor-pointer w-5/12 h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
-                <Example/>
+            <div className="chart  w-5/12 h-full hover:bg-coolgray transition-all ml-2 rounded flex justify-center items-center">
             </div>
         </div>
     </div>
