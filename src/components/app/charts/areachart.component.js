@@ -1,4 +1,5 @@
 import {
+  ResponsiveContainer,
   AreaChart,
   XAxis,
   YAxis,
@@ -75,25 +76,28 @@ const rangeData = [
 
 export default function AreaChartComponent(){
   return (
-    <AreaChart
-      width={600}
-      height={300}
-      data={rangeData}
-      onClick={(data) => console.log(data)}
-      style={
-        {
-          color: "black",
-        }
-      }
-
-      margin={{
-        top: 20, right: 20, bottom: 20, left: 0,
-      }}
+    <ResponsiveContainer
+        width={600}
+        height={300}
     >
-      <XAxis dataKey="day" />
-      <YAxis />
-      <Area dataKey="temperature" stroke="#30cf43" fill="#30cf43" />
-      <Tooltip />
-    </AreaChart>
+      <AreaChart
+        data={rangeData}
+        onClick={(data) => console.log(data)}
+        style={
+          {
+            color: "black",
+          }
+        }
+
+        margin={{
+          top: 20, right: 20, bottom: 20, left: 20,
+        }}
+      >
+        <XAxis dataKey="day" />
+        <YAxis />
+        <Area dataKey="temperature" stroke="#30cf43" fill="#30cf43" />
+        <Tooltip />
+      </AreaChart>
+    </ResponsiveContainer>
   )
 }

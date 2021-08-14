@@ -24,7 +24,7 @@ const DashboardContent = () => (
         <div className="w-full h-80 mt-3 flex items-center">
             <div style={{
                 width: "57%"
-            }} className="chart w-6/12 h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
+            }} className="chart w-6/12 overflow-hidden h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
                 <AreaChartComponent/>
 
             </div>
