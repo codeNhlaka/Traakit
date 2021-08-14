@@ -24,7 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 #amplify
-amplifyconfig.js
+/src/amplifyconfig.js
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/logs
