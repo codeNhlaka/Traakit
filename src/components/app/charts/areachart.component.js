@@ -64,6 +64,7 @@ export default function AreaChartComponent(){
     <LineChart data={data}
       margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
       onClick={() => alert("hi")}
+      onMouseMove={() => alert('weo')}
       >
       <XAxis dataKey="name" axisLine={false} tickCount={8} />
       <YAxis axisLine={false} tickLine={false} tickCount={8}/>
