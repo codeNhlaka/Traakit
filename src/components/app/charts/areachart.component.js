@@ -1,76 +1,57 @@
 import {
   ResponsiveContainer,
-  AreaChart,
   XAxis,
   YAxis,
   Tooltip,
-  Area
+  Legend,
+  Line,
+  CartesianGrid,
+  LineChart
 } from "recharts";
 import { format, parseISO, subDays } from "date-fns";
 
-const rangeData = [
+const data = [
   {
-    "day": "05-01",
-    "temperature": [
-      -1,
-      10
-    ]
+    "name": "Aug 1",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
   },
   {
-    "day": "05-02",
-    "temperature": [
-      2,
-      15
-    ]
+    "name": "Aug 7",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
   },
   {
-    "day": "05-03",
-    "temperature": [
-      3,
-      12
-    ]
+    "name": "Aug 14",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
   },
   {
-    "day": "05-04",
-    "temperature": [
-      4,
-      12
-    ]
+    "name": "Aug 28",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
   },
   {
-    "day": "05-05",
-    "temperature": [
-      12,
-      16
-    ]
+    "name": "Sep 1",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
   },
   {
-    "day": "05-06",
-    "temperature": [
-      5,
-      16
-    ]
+    "name": "Sep 7",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
   },
   {
-    "day": "05-07",
-    "temperature": [
-      3,
-      12
-    ]
-  },
-  {
-    "day": "05-08",
-    "temperature": [
-      0,
-      8
-    ]
-  },
-  {
-    "day": "05-09",
-    "temperature": [
-      -3,
-      5
-    ]
+    "name": "Sep 14",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
   }
 ]
 
@@ -80,24 +61,39 @@ export default function AreaChartComponent(){
         width={600}
         height={300}
     >
-      <AreaChart
-        data={rangeData}
-        onClick={(data) => console.log(data)}
-        style={
-          {
-            color: "black",
-          }
-        }
-
-        margin={{
-          top: 20, right: 20, bottom: 20, left: 20,
-        }}
+    <LineChart data={data}
+      margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+      onClick={() => alert("hi")}
       >
-        <XAxis dataKey="day" />
-        <YAxis />
-        <Area dataKey="temperature" stroke="#30cf43" fill="#30cf43" />
-        <Tooltip />
-      </AreaChart>
+      <XAxis dataKey="name" axisLine={false} tickCount={8} />
+      <YAxis axisLine={false} tickLine={false} tickCount={8}/>
+      <Tooltip />
+      <CartesianGrid opacity="0.02" vertical={false}/>
+      <Legend />
+      <Line type="CurveType" dataKey="pv" stroke="#30cf43" />
+      <Line type="CurveType" dataKey="uv" stroke="#82ca9d" />
+    </LineChart>
     </ResponsiveContainer>
   )
 }
+
+
+
+{/* <AreaChart
+data={rangeData}
+onClick={(data) => console.log(data)}
+style={
+  {
+    color: "black",
+  }
+}
+
+margin={{
+  top: 20, right: 20, bottom: 20, left: 20,
+}}
+>
+<XAxis dataKey="day" />
+<YAxis />
+<Area dataKey="temperature" stroke="#30cf43" fill="#30cf43" />
+<Tooltip />
+</AreaChart> */}
