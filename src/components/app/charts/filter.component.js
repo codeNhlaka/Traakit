@@ -4,8 +4,8 @@ import DragIcon from "../../../assets/icons/drag.icon"
 
 function FilterComponent(){
     const [componentPosotion, setComponentPosition] = useState({
-        y: 100,
-        x: 100
+        y: 340,
+        x: 450
     });
 
     function hideFilt(){
@@ -28,6 +28,15 @@ function FilterComponent(){
         <div {...bindPosition()} style={style} className="container flex items-center absolute z-50 w-80 rounded shadow-md h-20 bg-coolgray">
             <div onClick={() => hideFilt() } className="drag-indicator cursor-move flex justify-center items-center w-10 h-full">
                 <DragIcon/>
+            </div>
+            <div className="option cursor-pointer w-16 h-full container text-white flex justify-center items-center">
+                <h1 style={{color: "#30e3f0"}} className="select-none">1D</h1>
+            </div>
+            <div className="option cursor-pointer  w-16 h-full container text-white flex justify-center items-center">
+                <h1 className="select-none">1M</h1>
+            </div>
+            <div className="option cursor-pointer w-16 h-full container text-white flex justify-center items-center">
+                <h1 className="select-none">1Y</h1>
             </div>
         </div>
     )

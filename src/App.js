@@ -29,7 +29,7 @@ function App() {
     setUser(false);
   }
 
-  // Check if the current user is authenticated then renders the Dashboard
+  // Check if the current user is authenticated 
   async function confirmAuthentication(){
     const isAuthenticated = await AuthAPI.getCurrentAuthenticatedUser();
     if (isAuthenticated && isAuthenticated['username']){

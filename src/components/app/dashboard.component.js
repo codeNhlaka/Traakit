@@ -1,12 +1,20 @@
+import { createRef, useEffect, useState } from "react";
 import Navigation from "./nagivation.component";
 import AreaChartComponent from "./charts/areachart.component";
 import AreaChartPrev from "./charts/areachartprev.component";
 import FilterComponent from "./charts/filter.component";
+import { filterContext } from "../../appContext";
 
 function DashboardContent(){
     const [filter, setFilter] = useState(false);
+    const dashboardRef = createRef(null);
+
+    function toggleFilter(){
+        return setFilter(true);
+    }
 
     return (
+        <filterContext.Provider value={ {toggleFilter, filter} }>
         <div style={
             {left: '20%'}
         } className="container absolute w-4/5 h-full">
@@ -55,6 +63,7 @@ function DashboardContent(){
                 </div>
             </div>
         </div>
+        </filterContext.Provider>
     );
 }
 

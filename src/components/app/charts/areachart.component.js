@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react";
+import { filterContext } from "../../../appContext";
 import {
   ResponsiveContainer,
   XAxis,
@@ -56,6 +58,19 @@ const data = [
 ]
 
 export default function AreaChartComponent(){
+  const ContextProviderOptions = useContext(filterContext);
+  
+  function toggleFilter(){
+    const filterComponentVisible = ContextProviderOptions['filter'];
+
+    if (!filterComponentVisible){
+      const showFilterOptions = ContextProviderOptions['toggleFilter'];
+      return showFilterOptions();
+    } 
+
+    return;
+  }
+
   return (
     <ResponsiveContainer
         width={600}
@@ -64,7 +79,7 @@ export default function AreaChartComponent(){
     <LineChart data={data}
       margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
       onClick={() => alert("hi")}
-      onMouseMove={() => alert('weo')}
+      onMouseMove={() => toggleFilter() }
       >
       <XAxis dataKey="name" axisLine={false} tickCount={8} />
       <YAxis axisLine={false} tickLine={false} tickCount={8}/>
