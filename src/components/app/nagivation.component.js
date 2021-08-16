@@ -27,7 +27,7 @@ function UserDetails(){
             </div>
 
             <div onClick={() => toggleProfileSettings() } className="container cursor-pointer flex justify-center items-center h-2/4 max-w-full">
-                <div className="bg-selectgreen hover:bg-selectgreenhover transition flex items-center rounded-md text-white w-4/5 h-10">
+                <div className="bg-selectgreen hover:bg-selectgreenhover transition flex items-center text-white w-4/5 h-10">
                     <div className="btn_icon flex justify-center items-center container h-full w-11 ml-5 ">
                         <SettingsIcon/>
                     </div>

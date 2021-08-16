@@ -8,7 +8,8 @@ module.exports = {
       selectgreen: '#30cf43',
       selectgreenhover: '#21a731',
       white: '#ffffff',
-      coolgray: '#181B1F'
+      coolgray: '#181B1F',
+      rose: '#F43F5E'
     }),
     extend: {
       backgroundColor: ['active'],
