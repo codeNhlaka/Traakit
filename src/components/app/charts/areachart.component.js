@@ -81,13 +81,13 @@ export default function AreaChartComponent(){
       onClick={() => alert("hi")}
       onMouseMove={() => toggleFilter() }
       >
-      <XAxis dataKey="name" axisLine={false} tickCount={8} />
-      <YAxis axisLine={false} tickLine={false} tickCount={8}/>
+      {/* <XAxis dataKey="name" axisLine={false} tickCount={8} /> */}
+      <YAxis axisLine={false} tickLine={false} tickCount={5}/>
       <Tooltip />
       <CartesianGrid opacity="0.02" vertical={false}/>
       <Legend />
-      <Line type="CurveType" dataKey="pv" stroke="#30cf43" />
-      <Line type="CurveType" dataKey="uv" stroke="#82ca9d" />
+      <Line type="basis" dataKey="pv" stroke="#30cf43" />
+      <Line type="basis" dataKey="uv" stroke="#82ca9d" />
     </LineChart>
     </ResponsiveContainer>
   )

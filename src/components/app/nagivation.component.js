@@ -72,12 +72,12 @@ function DashboardOptions(props){
                     <Link style={isActivePath('/applications') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/applications">Applications</Link>
                 </div>
     
-                <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
+                {/* <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
                     <div className="icon flex justify-center items-center h-full w-10 ml-5">
                         <NotificationsIcon iconColor={isActivePath('/notifications') ? styles.active.color : styles.inactive.color }/>
                     </div>
                     <Link style={isActivePath('/notifications') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/notifications">Notifications</Link>
-                </div>
+                </div> */}
     
                 <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
                     <div className="icon flex justify-center items-center h-full w-10 ml-5">

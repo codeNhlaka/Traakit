@@ -15,7 +15,7 @@ function TableListPrev(){
     )
 }
 
-function AppTools(){
+function Tools(){
     return (
         <div className="component-title relative flex items-center w-full h-10 mt-3">
             <div className="cursor-pointer hover:bg-selectgreenhover transition-all flex items-center justify-center w-12 h-full ml-5">
@@ -107,7 +107,7 @@ const ApplicationsComponent = props => {
                     <div className="component-title relative flex items-center w-full h-16 mt-10">
                         <h1 className="text-white w-auto pointer-events-none select-none ml-5 text-4xl">Your applications</h1>
                     </div>
-                    <AppTools/>
+                    <Tools/>
                     { applicationDetailsVisible ? <TableListPrev/> : null}
                 <applicationDetailsContext.Provider value={ toggleApplicationDetails }>
                     <TableComponent/>
