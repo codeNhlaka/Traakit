@@ -4,13 +4,13 @@ import { confirmFileContext } from "../documents.component";
 export function convertBytes(bytes) {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
   
-    if (bytes == 0) {
+    if (bytes === 0) {
       return "n/a"
     }
   
     const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
   
-    if (i == 0) {
+    if (i === 0) {
       return bytes + " " + sizes[i]
     }
   
@@ -44,9 +44,9 @@ function UploadFileModal(){
         let errorStack = [];
         
         // get files
-        const uploadedFiles = e.dataTransfer.files[0]; // support 1 file per upload
-        
-        for (let i = 0; i <= uploadedFiles.length -1; i++){
+        const uploadedFiles = e.dataTransfer.files; 
+
+        for (let i = 0; i <= uploadedFiles.length - 1; i++){
             const currentFile = uploadedFiles[i];
             const { type, size } = currentFile;
 
@@ -87,7 +87,8 @@ function UploadFileModal(){
             warnings: errorStack
         });
 
-        toggleConfirmFile(files);
+        // upload current files
+        return files.length ? toggleConfirmFile(files) : null;
     }
 
     return (

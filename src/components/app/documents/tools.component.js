@@ -1,4 +1,5 @@
-import {useContext, fileUploadContext } from "../documents.component";
+import { useContext } from "react";
+import { fileUploadContext } from "../documents.component";
 import UploadFile from "../../../assets/icons/fileupload.icon";
 
 function Tools(){

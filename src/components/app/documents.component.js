@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import Navigation from "./nagivation.component";
 import UploadFileModal from "./documents/uploadModal.component";
 import ConfirmFileModal from "./documents/confirmFileModal.component";
+import TableComponent from "./documents/table.component";
 import Tools from "./documents/tools.component";
 export const fileUploadContext = createContext(null);
 export const confirmFileContext = createContext(null);
@@ -22,6 +23,8 @@ const DocumentsComponent = (props) => {
             setUploadModal(!showUploadModal);
             return setConfirmFileModal(!showConfirmFileModal);
         }
+
+        return setConfirmFileModal(!showConfirmFileModal);
     }
 
 

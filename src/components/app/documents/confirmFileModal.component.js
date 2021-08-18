@@ -1,15 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { confirmFileContext } from "../documents.component";
 
 function ConfirmFileModal(props){
+    const toggleConfirmFile = useContext(confirmFileContext);
 
-    function handleFileUpload(files){
+    function handleFileUpload(){
         // add files push files to s3 bucket
         // update file list
+        return toggleConfirmFile();
     }
-
-    useEffect(() => {
-        console.log('Confirm file modal here... I got your file: ', props.files);
-    }, []);
 
     return (
         <div className="container z-50 transition-all left-1/3 top-20 absolute w-1/3 h-40 border border-gray-800 bg-coolgray rounded shadow-md">
@@ -28,7 +27,7 @@ function ConfirmFileModal(props){
             </div>
 
             <div className="mt-5 w-full h-10">
-                <button className="bg-selectgreen select-none hover:bg-selectgreenhover float-right mr-5 relative text-white flex justify-center items-center h-full w-40">Confirm</button>
+                <button onClick={() => handleFileUpload() } className="bg-selectgreen select-none hover:bg-selectgreenhover float-right mr-5 relative text-white flex justify-center items-center h-full w-40">Confirm</button>
             </div>
         </div>
     )
