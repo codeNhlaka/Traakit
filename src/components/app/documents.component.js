@@ -1,13 +1,17 @@
-import { useState } from "react"; 
+import { createContext, useContext, useState } from "react"; 
 import Navigation from "./nagivation.component";
 import ExportIcon from "../../assets/icons/export.icon";
 import FilterIcon from "../../assets/icons/filter.icon";
 import UploadFile from "../../assets/icons/fileupload.icon";
 
+const fileUploadContext = createContext(null);
+
 function Tools(){
+    const toggleFileUpload = useContext(fileUploadContext);
+
     return (
         <div className="component-title relative flex items-center w-full h-10 mt-3">
-            <div className="cursor-pointer ml-5 hover:bg-selectgreenhover transition-all w-40 h-full flex items-center">
+            <div onClick={() => toggleFileUpload() } className="cursor-pointer ml-5 hover:bg-selectgreenhover transition-all w-40 h-full flex items-center">
                 <div className="w-9 h-5/6 ml-2 flex justify-center items-center">
                     <UploadFile/>
                 </div>
@@ -94,7 +98,7 @@ function UploadFileModal(){
         e.preventDefault();
         e.stopPropagation();
 
-        const fileTypes = ['application/pdf', 'pdf'];
+        const fileTypes = ['application/pdf', 'pdf', 'docx', 'dot', 'dotx', 'eml'];
         const maxFileSize = 1250000;
         let files = [];
         let errorMessage = {};
@@ -117,7 +121,7 @@ function UploadFileModal(){
         }
         
         // get files
-        const uploadedFiles = e.dataTransfer.files;
+        const uploadedFiles = e.dataTransfer.files[0]; // support 1 file per upload
         
         for (let i = 0; i <= uploadedFiles.length -1; i++){
             const currentFile = uploadedFiles[i];
@@ -167,7 +171,7 @@ function UploadFileModal(){
             onDragLeave={(e) => handleDragLeave(e)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e)}
-            className="container z-50 left-48 top-24 flex justify-center items-center absolute w-2/3 h-3/5 border border-gray-800 bg-coolgray rounded shadow-md">
+            className="container z-50 transition-all left-48 top-24 flex justify-center items-center absolute w-2/3 h-3/5 border border-gray-800 bg-coolgray rounded shadow-md">
             <div className="container w-full flex justify-center items-center">
                 { dragging ? <h1 className="text-white text-4xl select-none pointer-events-none">Drop here :)</h1> : <h1 className="text-white text-4xl select-none pointer-events-none">Drag and drop your files here</h1>}
             </div>
@@ -175,8 +179,15 @@ function UploadFileModal(){
     )
 }
 
-const DocumentsComponent = (props) => (
-    <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
+const DocumentsComponent = (props) => { 
+    const [showUploadModal, setUploadModal] = useState(false);
+
+    function toggleFileUpload(){
+        return setUploadModal(!showUploadModal);
+    }
+
+    return (
+        <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
         <Navigation/>
         <div style={
         {left: '20%'}
@@ -185,12 +196,15 @@ const DocumentsComponent = (props) => (
             <div className="component-title flex items-center w-full h-16 mt-10">
                 <h1 className="text-white w-auto pointer-events-none select-none ml-5 text-4xl">Your documents</h1>
             </div>
-            <Tools/>
+            <fileUploadContext.Provider value={ toggleFileUpload }>
+                <Tools/>
+            </fileUploadContext.Provider>
             <TableComponent/>
-            <UploadFileModal/>
+            {showUploadModal ? <UploadFileModal/> : null}
         </div>
 
-    </div>
-)
+        </div>
+    )
+}
 
 export default DocumentsComponent;
