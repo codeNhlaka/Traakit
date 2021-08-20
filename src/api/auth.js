@@ -1,13 +1,13 @@
 import Amplify, { Auth } from "aws-amplify";
 import config from "../amplifyconfig";
 
-Amplify.configure({
-  Auth: {
-    region: config.globalRegion,
-    userPoolId: config.userPoolId,
-    userPoolWebClientId: config.clientId,
-  },
-});
+// Amplify.configure({
+//   Auth: {
+//     region: config.globalRegion,
+//     userPoolId: config.userPoolId,
+//     userPoolWebClientId: config.clientId,
+//   },
+// });
 class AuthAPI {
 
   static async getCurrentAuthenticatedUser(){

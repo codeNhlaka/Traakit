@@ -37,7 +37,7 @@ function Options(props){
                     return (
                         <li 
                             key={ option } 
-                            className={`w-full h-10 hover:bg-coolgray ${ option === currentValue ? 'bg-coolgray' : null} px-5 text-gray-400 cursor-pointer text-sm flex items-center`}
+                            className={`w-full h-10 text-sm hover:bg-coolgray ${ option === currentValue ? 'bg-coolgray' : null} px-5 text-gray-400 cursor-pointer text-sm flex items-center`}
                             onClick={() => changeCurrentValue(option) } 
                         >
                             {option}
@@ -64,10 +64,10 @@ function Select(){
 
     return (
         <div 
-            className="control w-full h-auto mt-5 transition-all">
+            className="control w-full h-auto mt-2 transition-all">
             <div 
                 style={ menuActive ? activeStyle : defaultStyle} 
-                className="input-area rounded-md hover:bg-selectgray flex items-center w-11/12 h-10"
+                className="input-area rounded-md bg-selectgray flex items-center w-11/12 h-10"
                 >
                 <div 
                     onClick={() => setMenuActive(!menuActive)} 
@@ -76,7 +76,7 @@ function Select(){
                     <input 
                         disabled 
                         value={ value }
-                        className="px-5 text-gray-400 cursor-pointer bg-transparent border-none outline-none rounded-none h-full w-4/5" 
+                        className="px-5 text-sm text-gray-700 cursor-pointer bg-transparent border-none outline-none rounded-none h-full w-4/5" 
                         placeholder="Select"
                     />
                 </div>

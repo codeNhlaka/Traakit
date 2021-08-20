@@ -25,17 +25,17 @@ function DashboardContent(){
     
             <div className="application-summery flex items-center cards w-full h-24 mt-3">
                 
-                <div className="card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
+                <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-40 overflow-hidden h-auto text-sm uppercase">Total applications</h1>
                         <h1 className="text-white top-4 w-16 text-3xl ml-2">140</h1>
                     </div>              
                     <div className="items-center justify-center left-44 mt-2 mini-chart w-20 h-16 ">
-                        <AreaChartPrev/>
+                        {/* <AreaChartPrev/> */}
                     </div>
                 </div>
     
-                <div className="card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
+                <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-40 overflow-hidden h-auto text-sm uppercase">Applications today</h1>
                         <h1 className="text-white top-4 w-16 text-3xl ml-2">20</h1>
@@ -44,7 +44,7 @@ function DashboardContent(){
                     </div>
                 </div>
     
-                <div className="card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
+                <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-auto overflow-hidden h-auto text-sm uppercase">Rejected Applications</h1>
                         <h1 className="text-white top-4 w-16 text-3xl ml-2">3</h1>
@@ -56,11 +56,6 @@ function DashboardContent(){
             </div>
     
             <div className="w-full h-96 mt-2 flex items-center">
-                <div style={{
-                    width: "55%"
-                }} className="chart overflow-hidden h-full hover:bg-coolgray transition-all ml-5 rounded flex justify-center items-center">
-                    <AreaChartComponent/>
-                </div>
             </div>
         </div>
         </filterContext.Provider>

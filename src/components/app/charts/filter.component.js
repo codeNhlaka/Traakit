@@ -25,7 +25,7 @@ function FilterComponent(){
     }
     
     return (
-        <div {...bindPosition()} style={style} className="container flex items-center absolute z-50 w-80 rounded shadow-md h-20 bg-coolgray">
+        <div {...bindPosition()} style={style} className="border border-gray-800 container flex items-center absolute z-50 w-80 rounded shadow-md h-20 bg-coolgray">
             <div onClick={() => hideFilt() } className="drag-indicator cursor-move flex justify-center items-center w-10 h-full">
                 <DragIcon/>
             </div>

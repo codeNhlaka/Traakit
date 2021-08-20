@@ -1,16 +1,57 @@
 import { useState, useContext} from "react";
+import { useDrag } from "react-use-gesture";
 import Navigation from "./nagivation.component";
 import ExportIcon from "../../assets/icons/export.icon";
 import FilterIcon from "../../assets/icons/filter.icon";
 import PlusIcon from "../../assets/icons/plus.icon";
 import { applicationDetailsContext } from "../../appContext";
+import Select from "./form/dropdown.component";
+import InputField, { ContainedInputField } from "./form/input.component";
+{/* <Select /> */}
 
-// tools
+function ApplicationDetails(){
+    const toggleApplicationDetails = useContext(applicationDetailsContext);
 
-function TableListPrev(){
     return (
-        <div className="absolute shadow-md bg-coolgray container top-56 left-96 w-96 rounded h-96 z-50">
-
+        <div 
+            className=" select-none border border-gray-800 absolute shadow-md bg-coolgray container top-32 left-96 w-96 rounded h-1/2 z-50">
+            <div className="options w-full h-8 text-white mt-5">
+                <p 
+                    className="float-right mr-5 cursor-pointer text-sm text-gray-400" 
+                    onClick={() => toggleApplicationDetails()}
+                > 
+                    close
+                </p>
+            </div>
+            <div className="content w-full cursor-default h-72">
+                <ContainedInputField/>
+                <div 
+                    style={ {
+                    position: 'relative',
+                    left: '10%',
+                    height: '80px'
+                    }}
+                    className="company-name w-4/5 mt-2 flex"
+                >
+                    <div className="w-full ">
+                        <p className="text-gray-400 text-sm">Progress</p>
+                        <Select />
+                    </div>
+                </div>
+                <button 
+                        style={
+                            {
+                                width: '80%',
+                                marginLeft: '10%',
+                                marginTop: '2%'
+                            }
+                        } 
+                        onClick={ ()=> alert('Processing...')}
+                        className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
+                >
+                    Update Application
+                </button>
+            </div>
         </div>
     )
 }
@@ -24,7 +65,7 @@ function Tools(){
             <div className="cursor-pointer hover:bg-selectgreenhover transition-all flex items-center justify-center w-12 h-full ml-2">
                 <ExportIcon/>
             </div>
-            <div className="cursor-pointer hover:bg-selectgreenhover transition-all w-40 h-full ml-2 flex items-center">
+            <div className="cursor-pointer rounded-md hover:bg-selectgreenhover transition-all w-40 h-full ml-2 flex items-center">
                 <div className="w-9 h-5/6 ml-2 flex justify-center items-center">
                     <PlusIcon/>
                 </div>
@@ -101,18 +142,19 @@ const ApplicationsComponent = props => {
     return (
             <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
                 <Navigation/>
+                <applicationDetailsContext.Provider value={ toggleApplicationDetails }>
                 <div style={
-                {left: '20%'}
-                } className="container absolute w-4/5 h-full">
+                        {left: '20%'}
+                    } 
+                    className="container absolute w-4/5 h-full">
                     <div className="component-title relative flex items-center w-full h-16 mt-10">
                         <h1 className="text-white w-auto pointer-events-none select-none ml-5 text-4xl">Your applications</h1>
                     </div>
                     <Tools/>
-                    { applicationDetailsVisible ? <TableListPrev/> : null}
-                <applicationDetailsContext.Provider value={ toggleApplicationDetails }>
+                    { applicationDetailsVisible ? <ApplicationDetails/> : null}
                     <TableComponent/>
-                </applicationDetailsContext.Provider>
                 </div>
+                </applicationDetailsContext.Provider>
             </div>
         );
 }
