@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { confirmFileContext } from "../documents.component";
+import { confirmFileContext } from "../../../context/appContext";
 
 function ConfirmFileModal(props){
     const toggleConfirmFile = useContext(confirmFileContext);

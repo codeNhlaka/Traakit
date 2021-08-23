@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Expand from "../../../assets/icons/expand.icon";
+import Expand from "../../assets/icons/expand.icon";
 
 const defaultStyle = {
     width: '98%', 

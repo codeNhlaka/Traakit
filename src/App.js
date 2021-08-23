@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from "./containers/app/dashboard";
+import Dashboard from "./components/dashboard/dashboard.component";
 import Notifications from "./containers/app/notifications";
-import Documents from "./components/app/documents.component";
-import Applications from "./containers/app/applications";
-import HandleAuthentication from "./components/auth.component";
+import Documents from "./components/documents/documents.component";
+import Applications from "./components/applications/applications.component";
 import ProfileSettings from "./components/app/profile_setting.component";
-import AuthAPI from "./api/auth";
+import AuthAPI from "./adapters/auth";
 import { isMobile } from "react-device-detect"; 
-import { authConfirmationContext, profileSettingsContext } from "./appContext";
-
+import { authConfirmationContext, profileSettingsContext } from "./context/appContext";
+import AuthenticateUser from "./components/authentication/authUser.component";
 
 function App() {
   const [profileSettingsVisible, setProfileSettings] = useState(false);
@@ -35,7 +34,7 @@ function App() {
     if (isAuthenticated && isAuthenticated['username']){
           return setUser(true);
     } 
-
+    
     return;
   }
   
@@ -82,7 +81,7 @@ function App() {
     } else {
       return (
         <authConfirmationContext.Provider value={ confirmAuthentication }>
-          <HandleAuthentication/>
+          <AuthenticateUser/>
         </authConfirmationContext.Provider>
       )
     }

@@ -1,14 +1,15 @@
 import { createContext, useContext, useState } from "react"; 
-import Navigation from "./nagivation.component";
-import UploadFileModal from "./documents/uploadModal.component";
-import ConfirmFileModal from "./documents/confirmFileModal.component";
-import TableComponent from "./documents/table.component";
-import Tools from "./documents/tools.component";
+import Navigation from "../routes/nagivation.component";
+import UploadFileModal from "./components/uploadModal.component";
+import ConfirmFileModal from "./components/confirmFileModal.component";
+import TableComponent from "./components/table.component";
+import Tools from "./components/tools.component";
+
 export const fileUploadContext = createContext(null);
 export const confirmFileContext = createContext(null);
 
 
-const DocumentsComponent = (props) => { 
+const Documents = (props) => { 
     const [showUploadModal, setUploadModal] = useState(false);
     const [showConfirmFileModal, setConfirmFileModal] = useState(false);
     const [files, setFiles] = useState(null); 
@@ -51,4 +52,4 @@ const DocumentsComponent = (props) => {
     )
 }
 
-export default DocumentsComponent;
+export default Documents;

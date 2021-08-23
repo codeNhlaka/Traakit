@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from 'react';
 import ForgotPassword from './forgotPassword.component';
-import AuthAPI from '../../api/auth';
+import AuthAPI from '../../adapters/auth';
 import { Formik, Form, Field } from 'formik';
-import { toggleOption } from '../auth.component';
-import { authConfirmationContext } from "../../appContext";
+import { toggleOption } from './authUser.component';
+import { authConfirmationContext } from "../../context/appContext";
 
 const FormikSignIn = (props) => (
     <Formik

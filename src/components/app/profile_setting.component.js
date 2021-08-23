@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { profileSettingsContext } from "../../appContext";
+import { profileSettingsContext } from "../../context/appContext";
 import { useDrag } from "react-use-gesture";
 
 function ProfileSettingsComponent(props){

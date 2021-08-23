@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {Formik, Form, Field } from 'formik';
-import AuthAPI from '../../api/auth';
+import AuthAPI from '../../adapters/auth';
 
 const FormikNewPassword = (props) => (
     <Formik

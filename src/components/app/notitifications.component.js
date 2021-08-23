@@ -1,4 +1,5 @@
-import Navigation from "./nagivation.component";
+import Navigation from "../routes/nagivation.component";
+
 
 const NotificationsComponent = () => (
     <div className='None:container relative overflow-hidden h-screen bg-selectgray'>

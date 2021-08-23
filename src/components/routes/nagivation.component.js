@@ -1,13 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AuthAPI from "../../api/auth";
 import SettingsIcon from "../../assets/icons/settings.icon";
 import DashboardIcon from "../../assets/icons/dashboard.icon";
 import ApplicationsIcon from "../../assets/icons/applications.icon";
 import UserProfileIcon from "../../assets/icons/userProfile.icon";
 import NotificationsIcon from "../../assets/icons/notifications.icon";
 import DocumentsIcon from "../../assets/icons/documents.icon";
-import { profileSettingsContext } from "../../appContext";
+import { profileSettingsContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
 
 function UserDetails(){

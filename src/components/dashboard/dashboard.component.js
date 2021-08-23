@@ -1,9 +1,6 @@
 import { createRef, useEffect, useState } from "react";
-import Navigation from "./nagivation.component";
-import AreaChartComponent from "./charts/areachart.component";
-import AreaChartPrev from "./charts/areachartprev.component";
-import FilterComponent from "./charts/filter.component";
-import { filterContext } from "../../appContext";
+import Navigation from "../routes/nagivation.component";
+import { filterContext } from "../../context/appContext";
 
 function DashboardContent(){
     const [filter, setFilter] = useState(false);
@@ -17,8 +14,7 @@ function DashboardContent(){
         <filterContext.Provider value={ {toggleFilter, filter} }>
         <div style={
             {left: '20%'}
-        } className="container absolute w-4/5 h-full">
-            {filter ? <FilterComponent/> : null}
+        } className="container absolute w-4/5 h-full bg-selectgray">
             <div className="component-title flex items-center w-full h-16 mt-10">
                 <h1 className="text-white w-auto pointer-events-none select-none ml-5 text-4xl">Overview</h1>
             </div>
@@ -62,7 +58,7 @@ function DashboardContent(){
     );
 }
 
-const DashboardComponent = () => (
+const Dashboard = () => (
     <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
         <Navigation/>
         <DashboardContent/>
@@ -70,4 +66,4 @@ const DashboardComponent = () => (
 );
 
 
-export default DashboardComponent;
+export default Dashboard;

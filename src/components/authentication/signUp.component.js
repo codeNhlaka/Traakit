@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import ConfirmAccount from './confirmAccount.component';
 import { Formik, Form, Field } from 'formik';
-import AuthAPI from '../../api/auth';
-import { toggleOption } from '../auth.component';
+import AuthAPI from '../../adapters/auth';
+import { toggleOption } from './authUser.component';
 
 
 const FormikSignUp = (props) => (

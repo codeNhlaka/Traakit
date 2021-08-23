@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Formik, Form, Field} from 'formik';
-import AuthAPI from '../../api/auth';
-import { authConfirmationContext } from "../../appContext";
+import AuthAPI from '../../adapters/auth';
+import { authConfirmationContext } from "../../context/appContext";
 
 const FormikConfirm = (props) => (
     <Formik
@@ -18,7 +18,6 @@ const FormikConfirm = (props) => (
                         return;
                     }
 
-                    // require sign in...
                 }
         }}
     >

@@ -1,12 +1,12 @@
 import { useState, useContext} from "react";
 import { useDrag } from "react-use-gesture";
-import Navigation from "./nagivation.component";
+import Navigation from "../routes/nagivation.component";
 import ExportIcon from "../../assets/icons/export.icon";
 import FilterIcon from "../../assets/icons/filter.icon";
 import PlusIcon from "../../assets/icons/plus.icon";
-import { applicationDetailsContext } from "../../appContext";
-import Select from "./form/dropdown.component";
-import InputField, { ContainedInputField } from "./form/input.component";
+import { applicationDetailsContext } from "../../context/appContext";
+import Select from "../form/dropdown.component";
+import InputField, { ContainedInputField } from "../form/input.component";
 {/* <Select /> */}
 
 function ApplicationDetails(){
@@ -132,7 +132,7 @@ function TableComponent(){
         </div>
     )
 }
-const ApplicationsComponent = props => {
+const Applications = props => {
     const [applicationDetailsVisible, setApplicationVisibility] = useState(false);
 
     function toggleApplicationDetails(){
@@ -160,4 +160,4 @@ const ApplicationsComponent = props => {
 }
 
 
-export default ApplicationsComponent;
+export default Applications;

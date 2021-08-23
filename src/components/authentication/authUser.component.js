@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import SignIn from './auth/signIn.component';
-import SignUp from './auth/signUp.component';
+import SignIn from './signIn.component';
+import SignUp from './signUp.component';
 
 export const toggleOption = React.createContext(null);
 
-export default function HandleAuthentication(props){
+export default function AuthenticateUser(props){
     const [hasAccount, setHasAccount] = useState(true);
     
     /**
