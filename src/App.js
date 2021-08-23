@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/dashboard/dashboard.component";
-import Notifications from "./containers/app/notifications";
 import Documents from "./components/documents/documents.component";
 import Applications from "./components/applications/applications.component";
 import ProfileSettings from "./components/app/profile_setting.component";
@@ -70,9 +69,6 @@ function App() {
                 </Route>
                 <Route path="/documents">
                   <Documents/>
-                </Route>
-                <Route path="/notifications">
-                  <Notifications/>
                 </Route>
               </Switch>
           </Router>

@@ -1,6 +1,7 @@
 import { createRef, useEffect, useState } from "react";
 import Navigation from "../routes/nagivation.component";
 import { filterContext } from "../../context/appContext";
+import ApplicationsChart from "../charts/barchart";
 
 function DashboardContent(){
     const [filter, setFilter] = useState(false);
@@ -51,7 +52,25 @@ function DashboardContent(){
     
             </div>
     
-            <div className="w-full h-96 mt-2 flex items-center">
+            <div className="w-full h-96 mt-2 flex items-center ">
+                <div 
+                    style={{
+                        width: '54.5%'
+                    }}
+                    className="border border-gray-800 overflow-hidden bg-coolgray rounded-md ml-5 h-full"
+                >
+                    <div className="tools w-full mt-2 h-10">
+                        <div className="h-full w-48 ml-2 bg-selectgray rounded select-none">
+                            <h1 className=" rounded w-full text-gray-400 h-full flex items-center justify-center border border-gray-800">
+                                Applications Overview
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div className="chart w-full h-72 mt-2">
+                        <ApplicationsChart/>
+                    </div>
+                </div>
             </div>
         </div>
         </filterContext.Provider>
