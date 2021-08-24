@@ -6,11 +6,36 @@ import LogoutIcon from "../../assets/icons/logout.icon";
 
 function ProfileSettingsComponent(props){
     const [userImage, setImage] = useState(true);
+    const [status] = useState(['Unemployed', 'Employed']);
+    
+    const [userDetails, setUserDetails] = useState({
+        fullnames: null,
+        category: null,
+        status: null
+    });
+
     const [componentPosition, setComponentPosition] = useState({
         x: 100,
         y: 70
     });
 
+    function handleSignOut(){
+        // handle Signout
+    }
+
+    function updateUserDetails(){
+        // Handle update
+    }
+
+    function handleChange(forInput, value){
+        const property = forInput;
+        setUserDetails({
+            ...userDetails,
+            [property] : value
+        });
+
+        updateUserDetails();
+    }
 
     // hide component context
     const toggleProfileSettings = useContext(profileSettingsContext);
@@ -68,7 +93,7 @@ function ProfileSettingsComponent(props){
                     </button>
                 </div>
                 <div 
-                    onClick={() => alert("loging out...")}
+                    onClick={() => handleSignOut() }
                     className="actions cursor-pointer w-20 h-24 ml-10 flex items-center">
                     <LogoutIcon/>
                 </div>
@@ -84,8 +109,9 @@ function ProfileSettingsComponent(props){
                 }
                 className="status mt-5 h-full">
                     <div className="content w-full cursor-default h-72">
-                        <ContainedInputField/>
-                        <ContainedInputField/>
+                        <ContainedInputField handleChange={ handleChange } placeholder="Kelvin Sue" inputLabel="Fullnames"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder="Software Engineer..." inputLabel="Category"/>
+                        
                         <div 
                             style={ {
                             position: 'relative',
@@ -95,8 +121,8 @@ function ProfileSettingsComponent(props){
                             className="company-name w-4/5 mt-2 flex"
                         >
                             <div className="w-full ">
-                                <p className="text-gray-400 text-sm">Progress</p>
-                                <Select />
+                                <p className="text-gray-400 text-sm">Employement Status</p>
+                                <Select options={status} handleChange={ handleChange } />
                             </div>
                         </div>
                         <button 
@@ -107,7 +133,7 @@ function ProfileSettingsComponent(props){
                                         marginTop: '5%'
                                     }
                                 } 
-                                onClick={ ()=> alert('Processing...')}
+                                onClick={ ()=> console.log(userDetails)}
                                 className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                         >
                             Update Information
