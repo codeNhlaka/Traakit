@@ -33,8 +33,6 @@ function ProfileSettingsComponent(props){
             ...userDetails,
             [property] : value
         });
-
-        updateUserDetails();
     }
 
     // hide component context
@@ -133,7 +131,7 @@ function ProfileSettingsComponent(props){
                                         marginTop: '5%'
                                     }
                                 } 
-                                onClick={ ()=> console.log(userDetails)}
+                                onClick={ ()=> updateUserDetails() }
                                 className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                         >
                             Update Information
