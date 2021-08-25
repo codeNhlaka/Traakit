@@ -3,6 +3,9 @@ import { profileSettingsContext } from "../../context/appContext";
 import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import LogoutIcon from "../../assets/icons/logout.icon";
+import { UserDetailsAPI } from "../../adapters/userDetails";
+import { v4 as uuidv4 } from 'uuid';
+
 
 function ProfileSettingsComponent(props){
     let fileInputRef = createRef(null);
@@ -20,12 +23,21 @@ function ProfileSettingsComponent(props){
         y: 70
     });
 
-    function handleImage(e){
+    async function handleImage(e){
         const { files } = e.target;
         const image = files[0];
 
-        console.log(image);
-        setImage(image);
+        // generate key
+        const key = uuidv4()
+
+        // upload image
+        const result = await UserDetailsAPI.setUserImage(image, key);
+
+        if (result){
+            console.log(result);
+        }
+
+        
     }
 
     function handleFileUpload(){
