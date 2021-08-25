@@ -21,7 +21,7 @@ function UserDetails(){
                             <UserProfileIcon/>
                         </div>
                     </div>
-                    <div className="username container ml-2 w-auto "><p className='text-white select-none'>Eric Portillo</p></div>
+                    <div className="username container ml-2 w-auto "><p className='text-white select-none'>Oleg Fakeev</p></div>
                 </div>
             </div>
 
