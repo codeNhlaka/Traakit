@@ -1,10 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, createRef } from "react";
 import { profileSettingsContext } from "../../context/appContext";
 import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import LogoutIcon from "../../assets/icons/logout.icon";
 
 function ProfileSettingsComponent(props){
+    let fileInputRef = createRef(null);
     const [userImage, setImage] = useState(true);
     const [status] = useState(['Unemployed', 'Employed']);
     
@@ -18,6 +19,18 @@ function ProfileSettingsComponent(props){
         x: 100,
         y: 70
     });
+
+    function handleImage(e){
+        const { files } = e.target;
+        const image = files[0];
+
+        console.log(image);
+        setImage(image);
+    }
+
+    function handleFileUpload(){
+        fileInputRef.click();
+    }
 
     function handleSignOut(){
         // handle Signout
@@ -72,11 +85,12 @@ function ProfileSettingsComponent(props){
                         {userImage ? (
                             <h1 className="text-white select-none text-2xl">NP</h1>
                         ) : (
-                            <img src={null} width="100%" alt="user profile image"/>
+                            <img src={ userImage } width="100%" alt="user profile image"/>
                         )}
                     </div>
                 </div>
                 <div className="actions w-56 h-24 ml-2 flex items-center">
+                    <input ref={e => fileInputRef = e} onChange={e => handleImage(e)} type="file" hidden/>
                     <button 
                         style={
                                 {
@@ -84,7 +98,7 @@ function ProfileSettingsComponent(props){
                                     marginLeft: '5%'
                                 }
                                 } 
-                        onClick={ ()=> alert('Processing...')}
+                        onClick={ ()=> handleFileUpload() }
                         className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                     >
                         Upload image
