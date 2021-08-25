@@ -1,1 +1,16 @@
-{}
+{
+  "auth": {
+    "traakit48493347": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "storage": {
+    "userImage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
+}

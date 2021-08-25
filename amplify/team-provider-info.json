@@ -10,6 +10,11 @@
       "StackName": "amplify-traakit-dev-210157",
       "StackId": "arn:aws:cloudformation:us-east-2:952940294120:stack/amplify-traakit-dev-210157/21bb6180-f3c4-11eb-9f73-066132529b52",
       "AmplifyAppId": "d1kchrb8gq1qwq"
+    },
+    "categories": {
+      "auth": {
+        "traakit48493347": {}
+      }
     }
   }
 }
