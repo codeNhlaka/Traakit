@@ -48,3 +48,8 @@ code {
   z-index: -1;
   color: #21a731;
 }
+
+amplify-s3-image {
+  --height: 90px;
+  --width: 90px;
+}
