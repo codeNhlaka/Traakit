@@ -4,12 +4,14 @@ import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import LogoutIcon from "../../assets/icons/logout.icon";
 import { UserDetailsAPI } from "../../adapters/userDetails";
+import AccountIcon from "../../assets/icons/account.icon";
 import { v4 as uuidv4 } from 'uuid';
-
+import { AmplifyS3Image } from "@aws-amplify/ui-react";
+import { Storage } from "aws-amplify";
 
 function ProfileSettingsComponent(props){
     let fileInputRef = createRef(null);
-    const [userImage, setImage] = useState(true);
+    const [imageKey, setImageKey] = useState(null);
     const [status] = useState(['Unemployed', 'Employed']);
     
     const [userDetails, setUserDetails] = useState({
@@ -17,6 +19,9 @@ function ProfileSettingsComponent(props){
         category: null,
         status: null
     });
+
+    // hide component context
+    const toggleProfileSettings = useContext(profileSettingsContext);
 
     const [componentPosition, setComponentPosition] = useState({
         x: 100,
@@ -28,17 +33,47 @@ function ProfileSettingsComponent(props){
         const image = files[0];
 
         // generate key
-        const key = uuidv4()
+        const key = uuidv4();
 
-        // upload image
-        const result = await UserDetailsAPI.setUserImage(image, key);
+        // get current image 
+        Storage.list('')
+        .then( imageList => {
 
-        if (result){
-            console.log(result);
-        }
+            // if there's an existing image, remove it
+            if (imageList.length){
+                let i;
+                
+                for(i = 0; i <= imageList.length - 1; i++){
+                    // get image key
+                    const { key } = imageList[i];
+                    
+                    // remove current image
+                    let removeImageResult = Storage.remove(key);
+                }
+            } 
 
-        
+            // put image
+            Storage.put(key, image)
+            .then(data => {
+                const { key } = data;
+                
+                // update state
+                
+                setImageKey(key);
+
+                // put key in db
+
+            })
+            .catch(error => console.log(error))
+
+
+        })  
+        .catch(error => {
+            console.log(error);
+        })
     }
+
+ 
 
     function handleFileUpload(){
         fileInputRef.click();
@@ -60,8 +95,10 @@ function ProfileSettingsComponent(props){
         });
     }
 
-    // hide component context
-    const toggleProfileSettings = useContext(profileSettingsContext);
+    useEffect(() => {
+        // fetch required data
+    }, [])
+
 
     return (
         <div className="container absolute bg-coolgray border border-gray-800 transition shadow-lg ml-auto h-4/5 rounded w-1/3"
@@ -80,26 +117,38 @@ function ProfileSettingsComponent(props){
                 <div 
                     style={
                         {
-                            minWidth: "60px",
-                            minHeight: "60px"
+                            minWidth: "95px",
+                            minHeight: "95px"
                         }
                     }
-                    className="user-image-container relative ml-5 flex items-center">
-                    <div 
-                        style={
-                            {
-                                borderRadius: "200%",
-                                minWidth: "60px",
-                                minHeight: "60px"
+                    className="user-image-container relative ml-5 flex items-center justify-center overflow-hidden">
+                        <div 
+                            style={
+                                {
+                                    width: '90px',
+                                    height: '90px',
+                                    borderRadius: '2000px'
+                                }
                             }
-                        }
-                        className="user-image w-full h-full bg-selectgray flex items-center justify-center rounded-full">
-                        {userImage ? (
-                            <h1 className="text-white select-none text-2xl">NP</h1>
-                        ) : (
-                            <img src={ userImage } width="100%" alt="user profile image"/>
-                        )}
-                    </div>
+                            className="container overflow-hidden">
+                            { imageKey ? (
+                                <AmplifyS3Image imgKey={ imageKey } />
+                            ) : 
+                            (
+                                <div 
+                                    style={
+                                        {
+                                            width: '90px',
+                                            height: '90px',
+                                            borderRadius: '2000px'
+                                        }
+                                    }
+                                    className="bg-selectgray flex justify-center items-center">
+                                        <AccountIcon />
+                                </div>
+                            )
+                            }
+                        </div>
                 </div>
                 <div className="actions w-56 h-24 ml-2 flex items-center">
                     <input ref={e => fileInputRef = e} onChange={e => handleImage(e)} type="file" hidden/>
@@ -113,28 +162,23 @@ function ProfileSettingsComponent(props){
                         onClick={ ()=> handleFileUpload() }
                         className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                     >
-                        Upload image
+                        Change Image
                     </button>
-                </div>
-                <div 
-                    onClick={() => handleSignOut() }
-                    className="actions cursor-pointer w-20 h-24 ml-10 flex items-center">
-                    <LogoutIcon/>
                 </div>
             </div>
 
-            <div className="status-container flex items-center w-full h-96">
+            <div className="status-container flex items-center w-full h-80">
                 <div 
                 style={
                     {
-                        width: "80%",
-                        marginLeft: "10%"
+                        width: "95%",
+                        marginLeft: "2.5%"
                     }
                 }
                 className="status mt-5 h-full">
                     <div className="content w-full cursor-default h-72">
-                        <ContainedInputField handleChange={ handleChange } placeholder="Kelvin Sue" inputLabel="Fullnames"/>
-                        <ContainedInputField handleChange={ handleChange } placeholder="Software Engineer..." inputLabel="Category"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder="Oleg Fakeev" inputLabel="Fullnames"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder="Graphic Designer" inputLabel="Category"/>
                         
                         <div 
                             style={ {
