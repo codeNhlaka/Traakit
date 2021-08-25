@@ -11,7 +11,7 @@ import AuthenticateUser from "./components/authentication/authUser.component";
 
 function App() {
   const [profileSettingsVisible, setProfileSettings] = useState(false);
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
 
   /**
@@ -49,7 +49,7 @@ function App() {
       } 
     } 
     
-    // getCurrentAuthenticatedUser(); 
+    getCurrentAuthenticatedUser(); 
   }, []);
   
   if (isMobile){
