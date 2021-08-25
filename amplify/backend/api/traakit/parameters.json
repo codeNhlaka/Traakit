@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "traakit",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authtraakit48493347",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
