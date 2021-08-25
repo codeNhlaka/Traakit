@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Expand from "../../assets/icons/expand.icon";
 
 const defaultStyle = {
@@ -20,17 +20,28 @@ const customStyle = {
 
 
 function Options(props){
-    const [options, setOptions] = useState(['Pending', 'Rejected', 'Interview', 'Offer']);
+    const [options, setOptions] = useState([]);
     let currentValue = props.value;
 
     function changeCurrentValue(newValue){
         props.changeValue(newValue);
     }
 
+    useEffect(() => {
+        const providedOptions = props.options;
+
+        console.log(props.options)
+        if (providedOptions){
+            setOptions(providedOptions);
+        } else {
+            setOptions(['Pending', 'Rejected', 'Interview', 'Offer']);
+        }
+    }, [])
+
     return (
         <div 
             style={ {width: '50%', marginLeft: '5%'} } 
-            className="menu mt-2 bg-selectgray rounded-md overflow-hidden border border-gray-800  h-40"
+            className="menu mt-2 bg-selectgray rounded-md overflow-hidden border border-gray-800  h-auto"
         >
             <ul>
                 {options.map(option => {
@@ -49,13 +60,17 @@ function Options(props){
     )
 }
 
-function Select(){
+function Select(props){
     const [menuActive, setMenuActive] = useState(false);
-    const [value, setValue] = useState("Pending");
+    const [value, setValue] = useState("");
+    let forInput;
 
     function changeValue(value){
         if (value){
             setValue(value);
+            props.category ? forInput = props.category : forInput = "status";
+
+            props.handleChange(forInput, value);
             return setMenuActive(!menuActive);
         }
 
@@ -95,7 +110,7 @@ function Select(){
                     <Expand />
                 </div>
             </div>
-            { menuActive ? <Options value={ value } changeValue={ changeValue }/> : null }
+            { menuActive ? <Options options={props.options} value={ value } changeValue={ changeValue }/> : null }
         </div>
     )
 }   

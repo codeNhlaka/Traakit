@@ -7,10 +7,31 @@ import PlusIcon from "../../assets/icons/plus.icon";
 import { applicationDetailsContext } from "../../context/appContext";
 import Select from "../form/dropdown.component";
 import InputField, { ContainedInputField } from "../form/input.component";
-{/* <Select /> */}
 
 function ApplicationDetails(){
+    const [applicationHistory, modifyApplicationHistory] = useState({
+        companyName: null,
+        applicationStatus: null
+    })
+
     const toggleApplicationDetails = useContext(applicationDetailsContext);
+
+    function updateApplicationHistory(){
+
+    }
+
+    function handleChange(forInput, value){
+        let property;
+
+        if (forInput === "Company Name") forInput = "companyName";
+
+        property = forInput;
+
+        modifyApplicationHistory({
+            ...applicationHistory,
+            [property] : value
+        });
+    }
 
     return (
         <div 
@@ -24,7 +45,13 @@ function ApplicationDetails(){
                 </p>
             </div>
             <div className="content w-full cursor-default h-72">
-                <ContainedInputField/>
+
+                <ContainedInputField 
+                    handleChange={ handleChange } 
+                    placeholder="Google..." 
+                    inputLabel="Company Name"
+                />
+
                 <div 
                     style={ {
                     position: 'relative',
@@ -35,7 +62,8 @@ function ApplicationDetails(){
                 >
                     <div className="w-full ">
                         <p className="text-gray-400 text-sm">Progress</p>
-                        <Select />
+                     
+                        <Select handleChange={ handleChange } category="Progress"/>
                     </div>
                 </div>
                 <button 
@@ -46,7 +74,7 @@ function ApplicationDetails(){
                                 marginTop: '2%'
                             }
                         } 
-                        onClick={ ()=> alert('Processing...')}
+                        onClick={ ()=> updateApplicationHistory() }
                         className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                 >
                     Update Application
