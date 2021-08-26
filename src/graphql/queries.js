@@ -6,8 +6,15 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -24,8 +31,44 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         fullnames
-        userImageKey
+        skill
         employmentStatus
+        userImageKey {
+          id
+          key
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserImage = /* GraphQL */ `
+  query GetUserImage($id: ID!) {
+    getUserImage(id: $id) {
+      id
+      key
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listUserImages = /* GraphQL */ `
+  query ListUserImages(
+    $filter: ModelUserImageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        key
         createdAt
         updatedAt
         owner

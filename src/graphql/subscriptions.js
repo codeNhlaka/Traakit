@@ -6,8 +6,15 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(owner: $owner) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -19,8 +26,15 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(owner: $owner) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -32,8 +46,48 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(owner: $owner) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateUserImage = /* GraphQL */ `
+  subscription OnCreateUserImage($owner: String!) {
+    onCreateUserImage(owner: $owner) {
+      id
+      key
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUserImage = /* GraphQL */ `
+  subscription OnUpdateUserImage($owner: String!) {
+    onUpdateUserImage(owner: $owner) {
+      id
+      key
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUserImage = /* GraphQL */ `
+  subscription OnDeleteUserImage($owner: String!) {
+    onDeleteUserImage(owner: $owner) {
+      id
+      key
       createdAt
       updatedAt
       owner

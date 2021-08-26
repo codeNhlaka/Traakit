@@ -16,7 +16,7 @@ function ProfileSettingsComponent(props){
     
     const [userDetails, setUserDetails] = useState({
         fullnames: null,
-        category: null,
+        skill: null,
         status: null
     });
 
@@ -27,6 +27,49 @@ function ProfileSettingsComponent(props){
         x: 100,
         y: 70
     });
+
+    function updateUserInformation(){
+
+    }
+
+    async function createUserInformation(){
+        const {
+            fullnames,
+            skill,
+            status
+        } = userDetails;
+
+        const data = {
+            fullnames,
+            skill,
+            employmentStatus: status
+        }   
+
+        const { user } = await UserDetailsAPI.createUserInformation(data);
+        
+        if (user){
+            const {
+                id,
+                fullnames,
+                employmentStatus,
+                skill
+            } = user;
+
+            // update state
+            setUserDetails({
+                fullnames,
+                skill,
+                status: employmentStatus
+            });
+        }
+    }
+
+    function handleInfomationUpdate(){
+        // const { id } = userDetails;
+        
+        // if id exists, update user information else create infomation
+        // return id ? updateUserInformation() : createUserInformation();
+    }
 
     async function handleImage(e){
         const { files } = e.target;
@@ -73,18 +116,12 @@ function ProfileSettingsComponent(props){
         })
     }
 
- 
-
     function handleFileUpload(){
         fileInputRef.click();
     }
 
     function handleSignOut(){
         // handle Signout
-    }
-
-    function updateUserDetails(){
-        // Handle update
     }
 
     function handleChange(forInput, value){
@@ -97,6 +134,7 @@ function ProfileSettingsComponent(props){
 
     useEffect(() => {
         // fetch required data
+
     }, [])
 
 
@@ -178,7 +216,7 @@ function ProfileSettingsComponent(props){
                 className="status mt-5 h-full">
                     <div className="content w-full cursor-default h-72">
                         <ContainedInputField handleChange={ handleChange } placeholder="Oleg Fakeev" inputLabel="Fullnames"/>
-                        <ContainedInputField handleChange={ handleChange } placeholder="Graphic Designer" inputLabel="Category"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder="Graphic Designer" inputLabel="Skill"/>
                         
                         <div 
                             style={ {
@@ -201,7 +239,7 @@ function ProfileSettingsComponent(props){
                                         marginTop: '5%'
                                     }
                                 } 
-                                onClick={ ()=> updateUserDetails() }
+                                onClick={ ()=> handleInfomationUpdate() }
                                 className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                         >
                             Update Information

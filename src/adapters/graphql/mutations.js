@@ -9,8 +9,15 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -25,8 +32,15 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -41,8 +55,57 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       fullnames
-      userImageKey
+      skill
       employmentStatus
+      userImageKey {
+        id
+        key
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createUserImage = /* GraphQL */ `
+  mutation CreateUserImage(
+    $input: CreateUserImageInput!
+    $condition: ModelUserImageConditionInput
+  ) {
+    createUserImage(input: $input, condition: $condition) {
+      id
+      key
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateUserImage = /* GraphQL */ `
+  mutation UpdateUserImage(
+    $input: UpdateUserImageInput!
+    $condition: ModelUserImageConditionInput
+  ) {
+    updateUserImage(input: $input, condition: $condition) {
+      id
+      key
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteUserImage = /* GraphQL */ `
+  mutation DeleteUserImage(
+    $input: DeleteUserImageInput!
+    $condition: ModelUserImageConditionInput
+  ) {
+    deleteUserImage(input: $input, condition: $condition) {
+      id
+      key
       createdAt
       updatedAt
       owner

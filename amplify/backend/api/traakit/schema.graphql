@@ -1,6 +1,0 @@
-type User @model @auth(rules: [{ allow: owner }]) {
-  id: String!
-  fullnames: String!
-  userImageKey: String
-  employmentStatus: String!
-}
