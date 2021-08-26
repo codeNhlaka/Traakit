@@ -8,9 +8,17 @@ import NotificationsIcon from "../../assets/icons/notifications.icon";
 import DocumentsIcon from "../../assets/icons/documents.icon";
 import { profileSettingsContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
+import { userInformation } from "../../store/userInformation";
+
 
 function UserDetails(){
     const toggleProfileSettings = useContext(profileSettingsContext);
+
+    const user = userInformation(state => state.about);
+
+    useEffect(() => {
+        
+    }, []);
 
     return (
         <div className='container h-1/5 mt-10'>
