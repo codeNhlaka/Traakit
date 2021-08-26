@@ -1,5 +1,5 @@
-type Todo @model {
-  id: ID!
-  name: String!
-  description: String
+type User @model @auth(rules: [{ allow: owner }]) {
+  fullnames: String!
+  userImageKey: String
+  employmentStatus: String!
 }
