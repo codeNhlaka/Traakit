@@ -3,7 +3,7 @@ import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/dashboard/dashboard.component";
 import Documents from "./components/documents/documents.component";
 import Applications from "./components/applications/applications.component";
-import ProfileSettings from "./components/app/profile_setting.component";
+import ProfileSettingsModal from "./containers/profileSettings";
 import AuthAPI from "./adapters/auth";
 import { isMobile } from "react-device-detect"; 
 import { authConfirmationContext, profileSettingsContext } from "./context/appContext";
@@ -61,7 +61,7 @@ function App() {
     if (user){
       return (
         <profileSettingsContext.Provider value={ toggleProfileSettings }>
-          {profileSettingsVisible ? <ProfileSettings/> : null}
+          {profileSettingsVisible ? <ProfileSettingsModal/> : null}
           <Router>
             <Switch>
                 <Route exact path="/">
