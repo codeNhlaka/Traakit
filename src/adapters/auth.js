@@ -29,23 +29,28 @@ class AuthAPI {
   static async signOut() {
     try {
       await Auth.signOut();
+      return true;
     } catch (error) {
       console.log("error signing out: ", error);
     }
   }
 
-  static async signUp(username, password, email) {
+  static async signUp(username, password, email, userId) {
+    console.log(username, password, email, userId);
+
     try {
       const { user } = await Auth.signUp({
         username,
         password,
         attributes: {
           email,
+          'custom:userId': userId
         },
       });
 
       return user;
     } catch (error) {
+      console.log(error);
         return error;
     }
   }

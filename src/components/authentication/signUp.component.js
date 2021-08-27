@@ -3,6 +3,7 @@ import ConfirmAccount from './confirmAccount.component';
 import { Formik, Form, Field } from 'formik';
 import AuthAPI from '../../adapters/auth';
 import { toggleOption } from './authUser.component';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const FormikSignUp = (props) => (
@@ -14,8 +15,10 @@ const FormikSignUp = (props) => (
         confirmPassword: ''
       }}
       onSubmit={async ({username, email, password}) => {  
+            // create user id
+            const userId = uuidv4();
             // create a new user account      
-            const createUserAccount = await AuthAPI.signUp(username, password, email);
+            const createUserAccount = await AuthAPI.signUp(username, password, email, userId);
             // check if the account was created successfully
             if (createUserAccount && createUserAccount['username']){
                 return props.userAccountCreated(true, createUserAccount.username);

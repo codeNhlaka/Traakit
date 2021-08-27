@@ -8,11 +8,15 @@ import AuthAPI from "./adapters/auth";
 import { isMobile } from "react-device-detect"; 
 import { authConfirmationContext, profileSettingsContext } from "./context/appContext";
 import AuthenticateUser from "./components/authentication/authUser.component";
+import { useStore } from "./store/store";
+import * as mutations from "./graphql/mutations";
+
 
 function App() {
   const [profileSettingsVisible, setProfileSettings] = useState(false);
-  const [user, setUser] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
+  const user = useStore(state => state.about);
+  const setUserId = useStore(state => state.setId);
 
   /**
    * Displays the profile settings component
@@ -24,14 +28,16 @@ function App() {
 
   // Set user to false then render the Authentication component;
   function confirmSignOut(){
-    setUser(false);
+    return setUserId(null);
   }
 
   // Check if the current user is authenticated 
   async function confirmAuthentication(){
     const isAuthenticated = await AuthAPI.getCurrentAuthenticatedUser();
-    if (isAuthenticated && isAuthenticated['username']){
-          return setUser(true);
+    
+    if (isAuthenticated && isAuthenticated.attributes['custom:userId']){
+      const userId = isAuthenticated.attributes['custom:userId'];
+      return setUserId(userId);
     } 
     
     return;
@@ -41,24 +47,27 @@ function App() {
     async function getCurrentAuthenticatedUser(){
       const authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser();
       if (authenticatedUser){
+        
+        // no current authenticated user
         if (authenticatedUser === noAuthenticatedUserMessage){
-          // fetch user data
-          // update state
-          
-          return setUser(false);
-        }
+          return
+        } else {
+          // get user id
+          const userId = authenticatedUser.attributes['custom:userId'];
 
-        return setUser(true);
+          return setUserId(userId);
+        }
       } 
     } 
     
-    getCurrentAuthenticatedUser(); 
+    getCurrentAuthenticatedUser();
+
   }, []);
   
   if (isMobile){
     return <></> // no mobile support for now
   } else {
-    if (user){
+    if (user.id){
       return (
         <profileSettingsContext.Provider value={ toggleProfileSettings }>
           {profileSettingsVisible ? <ProfileSettingsModal/> : null}

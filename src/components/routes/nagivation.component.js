@@ -9,15 +9,40 @@ import DocumentsIcon from "../../assets/icons/documents.icon";
 import { profileSettingsContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
 import { useStore } from "../../store/store";
+import { API, Storage } from "aws-amplify";
+import * as queries from "../../graphql/queries";
+import "./styles.css";
 
 
 function UserDetails(){
     const toggleProfileSettings = useContext(profileSettingsContext);
+    const setImageKey = useStore(state => state.setImageKey);
+    const setImageUrl = useStore(state => state.setImageUrl); 
 
     const user = useStore(state => state.about);
 
     useEffect(() => {
-        // write
+        async function getUserImage(){
+            const userImage = await API.graphql({ query: queries.getUserImage, variables: { id: user.id }});
+            
+            if (userImage.data.getUserImage){
+                let { id, key } = userImage.data.getUserImage;  
+                
+                // set keys
+                setImageKey(id, key);
+
+                // get signedUrl
+                let signedURL = await Storage.get(key);
+
+                // setUrl
+                return setImageUrl(signedURL);
+            }
+        }
+
+        if (user.id && !user.imageKey.url){
+            // attempt to create signedUrl for userImage
+            getUserImage();
+        }
     }, []);
 
     return (
@@ -25,8 +50,12 @@ function UserDetails(){
             <div className="user_details container cursor-default flex justify-center items-center h-2/4">
                 <div className="profile_image container flex justify-center items-center w-4/5 h-full">
                     <div className="profile_image_wrapper container flex justify-center items-center h-full w-11">
-                        <div className="image_container flex justify-center items-center container bg-coolgray rounded-full h-10 w-10">
-                            <UserProfileIcon/>
+                        <div className="image_container overflow-hidden flex justify-center items-center container bg-coolgray rounded-full h-10 w-10">
+                            { user.imageKey.key ? (
+                                <img src={ user.imageKey.url } width="100%"/>
+                            ) : (
+                                <UserProfileIcon/>
+                            )}
                         </div>
                     </div>
                     <div className="username container ml-2 w-auto "><p className='text-white select-none'>Oleg Fakeev</p></div>

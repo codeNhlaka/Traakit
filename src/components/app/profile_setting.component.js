@@ -4,7 +4,8 @@ import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import AccountIcon from "../../assets/icons/account.icon";
 import { AmplifyS3Image } from "@aws-amplify/ui-react";
-import { useStore } from "../../store/store"
+import { useStore } from "../../store/store";
+import "./styles.css";
 
 
 const componentP = {
@@ -26,7 +27,6 @@ function ProfileSettingsComponent(props){
     const toggleProfileSettings = useContext(profileSettingsContext);
 
     const [componentPosition, setComponentPosition] = useState(componentP);
-
 
     function handleFileUpload(){
         fileInputRef.click();
@@ -53,6 +53,7 @@ function ProfileSettingsComponent(props){
             <div className="select-none w-16mt-2 w-full h-10 flex items-center justify-end">
                 <p onClick={() => toggleProfileSettings() } className="text-white cursor-pointer select-none w-16">close</p>
             </div>
+            
             <div className="user-image-details w-full h-24 flex items-center">
                 <div 
                     style={
@@ -72,7 +73,7 @@ function ProfileSettingsComponent(props){
                             }
                             className="container overflow-hidden">
                             { user.imageKey.key ? (
-                                <AmplifyS3Image imgKey={ user.imageKey.key } />
+                                <img src={ user.imageKey.url } width="100%"/>
                             ) : 
                             (
                                 <div 

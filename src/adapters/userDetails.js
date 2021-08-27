@@ -1,7 +1,6 @@
 // import { API } from "aws-amplify";
 // import { v4 as uuidv4 } from 'uuid';
 // import * as mutations from './graphql/mutations';
-// import { useStore as storeAPI } from "../store/store";
 
 export class UserDetailsAPI {
     // static async createUserInformation( state ){

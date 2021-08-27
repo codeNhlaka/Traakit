@@ -1,14 +1,15 @@
 import ProfileSettingsComponent from "../components/app/profile_setting.component";
-import { useState } from "../store/store";
-import {API, Storage } from "aws-amplify";
 import { useStore } from "../store/store";
+import { useState } from "react";
+import {API, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import { v4 as uuidv4 } from 'uuid';
-
+import { useEffect } from "react";
 
 function ProfileSettingsModal(){
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
+    const setImageUrl = useStore(state => state.setImageUrl);
 
     async function updateInformation(){
         if (!user.id){
@@ -57,7 +58,7 @@ function ProfileSettingsModal(){
         
                     const imageData = {
                         id,
-                        generatedKey
+                        key: generatedKey
                     }
             
                     // update db 
@@ -65,13 +66,29 @@ function ProfileSettingsModal(){
                     
                     if (updatedImageKey){
                         const { id, key } = updatedImageKey.data.updateUserImage;
-                        return setImageKey(id, key);
+                        let signedURL;
+
+                        // set keys
+
+                        setImageKey(id, key);
+                        
+                        // request signed url
+
+                        try {
+                            console.log('fetching key')
+                            signedURL = await Storage.get(key);
+                        } catch(error){
+                            console.log(error);
+                        }
+                        
+                        console.log(signedURL);
+                        return setImageUrl(signedURL);
                     }
         
                 } else {
                     // else create one
         
-                    const id = uuidv4();
+                    const id = user.id;
             
                     const imageData = {
                         id,
@@ -82,7 +99,19 @@ function ProfileSettingsModal(){
                     
                     if (createdUserImageKey){
                         const { id, key } = createdUserImageKey.data.createUserImage;
-                        return setImageKey(id, key);
+                        let signedURL;
+                        
+                        setImageKey(id, key);
+
+                        try {
+                            console.log('fetching key')
+                            signedURL = await Storage.get(key);
+                        } catch(error){
+                            console.log(error);
+                        }
+                        
+                        console.log(signedURL);
+                        return setImageUrl(signedURL);
                     }
                 }
             })
@@ -100,6 +129,14 @@ function ProfileSettingsModal(){
 
         }
     }
+
+    useEffect(() => {
+        async function getSignedURL(){
+
+        }
+
+        getSignedURL();
+    }, [])
 
     return <ProfileSettingsComponent
         handleImageUpload={ handleImageUpload }
