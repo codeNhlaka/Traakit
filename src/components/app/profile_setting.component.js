@@ -2,13 +2,10 @@ import { useState, useContext, useEffect, createRef } from "react";
 import { profileSettingsContext } from "../../context/appContext";
 import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
-import LogoutIcon from "../../assets/icons/logout.icon";
-import { UserDetailsAPI } from "../../adapters/userDetails";
 import AccountIcon from "../../assets/icons/account.icon";
-import { v4 as uuidv4 } from 'uuid';
 import { AmplifyS3Image } from "@aws-amplify/ui-react";
-import { Storage } from "aws-amplify";
-import { useStore } from "../../store/store";
+import { useStore } from "../../store/store"
+
 
 const componentP = {
     x: 100,
@@ -18,7 +15,6 @@ const componentP = {
 function ProfileSettingsComponent(props){
     let fileInputRef = createRef(null);
     const user = useStore(state => state.about);
-    const setImageKey = useStore(state => state.setImageKey);
 
     const [ alteredDetails, alterDetails ] = useState({
         fullnames: null,
@@ -31,93 +27,9 @@ function ProfileSettingsComponent(props){
 
     const [componentPosition, setComponentPosition] = useState(componentP);
 
-    function updateUserInformation(){
-
-    }
-
-    async function createUserInformation(){
-        if (!user.id){
-            const data = {
-                ...alteredDetails,
-            }
-
-            const { user } = await UserDetailsAPI.createUserInformation(alteredDetails);
-        
-            if (user){
-                const {
-                    id,
-                    fullnames,
-                    employmentStatus,
-                    skill,
-                    imageKey
-                } = user;
-
-                console.log('created user ', user);
-    
-                // update state
-            }
-        }
-    }
-
-    function handleInfomationUpdate(){
-        // const { id } = userDetails;
-        
-        // if id exists, update user information else create infomation
-        // return id ? updateUserInformation() : createUserInformation();
-    }
-
-    async function handleImage(e){
-        const { files } = e.target;
-        const image = files[0];
-
-        // generate key
-        const key = uuidv4();
-
-        // get current image 
-        Storage.list('')
-        .then( imageList => {
-
-            // if there's an existing image, remove it
-            if (imageList.length){
-                let i;
-                
-                for(i = 0; i <= imageList.length - 1; i++){
-                    // get image key
-                    const { key } = imageList[i];
-                    
-                    // remove current image
-                    let removeImageResult = Storage.remove(key);
-                }
-            } 
-
-            // put image
-            Storage.put(key, image)
-            .then(data => {
-
-                const { key } = data;
-                
-                // update state
-                
-                setImageKey(key);
-
-                // put key in db
-                UserDetailsAPI.updateUserImage(key);
-            })
-            .catch(error => console.log(error))
-
-
-        })  
-        .catch(error => {
-            console.log(error);
-        })
-    }
 
     function handleFileUpload(){
         fileInputRef.click();
-    }
-
-    function handleSignOut(){
-        // handle Signout
     }
 
     function handleChange(forInput, value){
@@ -127,12 +39,6 @@ function ProfileSettingsComponent(props){
             [property] : value
         });
     }
-
-    useEffect(() => {
-        // fetch required data
-
-    }, [])
-
 
     return (
         <div className="container absolute bg-coolgray border border-gray-800 transition shadow-lg ml-auto h-4/5 rounded w-1/3"
@@ -185,7 +91,14 @@ function ProfileSettingsComponent(props){
                         </div>
                 </div>
                 <div className="actions w-56 h-24 ml-2 flex items-center">
-                    <input ref={e => fileInputRef = e} onChange={e => handleImage(e)} type="file" hidden/>
+                    
+                    <input 
+                        ref={e => fileInputRef = e} 
+                        onChange={ e => props.handleImageUpload(e) } 
+                        type="file" 
+                        hidden
+                    />
+
                     <button 
                         style={
                                 {
@@ -235,7 +148,7 @@ function ProfileSettingsComponent(props){
                                         marginTop: '5%'
                                     }
                                 } 
-                                onClick={ ()=> handleInfomationUpdate() }
+                                onClick={ ()=> props.updateInformation() }
                                 className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                         >
                             Update Information
