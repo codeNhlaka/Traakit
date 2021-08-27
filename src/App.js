@@ -42,6 +42,9 @@ function App() {
       const authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser();
       if (authenticatedUser){
         if (authenticatedUser === noAuthenticatedUserMessage){
+          // fetch user data
+          // update state
+          
           return setUser(false);
         }
 

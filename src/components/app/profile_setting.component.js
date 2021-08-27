@@ -8,59 +8,54 @@ import AccountIcon from "../../assets/icons/account.icon";
 import { v4 as uuidv4 } from 'uuid';
 import { AmplifyS3Image } from "@aws-amplify/ui-react";
 import { Storage } from "aws-amplify";
+import { useStore } from "../../store/store";
+
+const componentP = {
+    x: 100,
+    y: 70
+};
 
 function ProfileSettingsComponent(props){
     let fileInputRef = createRef(null);
-    const [imageKey, setImageKey] = useState(null);
-    const [status] = useState(['Unemployed', 'Employed']);
-    
-    const [userDetails, setUserDetails] = useState({
+    const user = useStore(state => state.about);
+    const setImageKey = useStore(state => state.setImageKey);
+
+    const [ alteredDetails, alterDetails ] = useState({
         fullnames: null,
         skill: null,
         status: null
-    });
-
+    })
+ 
     // hide component context
     const toggleProfileSettings = useContext(profileSettingsContext);
 
-    const [componentPosition, setComponentPosition] = useState({
-        x: 100,
-        y: 70
-    });
+    const [componentPosition, setComponentPosition] = useState(componentP);
 
     function updateUserInformation(){
 
     }
 
     async function createUserInformation(){
-        const {
-            fullnames,
-            skill,
-            status
-        } = userDetails;
+        if (!user.id){
+            const data = {
+                ...alteredDetails,
+            }
 
-        const data = {
-            fullnames,
-            skill,
-            employmentStatus: status
-        }   
-
-        const { user } = await UserDetailsAPI.createUserInformation(data);
+            const { user } = await UserDetailsAPI.createUserInformation(alteredDetails);
         
-        if (user){
-            const {
-                id,
-                fullnames,
-                employmentStatus,
-                skill
-            } = user;
+            if (user){
+                const {
+                    id,
+                    fullnames,
+                    employmentStatus,
+                    skill,
+                    imageKey
+                } = user;
 
-            // update state
-            setUserDetails({
-                fullnames,
-                skill,
-                status: employmentStatus
-            });
+                console.log('created user ', user);
+    
+                // update state
+            }
         }
     }
 
@@ -98,6 +93,7 @@ function ProfileSettingsComponent(props){
             // put image
             Storage.put(key, image)
             .then(data => {
+
                 const { key } = data;
                 
                 // update state
@@ -105,7 +101,7 @@ function ProfileSettingsComponent(props){
                 setImageKey(key);
 
                 // put key in db
-
+                UserDetailsAPI.updateUserImage(key);
             })
             .catch(error => console.log(error))
 
@@ -126,8 +122,8 @@ function ProfileSettingsComponent(props){
 
     function handleChange(forInput, value){
         const property = forInput;
-        setUserDetails({
-            ...userDetails,
+        alterDetails({
+            ...alteredDetails,
             [property] : value
         });
     }
@@ -169,8 +165,8 @@ function ProfileSettingsComponent(props){
                                 }
                             }
                             className="container overflow-hidden">
-                            { imageKey ? (
-                                <AmplifyS3Image imgKey={ imageKey } />
+                            { user.imageKey.key ? (
+                                <AmplifyS3Image imgKey={ user.imageKey.key } />
                             ) : 
                             (
                                 <div 
@@ -228,7 +224,7 @@ function ProfileSettingsComponent(props){
                         >
                             <div className="w-full ">
                                 <p className="text-gray-400 text-sm">Employement Status</p>
-                                <Select options={status} handleChange={ handleChange } />
+                                <Select options={['Unemployed', 'Employed']} handleChange={ handleChange } />
                             </div>
                         </div>
                         <button 

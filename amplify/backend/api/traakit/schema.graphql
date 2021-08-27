@@ -1,0 +1,17 @@
+type User @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  fullnames: String!
+  skill: String!
+  employmentStatus: EmploymentStatus
+  userImageKey: UserImage @connection
+}
+
+enum EmploymentStatus {
+  Employed
+  Unemployed
+}
+
+type UserImage @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  key: String!
+}
