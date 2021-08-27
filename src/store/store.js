@@ -1,16 +1,18 @@
 import create from "zustand";
 
-export const useStore = create(set => ({
-    about: {
+const initialState = {
+    id: null,
+    fullnames: null,
+    employmentStatus: null,
+    skill: null,
+    imageKey: {
         id: null,
-        fullnames: null,
-        employmentStatus: null,
-        skill: null,
-        imageKey: {
-            id: null,
-            key: null
-        }
-    },
+        key: null
+    }
+}
+
+export const useStore = create(set => ({
+    about: initialState,
     setImageKey: (id, key) => set(state => ({
         about: {
             ...state.about,
