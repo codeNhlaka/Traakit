@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SettingsIcon from "../../assets/icons/settings.icon";
 import DashboardIcon from "../../assets/icons/dashboard.icon";
@@ -12,12 +12,15 @@ import { useStore } from "../../store/store";
 import { API, Storage } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import "./styles.css";
+import TraakitLogo from "../../assets/logo/Traakit";
 
 
 function UserDetails(){
     const toggleProfileSettings = useContext(profileSettingsContext);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
+    // const [displayName, setDisplayName] = useState(user.data.fullnames)
+    const [displayName, setDisplayName] = useState("Oleg Fakeev");
 
     const user = useStore(state => state.about);
 
@@ -58,7 +61,7 @@ function UserDetails(){
                             )}
                         </div>
                     </div>
-                    <div className="username container ml-2 w-auto "><p className='text-white select-none'>Oleg Fakeev</p></div>
+                    <div className="username container ml-2 w-auto "><p className='text-white select-none'>{ displayName }</p></div>
                 </div>
             </div>
 
@@ -133,6 +136,11 @@ function Navigation(){
         <div className='container absolute border-r border-gray-800 border-opacity-50 z-50 h-screen w-1/5'>
             <UserDetails/>
             <DashboardOptions activePathname={location.pathname}/>
+            <div className="hover:bg-coolgray cursor-pointer transition-all w-full h-14 absolute bottom-0 mb-5">
+                <div className="w-14 h-full flex items-center justify-center ml-5">
+                    <TraakitLogo/>
+                </div>
+            </div>
         </div>
     )
 }
