@@ -30,7 +30,6 @@ function Options(props){
     useEffect(() => {
         const providedOptions = props.options;
 
-        console.log(props.options)
         if (providedOptions){
             setOptions(providedOptions);
         } else {
@@ -64,6 +63,7 @@ function Select(props){
     const [menuActive, setMenuActive] = useState(false);
     const [value, setValue] = useState("");
     let forInput;
+    const currentVal = props.value;
 
     function changeValue(value){
         if (value){
@@ -92,7 +92,7 @@ function Select(props){
                         disabled 
                         value={ value }
                         className="px-5 text-sm text-gray-700 cursor-pointer bg-transparent border-none outline-none rounded-none h-full w-4/5" 
-                        placeholder="Select"
+                        placeholder={currentVal || "Select"}
                     />
                 </div>
                 

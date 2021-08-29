@@ -9,7 +9,7 @@ export const fileUploadContext = createContext(null);
 export const confirmFileContext = createContext(null);
 
 
-const Documents = (props) => { 
+const DocumentsComponent = (props) => { 
     const [showUploadModal, setUploadModal] = useState(false);
     const [showConfirmFileModal, setConfirmFileModal] = useState(false);
     const [files, setFiles] = useState(null); 
@@ -52,4 +52,4 @@ const Documents = (props) => {
     )
 }
 
-export default Documents;
+export default DocumentsComponent;

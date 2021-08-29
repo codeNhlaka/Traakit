@@ -3,14 +3,11 @@ import { profileSettingsContext } from "../../context/appContext";
 import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import AccountIcon from "../../assets/icons/account.icon";
-import { AmplifyS3Image } from "@aws-amplify/ui-react";
 import { useStore } from "../../store/store";
-import "./styles.css";
-
 
 const componentP = {
     x: 100,
-    y: 70
+    y: 100
 };
 
 function ProfileSettingsComponent(props){
@@ -21,7 +18,8 @@ function ProfileSettingsComponent(props){
         fullnames: null,
         skill: null,
         status: null
-    })
+    });
+
  
     // hide component context
     const toggleProfileSettings = useContext(profileSettingsContext);
@@ -125,8 +123,8 @@ function ProfileSettingsComponent(props){
                 }
                 className="status mt-5 h-full">
                     <div className="content w-full cursor-default h-72">
-                        <ContainedInputField handleChange={ handleChange } placeholder="Oleg Fakeev" inputLabel="Fullnames"/>
-                        <ContainedInputField handleChange={ handleChange } placeholder="Graphic Designer" inputLabel="Skill"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder={ user.data.fullnames || "Oleg Fakeev"} inputLabel="Fullnames"/>
+                        <ContainedInputField handleChange={ handleChange } placeholder={ user.data.skill || "Graphic Designer"} inputLabel="Skill"/>
                         
                         <div 
                             style={ {
@@ -138,7 +136,7 @@ function ProfileSettingsComponent(props){
                         >
                             <div className="w-full ">
                                 <p className="text-gray-400 text-sm">Employement Status</p>
-                                <Select options={['Unemployed', 'Employed']} handleChange={ handleChange } />
+                                <Select options={['Unemployed', 'Employed']} value={ user.data.employmentStatus || null } handleChange={ handleChange } />
                             </div>
                         </div>
                         <button 
@@ -149,7 +147,7 @@ function ProfileSettingsComponent(props){
                                         marginTop: '5%'
                                     }
                                 } 
-                                onClick={ ()=> props.updateInformation() }
+                                onClick={ ()=> props.updateInformation(alteredDetails) }
                                 className="h-10 bg-selectgreen hover:bg-selectgreenhover transition-all rounded-md text-white cursor-pointer"
                         >
                             Update Information
