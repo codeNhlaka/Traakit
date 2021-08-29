@@ -3,19 +3,74 @@ import { useStore } from "../store/store";
 import { useState } from "react";
 import {API, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
+import * as queries from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from "react";
+
+// config amplify storage
+
+Storage.configure({
+    customPrefix: {
+        public: 'public/images/',
+    }
+});
 
 function ProfileSettingsModal(){
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl);
+    const updateAbout = useStore(state => state.updateAbout);
 
-    async function updateInformation(){
-        if (!user.id){
-            // if user id, create information
+    async function updateInformation(information){
+        // get user info from store
+        const currentInformation = user.data;
+        const { fullnames, skill, employmentStatus} = currentInformation;
+
+
+        // check if info is valid
+        const isValid = (fullnames && skill && employmentStatus) ? true : false;
+        
+        if (isValid){
+            // update
+            const { id } = user;
+
+            const userData = {
+                id,
+                fullnames: information.fullnames || user.data.employmentStatus,
+                skill: information.skill || user.data.employmentStatus,
+                employmentStatus: information.status || user.data.employmentStatus
+            } 
+
+            const updateUserInfo = await API.graphql({ query: mutations.updateUser, variables: { input: userData }});
+
+            if (updateUserInfo.data.updateUser){
+
+                const { updateUser } = updateUserInfo.data;
+                const { fullnames, id, skill, employmentStatus } = updateUser;
+
+                return updateAbout({ fullnames, id, skill, employmentStatus});
+            }
+        
+
         } else {
-            // else update user information
+            // create
+            const { id } = user;
+
+            const userData = {
+                id,
+                fullnames: information.fullnames || user.data.employmentStatus,
+                skill: information.skill || user.data.employmentStatus,
+                employmentStatus: information.status || user.data.employmentStatus
+            }
+
+            const createUserInfo = await API.graphql({ query: mutations.createUser, variables: { input: userData }});
+
+            if (createUserInfo){
+                const { createUser } = createUserInfo.data;
+                const { fullnames, id, skill, employmentStatus } = createUser;
+
+                return updateAbout({ fullnames, id, skill, employmentStatus});
+            }
         }
     }
 
@@ -75,13 +130,11 @@ function ProfileSettingsModal(){
                         // request signed url
 
                         try {
-                            console.log('fetching key')
                             signedURL = await Storage.get(key);
                         } catch(error){
                             console.log(error);
                         }
                         
-                        console.log(signedURL);
                         return setImageUrl(signedURL);
                     }
         
@@ -97,25 +150,25 @@ function ProfileSettingsModal(){
                     
                     const createdUserImageKey = await API.graphql({ query: mutations.createUserImage, variables: { input: imageData }});
                     
-                    if (createdUserImageKey){
+                    if (createdUserImageKey.data.createdUserImage){
                         const { id, key } = createdUserImageKey.data.createUserImage;
                         let signedURL;
                         
                         setImageKey(id, key);
 
+                        // get signed url
                         try {
-                            console.log('fetching key')
                             signedURL = await Storage.get(key);
                         } catch(error){
                             console.log(error);
                         }
                         
-                        console.log(signedURL);
+                        // publish signedURL to store
                         return setImageUrl(signedURL);
                     }
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
 
 
         })  
@@ -124,24 +177,14 @@ function ProfileSettingsModal(){
         })
     }
 
-    async function createUserInformation(){
-        if (!user.id){
-
-        }
-    }
-
     useEffect(() => {
-        async function getSignedURL(){
-
-        }
-
-        getSignedURL();
+        // statement...
+        console.log(user);
     }, [])
 
     return <ProfileSettingsComponent
         handleImageUpload={ handleImageUpload }
         user={ user }
-        createUserInformation={ createUserInformation }
         updateInformation={ updateInformation }
     />
 }
