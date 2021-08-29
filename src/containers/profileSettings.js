@@ -1,9 +1,7 @@
 import ProfileSettingsComponent from "../components/app/profile_setting.component";
 import { useStore } from "../store/store";
-import { useState } from "react";
 import {API, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from "react";
 
