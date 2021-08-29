@@ -47,9 +47,6 @@ const DocumentsProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        console.log('Hellllllllllloooooooo from context');         
-
-
         // fetch user documents
         const documentsList = Storage.list('').then( docs => {
             // poccess each file   
