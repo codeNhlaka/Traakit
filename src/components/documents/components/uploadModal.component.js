@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { confirmFileContext } from "../documents.component";
+import { DocumentsContext } from "../../../context/documents";
 
 export function convertBytes(bytes) {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
@@ -20,6 +21,8 @@ export function convertBytes(bytes) {
 function UploadFileModal(){
     const toggleConfirmFile = useContext(confirmFileContext);
     const [dragging, setDragging] = useState(false);
+    const { uploadDoc } = useContext(DocumentsContext);
+    
 
     function handleDragEnter(e){
         e.preventDefault()
@@ -51,7 +54,10 @@ function UploadFileModal(){
             const { type, size } = currentFile;
 
             if (fileTypes.includes(type) && size < maxFileSize){
-                files.push(currentFile);
+                if(files.length <= 1){
+                    // support only one file upload
+                    files.push(currentFile);
+                } else return;
             } else {
                 // check problem
                 let unsupportedFileType = !fileTypes.includes(type);
@@ -87,7 +93,10 @@ function UploadFileModal(){
             warnings: errorStack
         });
 
-        // upload current files
+        // if files contains a document, upload current files
+        uploadDoc(files[0]);
+       
+
         return files.length ? toggleConfirmFile(files) : null;
     }
 
