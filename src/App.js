@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/dashboard/dashboard.component";
-import Documents from "./components/documents/documents.component";
+import Documents from "./containers/documents";
 import Applications from "./components/applications/applications.component";
 import ProfileSettingsModal from "./containers/profileSettings";
 import AuthAPI from "./adapters/auth";
@@ -10,13 +10,15 @@ import { authConfirmationContext, profileSettingsContext } from "./context/appCo
 import AuthenticateUser from "./components/authentication/authUser.component";
 import { useStore } from "./store/store";
 import * as mutations from "./graphql/mutations";
-
+import * as queries from "./graphql/queries";
+import { API } from "aws-amplify";
 
 function App() {
   const [profileSettingsVisible, setProfileSettings] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
   const user = useStore(state => state.about);
   const setUserId = useStore(state => state.setId);
+  const updateAbout = useStore(state => state.updateAbout);
 
   /**
    * Displays the profile settings component
@@ -54,6 +56,37 @@ function App() {
         } else {
           // get user id
           const userId = authenticatedUser.attributes['custom:userId'];
+
+          let userAbout;
+
+          // fetch user data
+          try {
+             let recordedData = await API.graphql({ query: queries.getUser, variables: { id: userId }});
+
+             if (recordedData.data.getUser){
+               userAbout = recordedData
+             } else {
+               userAbout = null;
+             }
+          } catch(error){
+            console.log(error);
+          }
+    
+          if (userAbout){
+            // get required data and then update state
+          
+            const { employmentStatus, fullnames, skill } = userAbout.data.getUser;
+            
+            const fetchedData = {
+              id: userId,
+              employmentStatus, 
+              fullnames, 
+              skill
+            }
+
+            // updateState
+            return updateAbout(fetchedData);
+          }
 
           return setUserId(userId);
         }
