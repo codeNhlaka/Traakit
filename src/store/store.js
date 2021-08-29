@@ -2,9 +2,11 @@ import create from "zustand";
 
 const initialState = {
     id: null,
-    fullnames: null,
-    employmentStatus: null,
-    skill: null,
+    data: {
+        fullnames: null,
+        employmentStatus: null,
+        skill: null
+    },
     imageKey: {
         id: null,
         key: null,
@@ -38,7 +40,15 @@ export const useStore = create(set => ({
             }
         }
     })),
-    updateAbout: (data) => set(state => ({ 
-        about: data
+    updateAbout: (userAbout) => set(state => ({ 
+        about: {
+            ...state.about,
+            id: userAbout.id,
+            data: {
+                fullnames: userAbout.fullnames,
+                skill: userAbout.skill,
+                employmentStatus: userAbout.employmentStatus
+            }
+        }
     }))
 }));
