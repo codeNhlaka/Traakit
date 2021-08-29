@@ -12,7 +12,19 @@ Storage.configure({
 
 function Documents(){
     useEffect(() => {
-        // fetch user documenets
+
+        function processDocument(doc){
+            // do something
+            console.log(doc)
+        }
+
+        // fetch user documents
+        const documentsList = Storage.list('').then( docs => {
+            // poccess each file            
+        })
+        .catch(error => {
+            console.log(error);
+        })
         
     }, []);
     return <DocumentsComponent/>
