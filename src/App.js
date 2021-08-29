@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/dashboard/dashboard.component";
-import Documents from "./containers/documents";
+import Documents from "./components/documents/documents.component";
 import Applications from "./components/applications/applications.component";
 import ProfileSettingsModal from "./containers/profileSettings";
 import AuthAPI from "./adapters/auth";
