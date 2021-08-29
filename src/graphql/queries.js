@@ -77,3 +77,38 @@ export const listUserImages = /* GraphQL */ `
     }
   }
 `;
+export const getDocument = /* GraphQL */ `
+  query GetDocument($id: ID!) {
+    getDocument(id: $id) {
+      id
+      key
+      name
+      type
+      category
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listDocuments = /* GraphQL */ `
+  query ListDocuments(
+    $filter: ModelDocumentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDocuments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        key
+        name
+        type
+        category
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;

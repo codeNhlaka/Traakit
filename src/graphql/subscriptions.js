@@ -94,3 +94,45 @@ export const onDeleteUserImage = /* GraphQL */ `
     }
   }
 `;
+export const onCreateDocument = /* GraphQL */ `
+  subscription OnCreateDocument($owner: String!) {
+    onCreateDocument(owner: $owner) {
+      id
+      key
+      name
+      type
+      category
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateDocument = /* GraphQL */ `
+  subscription OnUpdateDocument($owner: String!) {
+    onUpdateDocument(owner: $owner) {
+      id
+      key
+      name
+      type
+      category
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteDocument = /* GraphQL */ `
+  subscription OnDeleteDocument($owner: String!) {
+    onDeleteDocument(owner: $owner) {
+      id
+      key
+      name
+      type
+      category
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

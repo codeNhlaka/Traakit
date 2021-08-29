@@ -15,3 +15,18 @@ type UserImage @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   key: String!
 }
+
+type Document @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  key: String!
+  name: String!
+  type: DocumentType!
+  category: String!
+}
+
+enum DocumentType {
+  pdf
+  docx
+  dot
+  eml
+}
