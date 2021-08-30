@@ -2,7 +2,7 @@ import { createContext, useEffect } from "react";
 import { API, Storage } from "aws-amplify";
 import { useStore } from "../store/store";
 import { v4 as uuidv4 } from "uuid";
-import { createDocument } from "../graphql/mutations";
+import { createDocument, deleteDocument } from "../graphql/mutations";
 import { listDocuments } from "../graphql/queries";
 
 // config amplify storage
@@ -19,8 +19,29 @@ const DocumentsContext = createContext(null);
 const DocumentsProvider = ({ children }) => {
     const user = useStore(state => state.about);
     const setDocumentRecord = useStore(state => state.setDocumentRecord);
+    const deleteDocumentRecord = useStore(state => state.deleteDocumentRecord);
+    
+    async function deleteDoc(documentID, documentKey){
+        // delete document file from storage
+        Storage.remove(documentKey).then(async response => {
+           
+            // delete document record from dynamodb
+            const deletedRecord = await API.graphql({
+                query: deleteDocument,
+                variables: { input: documnentID}
+            });
 
-    async function deleteDoc(documentID){
+            if (deletedRecord.data.deleteDocument){
+                const { deleteDocument } = deletedRecord.data;
+                console.log(deleteDocument);
+
+                // delete item from global state
+                return deleteDocumentRecord(documentID);
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+
 
     }
 
