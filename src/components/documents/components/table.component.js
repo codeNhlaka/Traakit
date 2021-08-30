@@ -1,23 +1,51 @@
+import { useEffect, useState, useContext } from "react";
+import { useStore } from "../../../store/store";
+import { DocumentsContext } from "../../../context/documents";
 
-function TableList(){
+function TableList(props){
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+    const { downloadDoc } = useContext(DocumentsContext);
+
+    useEffect(() => {        
+        function formatDate(date){
+            const createAt = date.split("T");
+            const fdate = createAt[0];
+            const ftime = createAt[1].split(".")[0];
+
+            return { fdate, ftime };
+        }
+
+        // format date 
+        const createdAt = formatDate(props.date);
+
+        // update state
+
+        setDate(createdAt.fdate);
+        setTime(createdAt.ftime);
+
+    }, [])
+
     return (
-        <div className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
-        <div className="w-40 ml-5 flex items-center h-full">
-            <p className="text-gray-600">SE Resume</p>
+        <div 
+        onClick={ () => downloadDoc(props.docKey) }
+        className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
+            <div className="w-40 ml-5 flex items-center h-full">
+                <p className="text-gray-600 h-5 overflow-hidden">{ props.name }</p>
+            </div>
+            <div className="w-40 flex items-center h-full">
+                <p className="p-1 text-gray-600 uppercase">{ props.type } </p>
+            </div>
+            <div className="w-40 flex items-center h-full">
+                <p className="text-gray-600 uppercase">{ props.category }</p>
+            </div>
+            <div className="w-40 flex items-center h-full">
+                <p className="text-gray-600">{ time }</p>
+            </div>
+            <div className="w-40 flex items-center h-full">
+                <p className="text-gray-600">{ date }</p>
+            </div>
         </div>
-        <div className="w-40 flex items-center h-full">
-            <p className="p-1 text-gray-600 uppercase">pdf</p>
-        </div>
-        <div className="w-40 flex items-center h-full">
-            <p className="text-gray-600">DOC</p>
-        </div>
-        <div className="w-40 flex items-center h-full">
-            <p className="text-gray-600">17 Aug</p>
-        </div>
-        <div className="w-40 flex items-center h-full">
-            <p className="text-gray-600">14:43am</p>
-        </div>
-    </div>
     )
 }
 
@@ -44,10 +72,27 @@ function TableHero(){
 }
 
 function TableComponent(){
+    const user = useStore(state => state.about);
+    const { documents } = user;
+
+    useEffect(() => {
+    }, []);
+
     return (
         <div className="component-table relative w-full h-4/6 mt-3">
             <TableHero/>
-            <TableList/>
+            { documents.length ? documents.map(document => {
+                return (
+                    <TableList 
+                        docKey={ document.key } 
+                        name={ document.name }
+                        type={ document.type }
+                        category={ document.category }
+                        id={ document.id}
+                        date={ document.createdAt }
+                    />
+                )
+            }): null }
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { API, Storage } from "aws-amplify";
 import { useStore } from "../store/store";
 import { v4 as uuidv4 } from "uuid";
 import { createDocument } from "../graphql/mutations";
+import { listDocuments } from "../graphql/queries";
 
 // config amplify storage
 
@@ -23,8 +24,20 @@ const DocumentsProvider = ({ children }) => {
 
     }
 
-    async function downloadDoc(documentID){
+    async function downloadDoc(documentKey){
+        // get signed url for download
 
+        alert(documentKey)
+
+        const signedUrl = await Storage.get(documentKey, {
+            level: "public", 
+            download: true
+          });
+
+
+        if (signedUrl){
+            console.log(signedUrl);
+        }
     }
 
     async function uploadDoc(document){
@@ -44,6 +57,7 @@ const DocumentsProvider = ({ children }) => {
         .then( async (documentInfo) => {
             // get key and push to db
             const { key } = documentInfo;
+            
             const documentData = {
                 id: documentID,
                 key,
@@ -55,6 +69,7 @@ const DocumentsProvider = ({ children }) => {
             const uploadDocument = await API.graphql({query: createDocument, variables: {input: documentData }})
 
             if (uploadDocument.data.createDocument){
+                console.log('we uploaded your file ', uploadDocument.data.createDocument);
                 
                 // get uploaded file
                 uploadedFile = uploadDocument.data.createDocument;
@@ -69,13 +84,47 @@ const DocumentsProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // fetch user documents
-        const documentsList = Storage.list('').then( docs => {
-            // poccess each file   
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        // fetch user document data
+
+        async function fetchDocuments(){
+            const documents = await API.graphql({ query: listDocuments });
+            
+            if (documents.data.listDocuments){
+                const { items } = documents.data.listDocuments;
+                // push each item to state 
+
+                items.forEach(item => {
+                    const documentCounts = user.documents.length;
+
+                    const { key } = item;
+                    
+                    
+                    if (documentCounts !== 0){
+                        
+                        // avoid duplicating items, check there's an item with the same key
+                        
+                        for (let i = 0; i <= user.documents.length; i++){
+                            let { documents } = user;
+                            
+                            // check for duplicate keys 
+
+                            if (documents[i].key === key){
+                                return;
+                            } else {
+                                setDocumentRecord(item);
+                            }
+                        } 
+                    } else {
+                        // update state
+                        setDocumentRecord(item);
+                    }
+
+
+                })
+            }
+        }   
+
+        fetchDocuments();
         
     }, []);
 
