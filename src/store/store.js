@@ -7,6 +7,7 @@ const initialState = {
         employmentStatus: null,
         skill: null
     },
+    documents: [],
     imageKey: {
         id: null,
         key: null,
@@ -16,6 +17,15 @@ const initialState = {
 
 export const useStore = create(set => ({
     about: initialState,
+    setDocumentRecord: (record) => set(state => ({
+        about: {
+            ...state.about,
+            documents: [ 
+                ...state.about.documents,
+                record
+            ]
+        }
+    })),
     setImageUrl: (url) => set(state => ({
         about: {
             ...state.about,
