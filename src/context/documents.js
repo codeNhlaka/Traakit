@@ -56,7 +56,6 @@ const DocumentsProvider = ({ children }) => {
 
 
         if (fileData){
-            alert('attempting to downlaod file');
             // download file
             fileDownload(fileData.Body, filename);
         }
