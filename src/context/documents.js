@@ -28,7 +28,7 @@ const DocumentsProvider = ({ children }) => {
             // delete document record from dynamodb
             const deletedRecord = await API.graphql({
                 query: deleteDocument,
-                variables: { input: documnentID}
+                variables: { input: documentID}
             });
 
             if (deletedRecord.data.deleteDocument){
