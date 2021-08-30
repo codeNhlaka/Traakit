@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useStore } from "../../../store/store";
 import { DocumentsContext } from "../../../context/documents";
-import { deleteDocument } from "../../../graphql/mutations";
+import DownloadIcon from "../../../assets/icons/download.icon";
+import DeleteIcon from "../../../assets/icons/delete.icon";
 
 function TableList(props){
     const [date, setDate] = useState(null);
@@ -46,9 +47,11 @@ function TableList(props){
                 <p className="text-gray-600">{ date }</p>
             </div>
             <div className="w-40 flex items-center h-full">
-                <div onClick={() => deleteDoc(props.id, props.docKey) } className="w-3/6 h-full hover:bg-selectgray transition-all"></div>
-                <div onClick={ () => downloadDoc(props.docKey, props.name) } className="w-3/6 h-full hover:bg-selectgray transition-all">
-
+                <div onClick={() => deleteDoc(props.id, props.docKey) } className="w-3/6 h-full hover:bg-rose flex items-center justify-center transition-all">
+                    <DeleteIcon/>
+                </div>
+                <div onClick={ () => downloadDoc(props.docKey, props.name) } className="w-3/6 h-full hover:bg-selectgreen flex items-center justify-center transition-all">
+                    <DownloadIcon/>
                 </div>
             </div>
         </div>
