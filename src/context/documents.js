@@ -4,6 +4,7 @@ import { useStore } from "../store/store";
 import { v4 as uuidv4 } from "uuid";
 import { createDocument, deleteDocument } from "../graphql/mutations";
 import { listDocuments } from "../graphql/queries";
+import fileDownload from "js-file-download";
 
 // config amplify storage
 
@@ -45,19 +46,19 @@ const DocumentsProvider = ({ children }) => {
 
     }
 
-    async function downloadDoc(documentKey){
-        // get signed url for download
+    async function downloadDoc(documentKey, filename){
 
-        alert(documentKey)
-
-        const signedUrl = await Storage.get(documentKey, {
+        // get file data
+        const fileData = await Storage.get(documentKey, {
             level: "public", 
             download: true
           });
 
 
-        if (signedUrl){
-            console.log(signedUrl);
+        if (fileData){
+            alert('attempting to downlaod file');
+            // download file
+            fileDownload(fileData.Body, filename);
         }
     }
 
