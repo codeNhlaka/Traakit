@@ -18,8 +18,10 @@ const initialState = {
 export const useStore = create(set => ({
     about: initialState,
     deleteDocumentRecord: (id) => set(state => ({
-        ...state.about, 
-        documents: state.documents.filter(doc => doc.id !== id)
+        about: {
+            ...state.about, 
+            documents: state.about.documents.filter(doc => doc.id !== id)
+        }
     })), 
     setDocumentRecord: (record) => set(state => ({
         about: {
