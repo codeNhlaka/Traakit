@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { useStore } from "../../../store/store";
 import { DocumentsContext } from "../../../context/documents";
+import { deleteDocument } from "../../../graphql/mutations";
 
 function TableList(props){
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
     const { downloadDoc } = useContext(DocumentsContext);
+    const { deleteDoc } = useContext(DocumentsContext);
 
     useEffect(() => {        
         function formatDate(date){
@@ -27,9 +29,7 @@ function TableList(props){
     }, [])
 
     return (
-        <div 
-        onClick={ () => downloadDoc(props.docKey) }
-        className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
+        <div className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
             <div className="w-40 ml-5 flex items-center h-full">
                 <p className="text-gray-600 h-5 overflow-hidden">{ props.name }</p>
             </div>
@@ -44,6 +44,12 @@ function TableList(props){
             </div>
             <div className="w-40 flex items-center h-full">
                 <p className="text-gray-600">{ date }</p>
+            </div>
+            <div className="w-40 flex items-center h-full">
+                <div onClick={() => deleteDoc(props.id, props.docKey) } className="w-3/6 h-full hover:bg-selectgray transition-all"></div>
+                <div onClick={ () => downloadDoc(props.docKey, props.name) } className="w-3/6 h-full hover:bg-selectgray transition-all">
+
+                </div>
             </div>
         </div>
     )
