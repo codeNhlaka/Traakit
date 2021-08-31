@@ -112,3 +112,36 @@ export const listDocuments = /* GraphQL */ `
     }
   }
 `;
+export const getApplication = /* GraphQL */ `
+  query GetApplication($id: ID!) {
+    getApplication(id: $id) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listApplications = /* GraphQL */ `
+  query ListApplications(
+    $filter: ModelApplicationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listApplications(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        companyName
+        role
+        progress
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;

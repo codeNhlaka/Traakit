@@ -136,3 +136,42 @@ export const onDeleteDocument = /* GraphQL */ `
     }
   }
 `;
+export const onCreateApplication = /* GraphQL */ `
+  subscription OnCreateApplication($owner: String!) {
+    onCreateApplication(owner: $owner) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateApplication = /* GraphQL */ `
+  subscription OnUpdateApplication($owner: String!) {
+    onUpdateApplication(owner: $owner) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteApplication = /* GraphQL */ `
+  subscription OnDeleteApplication($owner: String!) {
+    onDeleteApplication(owner: $owner) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

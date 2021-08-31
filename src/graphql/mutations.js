@@ -163,3 +163,51 @@ export const deleteDocument = /* GraphQL */ `
     }
   }
 `;
+export const createApplication = /* GraphQL */ `
+  mutation CreateApplication(
+    $input: CreateApplicationInput!
+    $condition: ModelApplicationConditionInput
+  ) {
+    createApplication(input: $input, condition: $condition) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateApplication = /* GraphQL */ `
+  mutation UpdateApplication(
+    $input: UpdateApplicationInput!
+    $condition: ModelApplicationConditionInput
+  ) {
+    updateApplication(input: $input, condition: $condition) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteApplication = /* GraphQL */ `
+  mutation DeleteApplication(
+    $input: DeleteApplicationInput!
+    $condition: ModelApplicationConditionInput
+  ) {
+    deleteApplication(input: $input, condition: $condition) {
+      id
+      companyName
+      role
+      progress
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

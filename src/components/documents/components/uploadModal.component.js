@@ -17,7 +17,7 @@ export function convertBytes(bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i]
 }
 
-function UploadFileModal(){
+function UploadFileModal(props){
     const [dragging, setDragging] = useState(false);
     const { uploadDoc } = useContext(DocumentsContext);
     
@@ -90,6 +90,9 @@ function UploadFileModal(){
 
         // if files contains a document, upload current files
         uploadDoc(files[0]);
+        
+        // close modal
+        props.toggle();
     }
 
     return (

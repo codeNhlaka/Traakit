@@ -30,3 +30,17 @@ enum DocumentType {
   dot
   eml
 }
+
+type Application @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  companyName: String!
+  role: String!
+  progress: ApplicationProgress!
+}
+
+enum ApplicationProgress {
+  pending
+  rejected
+  interview
+  offer
+}

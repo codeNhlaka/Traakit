@@ -1,33 +1,18 @@
 import { createContext, useContext, useState } from "react"; 
 import Navigation from "../routes/nagivation.component";
 import UploadFileModal from "./components/uploadModal.component";
-import ConfirmFileModal from "./components/confirmFileModal.component";
 import TableComponent from "./components/table.component";
 import Tools from "./components/tools.component";
 import { DocumentsProvider } from "../../context/documents";
 export const fileUploadContext = createContext(null);
-export const confirmFileContext = createContext(null);
 
 
 const Documents = (props) => { 
     const [showUploadModal, setUploadModal] = useState(false);
-    const [showConfirmFileModal, setConfirmFileModal] = useState(false);
-    const [files, setFiles] = useState(null); 
 
     function toggleFileUpload(){
         return setUploadModal(!showUploadModal);
     }
-
-    function toggleConfirmFile(files){
-        if (files){
-            setFiles(files);
-            setUploadModal(!showUploadModal);
-            return setConfirmFileModal(!showConfirmFileModal);
-        }
-
-        return setConfirmFileModal(!showConfirmFileModal);
-    }
-
 
     return (
         <DocumentsProvider>
@@ -43,10 +28,7 @@ const Documents = (props) => {
                         <Tools/>
                     </fileUploadContext.Provider>
                     <TableComponent/>
-                    <confirmFileContext.Provider value={ toggleConfirmFile }>
-                        {showUploadModal ? <UploadFileModal/> : null}
-                        { showConfirmFileModal ? <ConfirmFileModal files={files}/> : null}
-                    </confirmFileContext.Provider>
+                    { showUploadModal ? <UploadFileModal toggle={ toggleFileUpload } /> : null }
                 </div>
 
             </div>
