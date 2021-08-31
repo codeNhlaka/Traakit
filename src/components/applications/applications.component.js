@@ -71,10 +71,13 @@ function CreateApplication({ toggleCreateApp }){
 }
 
 function ApplicationDetails({ details }){
+    const { updateApp } = useContext(ApplicationsContext);
 
     const [applicationHistory, modifyApplicationHistory] = useState({
-        companyName: null,
-        applicationStatus: null
+        companyName: details.details.company,
+        Progress: null,
+        id: details.details.id,
+        role: details.details.role
     });
 
     const [applicationProgress] = useState({
@@ -82,19 +85,25 @@ function ApplicationDetails({ details }){
         rejected: "Rejected",
         offer: "Offer",
         interview: "Interview"
-    })
+    });
 
     const toggleApplicationDetails = useContext(applicationDetailsContext);
 
     function updateApplicationHistory(){
-
+        if (applicationHistory.companyName && applicationHistory.Progress){
+            updateApp(applicationHistory);
+            return toggleApplicationDetails()
+        }
     }
 
     function handleChange(forInput, value){
         let property;
 
-        if (forInput === "Company Name") forInput = "companyName";
-
+        if (forInput === "company name") forInput = "companyName";
+        
+        forInput.toLocaleLowerCase();
+        value.toLocaleLowerCase();
+        
         property = forInput;
 
         modifyApplicationHistory({
@@ -117,6 +126,7 @@ function ApplicationDetails({ details }){
             <div className="content w-full cursor-default h-72">
 
                 <ContainedInputField 
+                    disabled={ true }
                     handleChange={ handleChange } 
                     placeholder={ details.details.company }
                     inputLabel="Company Name"
@@ -221,8 +231,8 @@ function TableList(props){
     }, []);
 
     return (
-        <div onClick={() => toggleApplicationDetails({details: props}) } className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
-        <div className="w-40 ml-5 flex items-center h-full">
+        <div className="component-table-content-details cursor-pointer text-sm relative select-none flex items-center overflow-hidden transition-all hover:bg-coolgray w-full h-12">
+        <div onClick={() => toggleApplicationDetails({details: props}) } className="w-40 ml-5 flex items-center h-full">
             <p1 className="text-gray-600">{ props.company }</p1>
         </div>
         <div className="w-40 flex items-center h-full">

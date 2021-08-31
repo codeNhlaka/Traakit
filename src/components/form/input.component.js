@@ -16,7 +16,7 @@ export function ContainedInputField(props){
                         handleChange={ props.handleChange } 
                         label={props.inputLabel} 
                         placeholder={props.placeholder}
-
+                        disabled={props.disabled}
                         />
                 </div>
             </div>
@@ -46,6 +46,7 @@ export default function InputField(props){
                 className={`bg-transparent bg-selectgray w-full h-10 mt-2 text-sm rounded-md border-none outline-none px-5 text-gray-700`} 
                 onChange={e => changeInputValue(e) }
                 onBlur={() => handleOnBlur() }
+                disabled={props.disabled}
             />
 }
 

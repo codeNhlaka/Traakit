@@ -46,8 +46,26 @@ function ApplicationsProvider({ children }){
         }
     }
 
-    function updateApp(){
+    async function updateApp(data){
 
+        // modify data
+
+        const modifiedData = {
+            id: data.id,
+            companyName: data.companyName,
+            role: data.role,
+            progress: data.Progress
+        }
+
+        // update application in db
+
+        const updateApplicationRecord = await API.graphql({query: updateApplication, variables: { input: modifiedData }})
+        if (updateApplicationRecord.data.updateApplication){
+            const { updateApplication } = updateApplicationRecord.data;
+            const { id } = updateApplication;
+            deleteApplicationRecord(id);
+            setApplicataionRecord( updateApplication );
+        }
     }
 
     useEffect(() => {
@@ -66,7 +84,7 @@ function ApplicationsProvider({ children }){
                         applications.forEach(currenApplication => {
                             if (currenApplication.id === id) return; 
                         });
-                        
+
                     } else {
                          // push each application record to global state;
                         return setApplicataionRecord(item);
