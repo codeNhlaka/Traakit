@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { confirmFileContext } from "../documents.component";
 import { DocumentsContext } from "../../../context/documents";
 
 export function convertBytes(bytes) {
@@ -19,7 +18,6 @@ export function convertBytes(bytes) {
 }
 
 function UploadFileModal(){
-    const toggleConfirmFile = useContext(confirmFileContext);
     const [dragging, setDragging] = useState(false);
     const { uploadDoc } = useContext(DocumentsContext);
     
@@ -88,16 +86,10 @@ function UploadFileModal(){
         
         setDragging(false);
 
-        console.log({
-            files,
-            warnings: errorStack
-        });
+        const warnings = errorStack;
 
         // if files contains a document, upload current files
         uploadDoc(files[0]);
-       
-
-        return files.length ? toggleConfirmFile(files) : null;
     }
 
     return (
