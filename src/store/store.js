@@ -8,6 +8,7 @@ const initialState = {
         skill: null
     },
     documents: [],
+    applications: [],
     imageKey: {
         id: null,
         key: null,
@@ -17,6 +18,21 @@ const initialState = {
 
 export const useStore = create(set => ({
     about: initialState,
+    deleteApplicationRecord: (id) => set(state => ({
+        about: {
+            ...state.about, 
+            applications: state.about.applications.filter(application => application.id !== id)
+        }
+    })), 
+    setApplicationRecord: (record) => set(state => ({
+        about: {
+            ...state.about,
+            applications: [ 
+                ...state.about.applications,
+                record
+            ]
+        }
+    })),
     deleteDocumentRecord: (id) => set(state => ({
         about: {
             ...state.about, 
