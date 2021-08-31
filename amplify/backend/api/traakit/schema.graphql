@@ -39,8 +39,8 @@ type Application @model @auth(rules: [{ allow: owner }]) {
 }
 
 enum ApplicationProgress {
-  pending
-  rejected
-  interview
-  offer
+  Pending
+  Rejected
+  Interview
+  Offer
 }

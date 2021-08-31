@@ -16,7 +16,7 @@ function CreateApplication({ toggleCreateApp }){
     const [application, setApplication] = useState({
         companyName: null,
         role: null,
-        progress: "pending"
+        progress: "Pending"
     });
 
 
@@ -261,17 +261,13 @@ function TableComponent(){
     const user = useStore(state => state.about);
     const { applications } = user;
 
-    const [applicationRecord ] = useState({
-        companyName: "SovTech",
-        role: "Graphic Designer",
-        progress: "pending"
-    });
 
     return (
         <div className="component-table relative w-full h-4/6 mt-3">
             <TableHero/>
             { applications.length ? applications.map(application => {
                 return <TableList
+                    key={ application.id }
                     company={ application.companyName }
                     role={ application.role }
                     id={ application.id }
