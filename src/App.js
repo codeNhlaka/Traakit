@@ -9,7 +9,6 @@ import { isMobile } from "react-device-detect";
 import { authConfirmationContext, profileSettingsContext } from "./context/appContext";
 import AuthenticateUser from "./components/authentication/authUser.component";
 import { useStore } from "./store/store";
-import * as mutations from "./graphql/mutations";
 import * as queries from "./graphql/queries";
 import { API } from "aws-amplify";
 
@@ -17,6 +16,8 @@ function App() {
   const [profileSettingsVisible, setProfileSettings] = useState(false);
   const noAuthenticatedUserMessage = "The user is not authenticated";
   const user = useStore(state => state.about);
+  const { applications } = user;
+  const setApplicataionRecord = useStore(state  => state.setApplicationRecord);
   const setUserId = useStore(state => state.setId);
   const updateAbout = useStore(state => state.updateAbout);
 
@@ -26,11 +27,6 @@ function App() {
    */
   function toggleProfileSettings(){
     return setProfileSettings(!profileSettingsVisible);
-  }
-
-  // Set user to false then render the Authentication component;
-  function confirmSignOut(){
-    return setUserId(null);
   }
 
   // Check if the current user is authenticated 
@@ -46,6 +42,34 @@ function App() {
   }
   
   useEffect(() => {
+      async function fetchUserApplications(){
+        const applicationsList = await API.graphql({query: queries.listApplications});
+        
+        if (applicationsList.data.listApplications){
+            
+            // get applicaations
+            const { items } = applicationsList.data.listApplications;
+            
+            // push each application to global state
+            
+            items.forEach(item => {
+                const { id } = item;
+
+                // check for duplicates
+                if (applications.length !== 0){
+
+                    applications.forEach(currenApplication => {
+                        if (currenApplication.id === id) return; 
+                    });
+
+                } else {
+                    // push each application record to global state;
+                    return setApplicataionRecord(item);
+                }
+            })
+        }
+    } 
+
     async function getCurrentAuthenticatedUser(){
       const authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser();
       if (authenticatedUser){
@@ -64,7 +88,9 @@ function App() {
              let recordedData = await API.graphql({ query: queries.getUser, variables: { id: userId }});
 
              if (recordedData.data.getUser){
-               userAbout = recordedData
+                userAbout = recordedData;
+
+                fetchUserApplications();
              } else {
                userAbout = null;
              }

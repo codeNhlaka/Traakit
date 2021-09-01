@@ -2,14 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
 import { createApplication, deleteApplication, updateApplication } from "../graphql/mutations";
-import { listApplications } from "../graphql/queries";
 import { useStore } from "../store/store";
 
 const ApplicationsContext = createContext(null);
 
 function ApplicationsProvider({ children }){
     const user = useStore(state => state.about);
-    const { applications } = user;
     const setApplicataionRecord = useStore(state  => state.setApplicationRecord);
     const deleteApplicationRecord = useStore(state => state.deleteApplicationRecord);
 
@@ -68,33 +66,6 @@ function ApplicationsProvider({ children }){
         }
     }
 
-    useEffect(() => {
-        async function fetchUserApplications(){
-            const applicationsList = await API.graphql({query: listApplications});
-            if (applicationsList.data.listApplications){
-                
-                const { items } = applicationsList.data.listApplications;
-                
-                items.forEach(item => {
-                    const { id } = item;
-
-                    // check for duplicates
-                    if (applications.length !== 0){
-
-                        applications.forEach(currenApplication => {
-                            if (currenApplication.id === id) return; 
-                        });
-
-                    } else {
-                         // push each application record to global state;
-                        return setApplicataionRecord(item);
-                    }
-                })
-            }
-        } 
-
-        fetchUserApplications();
-    }, [])
     return (
         <ApplicationsContext.Provider value={{createApp, deleteApp, updateApp }}>
             { children }
