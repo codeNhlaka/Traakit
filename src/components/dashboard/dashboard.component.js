@@ -1,11 +1,17 @@
-import { createRef, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Navigation from "../routes/nagivation.component";
 import { filterContext } from "../../context/appContext";
 import ApplicationsChart from "../charts/barchart";
+import { DashboardContext, DashboardProvider } from "../../context/dashboard";
 
 function DashboardContent(){
     const [filter, setFilter] = useState(false);
-    const dashboardRef = createRef(null);
+    const { 
+        getTotalApplications, 
+        getApplicationsProcessedToday, 
+        getRejectedApplications 
+    } = useContext(DashboardContext);
+
 
     function toggleFilter(){
         return setFilter(true);
@@ -25,7 +31,7 @@ function DashboardContent(){
                 <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-40 overflow-hidden h-auto text-sm uppercase">Total applications</h1>
-                        <h1 className="text-white top-4 w-16 text-3xl ml-2">140</h1>
+                        <h1 className="text-white top-4 w-16 text-3xl ml-2">{ getTotalApplications() }</h1>
                     </div>              
                     <div className="items-center justify-center left-44 mt-2 mini-chart w-20 h-16 ">
                         {/* <AreaChartPrev/> */}
@@ -35,7 +41,7 @@ function DashboardContent(){
                 <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-40 overflow-hidden h-auto text-sm uppercase">Applications today</h1>
-                        <h1 className="text-white top-4 w-16 text-3xl ml-2">20</h1>
+                        <h1 className="text-white top-4 w-16 text-3xl ml-2">{ getApplicationsProcessedToday() }</h1>
                     </div>              
                     <div className="items-center justify-center left-44 mt-2 mini-chart w-20 h-16">
                     </div>
@@ -44,7 +50,7 @@ function DashboardContent(){
                 <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
                         <h1 className="text-white ml-2 top-2 w-auto overflow-hidden h-auto text-sm uppercase">Rejected Applications</h1>
-                        <h1 className="text-white top-4 w-16 text-3xl ml-2">3</h1>
+                        <h1 className="text-white top-4 w-16 text-3xl ml-2">{ getRejectedApplications() }</h1>
                     </div>              
                     <div className="items-center justify-center left-44 mt-2 mini-chart w-20 h-16">
                     </div>
@@ -78,10 +84,12 @@ function DashboardContent(){
 }
 
 const Dashboard = () => (
-    <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
-        <Navigation/>
-        <DashboardContent/>
-    </div>
+    <DashboardProvider>
+        <div className='None:container relative overflow-hidden h-screen bg-selectgray'>
+            <Navigation/>
+            <DashboardContent/>
+        </div>
+    </DashboardProvider>
 );
 
 

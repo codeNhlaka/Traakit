@@ -263,7 +263,7 @@ function TableComponent(){
 
 
     return (
-        <div className="component-table relative w-full h-4/6 mt-3">
+        <div className="overflow-y-scroll component-table relative w-full h-4/6 mt-3">
             <TableHero/>
             { applications.length ? applications.map(application => {
                 return <TableList
