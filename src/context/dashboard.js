@@ -12,8 +12,17 @@ function DashboardProvider({ children }){
         return applications.length;
     }
 
-    function getApplicationsProcessedToday(){
-        return 0;
+    function getInterviews(){
+        let interviews = 0;
+
+        applications.forEach(application => {
+            if (application.progress === "Interview"){
+                interviews += 1;
+            }
+
+        });
+
+        return interviews;
     }
 
     function getRejectedApplications(){
@@ -36,7 +45,7 @@ function DashboardProvider({ children }){
     return (
         <DashboardContext.Provider value= {{ 
             getTotalApplications,
-            getApplicationsProcessedToday,
+            getInterviews,
             getRejectedApplications
         }}>
             { children }
