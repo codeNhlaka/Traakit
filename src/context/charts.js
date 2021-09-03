@@ -23,6 +23,7 @@ const ChartContext = createContext(null);
 function ChartProvider({ children }){
     const [chartInfo, setChartInfo] = useState([]);
     const setData = useStore(state => state.setData);
+    let numOfFetchedItems;
 
     const len = (arr) => arr.length;
     const schemaMap = [];
@@ -89,11 +90,12 @@ function ChartProvider({ children }){
                     target[0].applications = target[0].applications + 1;
                 } 
             }
+
         });
 
         const targ = schemaMap[0][2021][month]
 
-        for(let i = 0; i <= len(items) - 1; i++){
+        for(let i = 0; i <= 30; i++){
             if (targ[i]){
                 let pushData = {
                     date: targ[i][0].date,
@@ -147,6 +149,7 @@ function ChartProvider({ children }){
         
         if (result.data.listApplicationChartRecords){
             const { items } = result.data.listApplicationChartRecords;
+            numOfFetchedItems = items.length;
             createData(items, month);
         }
     }

@@ -17,12 +17,11 @@ import TraakitLogo from "../../assets/logo/Traakit";
 
 function UserDetails(){
     const toggleProfileSettings = useContext(profileSettingsContext);
+    const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
-    // const [displayName, setDisplayName] = useState(user.data.fullnames)
-    const [displayName, setDisplayName] = useState("Oleg Fakeev");
+    const [displayName, setDisplayName] = useState(user.data.fullnames)
 
-    const user = useStore(state => state.about);
 
     useEffect(() => {
         async function getUserImage(){
@@ -55,7 +54,11 @@ function UserDetails(){
                     <div className="profile_image_wrapper container flex justify-center items-center h-full w-11">
                         <div className="image_container overflow-hidden flex justify-center items-center container bg-coolgray rounded-full h-10 w-10">
                             { user.imageKey.key ? (
-                                <img src={ user.imageKey.url } width="100%"/>
+                                <img src={ user.imageKey.url } style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    objectFit: "cover"
+                                }}/>
                             ) : (
                                 <UserProfileIcon/>
                             )}

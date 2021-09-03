@@ -66,12 +66,16 @@ function ProfileSettingsComponent(props){
                                 {
                                     width: '90px',
                                     height: '90px',
-                                    borderRadius: '2000px'
+                                    borderRadius: '2000px',
                                 }
                             }
                             className="container overflow-hidden">
                             { user.imageKey.key ? (
-                                <img src={ user.imageKey.url } width="100%"/>
+                                <img src={ user.imageKey.url } style={{
+                                    width: "90px",
+                                    height: "90px",
+                                    objectFit: "cover"
+                                }}/>
                             ) : 
                             (
                                 <div 

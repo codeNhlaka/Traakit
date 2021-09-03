@@ -10,7 +10,7 @@ import { useStore } from "../../context/charts";
 import CalenderIcon from "../../assets/icons/calender.icon"
 
 function CustomTooltip({ active, payload, label}){
-
+  
   return (
     <div className="bg-selectgray w-72 h-16 border border-gray-700 rounded">
       <div className="date flex items-center w-full h-full">
@@ -18,7 +18,7 @@ function CustomTooltip({ active, payload, label}){
             <CalenderIcon/>
         </div>
         <div className="h-full w-auto ml-2 flex justify-center items-center">
-          <p className="text-white">{ payload.length ? payload[0].payload.date : null  }</p>
+          { payload ? <p className="text-white">{ payload.length ? payload[0].payload.date : null  }</p> : null}
         </div>
       </div>
     </div>
@@ -28,6 +28,7 @@ function CustomTooltip({ active, payload, label}){
 function Chart() {
   const currentData = useStore(state => state.data.current);
   const { byMonth, getData } = useContext(ChartContext);
+  console.log(currentData, ' uooooo ')
 
   return (
     <ResponsiveContainer width="95%" height={300}>
