@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
-import { createApplication, deleteApplication, updateApplication } from "../graphql/mutations";
+import { createApplication, deleteApplication, updateApplication, createApplicationChartRecord } from "../graphql/mutations";
 import { useStore } from "../store/store";
+import dateFormat from "dateformat";
 
 const ApplicationsContext = createContext(null);
 
@@ -29,6 +30,30 @@ function ApplicationsProvider({ children }){
         if (createRecord.data.createApplication){
             const { createApplication } = createRecord.data;
 
+            // update the chart record 
+            try {
+
+                const date = new Date();
+
+                const applicationId = createApplication.id;
+                const applicationDate = dateFormat(date, "dddd, mmmm d, yyyy");
+                const month = dateFormat(date, "mmmm");
+                const year = parseInt(dateFormat(date, "yyyy"));
+                const day = date.getDate();
+
+                const data = {
+                    applicationId,
+                    applicationDate,
+                    month,
+                    year,
+                    day
+                }
+
+                await API.graphql({query: createApplicationChartRecord, variables: { input: data }})
+            
+            } catch(error){
+                console.log(error);
+            }
             // update global state
             return setApplicataionRecord(createApplication);
         }

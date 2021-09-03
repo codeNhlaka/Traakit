@@ -175,3 +175,48 @@ export const onDeleteApplication = /* GraphQL */ `
     }
   }
 `;
+export const onCreateApplicationChartRecord = /* GraphQL */ `
+  subscription OnCreateApplicationChartRecord($owner: String!) {
+    onCreateApplicationChartRecord(owner: $owner) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateApplicationChartRecord = /* GraphQL */ `
+  subscription OnUpdateApplicationChartRecord($owner: String!) {
+    onUpdateApplicationChartRecord(owner: $owner) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteApplicationChartRecord = /* GraphQL */ `
+  subscription OnDeleteApplicationChartRecord($owner: String!) {
+    onDeleteApplicationChartRecord(owner: $owner) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

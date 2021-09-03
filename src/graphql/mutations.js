@@ -211,3 +211,57 @@ export const deleteApplication = /* GraphQL */ `
     }
   }
 `;
+export const createApplicationChartRecord = /* GraphQL */ `
+  mutation CreateApplicationChartRecord(
+    $input: CreateApplicationChartRecordInput!
+    $condition: ModelApplicationChartRecordConditionInput
+  ) {
+    createApplicationChartRecord(input: $input, condition: $condition) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateApplicationChartRecord = /* GraphQL */ `
+  mutation UpdateApplicationChartRecord(
+    $input: UpdateApplicationChartRecordInput!
+    $condition: ModelApplicationChartRecordConditionInput
+  ) {
+    updateApplicationChartRecord(input: $input, condition: $condition) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteApplicationChartRecord = /* GraphQL */ `
+  mutation DeleteApplicationChartRecord(
+    $input: DeleteApplicationChartRecordInput!
+    $condition: ModelApplicationChartRecordConditionInput
+  ) {
+    deleteApplicationChartRecord(input: $input, condition: $condition) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

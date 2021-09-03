@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Navigation from "../routes/nagivation.component";
 import { filterContext } from "../../context/appContext";
-import ApplicationsChart from "../charts/barchart";
+import ApplicationsChart from "../charts/applicationChart";
 import { DashboardContext, DashboardProvider } from "../../context/dashboard";
 
 function DashboardContent(){
@@ -26,7 +26,7 @@ function DashboardContent(){
                 <h1 className="text-white w-auto pointer-events-none select-none ml-5 text-4xl">Overview</h1>
             </div>
     
-            <div className="application-summery flex items-center cards w-full h-24 mt-3">
+            <div className="application-summery flex items-center cards w-full h-24 mt-3 ">
                 
                 <div className="border border-gray-800 card flex items-start justify-center rounded select-none bg-coolgray ml-5 w-72 h-20">
                     <div className="mt-2">
@@ -61,7 +61,7 @@ function DashboardContent(){
             <div className="w-full h-96 mt-2 flex items-center ">
                 <div 
                     style={{
-                        width: '54.5%'
+                        width: '82.5%'
                     }}
                     className="border border-gray-800 overflow-hidden bg-coolgray rounded-md ml-5 h-full"
                 >

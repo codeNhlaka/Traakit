@@ -145,3 +145,44 @@ export const listApplications = /* GraphQL */ `
     }
   }
 `;
+export const getApplicationChartRecord = /* GraphQL */ `
+  query GetApplicationChartRecord($id: ID!) {
+    getApplicationChartRecord(id: $id) {
+      id
+      applicationId
+      applicationDate
+      day
+      month
+      year
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listApplicationChartRecords = /* GraphQL */ `
+  query ListApplicationChartRecords(
+    $filter: ModelApplicationChartRecordFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listApplicationChartRecords(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        applicationId
+        applicationDate
+        day
+        month
+        year
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;

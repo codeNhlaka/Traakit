@@ -44,3 +44,11 @@ enum ApplicationProgress {
   Interview
   Offer
 }
+
+type ApplicationChartRecord @model @auth(rules: [{ allow: owner }]) {
+  applicationId: ID!
+  applicationDate: String!
+  day: Int!
+  month: String!
+  year: Int!
+}
