@@ -10,7 +10,11 @@ import { useStore } from "../../context/charts";
 import CalenderIcon from "../../assets/icons/calender.icon"
 
 function CustomTooltip({ active, payload, label}){
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 48b786fec520523fb918a2f1a2d7f487b0ff3d7d
   return (
     <div className="bg-selectgray w-72 h-16 border border-gray-700 rounded">
       <div className="date flex items-center w-full h-full">
@@ -27,8 +31,11 @@ function CustomTooltip({ active, payload, label}){
 
 function Chart() {
   const currentData = useStore(state => state.data.current);
+<<<<<<< HEAD
   const { byMonth, getData } = useContext(ChartContext);
   console.log(currentData, ' uooooo ')
+=======
+>>>>>>> 48b786fec520523fb918a2f1a2d7f487b0ff3d7d
 
   return (
     <ResponsiveContainer width="95%" height={300}>
