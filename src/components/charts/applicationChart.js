@@ -1,13 +1,30 @@
-import { useContext } from "react";
+import { useContext, useState , useEffect} from "react";
 import {
   CartesianGrid,
-  XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer, AreaChart, Area
 } from "recharts";
 import { ChartProvider, ChartContext } from "../../context/charts";
 import { useStore } from "../../context/charts";
+import CalenderIcon from "../../assets/icons/calender.icon"
+
+function CustomTooltip({ active, payload, label}){
+  const [date, setDate] = useState(null);
+
+  return (
+    <div className="bg-selectgray w-72 h-16 border border-gray-700 rounded">
+      <div className="date flex items-center w-full h-full">
+        <div className="h-full w-7 ml-5 flex justify-center items-center">
+            <CalenderIcon/>
+        </div>
+        <div className="h-full w-auto ml-2 flex justify-center items-center">
+          <p className="text-white">{ payload.length ? payload[0].payload.date : null  }</p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function Chart() {
   const currentData = useStore(state => state.data.current);
@@ -23,19 +40,8 @@ function Chart() {
           </linearGradient>
         </defs>
         <Area dataKey="applications" stroke="#30cf43" fill="url(#color)" />
-
-        <XAxis
-          dataKey="date"
-          axisLine={false}
-
-          tickLine={false}
-        />
-
-        <YAxis dataKey="applications" axisLine={false} tickCount={8} tickLine={false} />
-
-
-
-        <Tooltip />
+        <YAxis dataKey="applications" axisLine={false} tickLine={false} />
+        <Tooltip content={ <CustomTooltip/> } />
 
         <CartesianGrid opacity="0.1" vertical={false} />
 
@@ -53,13 +59,3 @@ export default function ApplicationsChart(){
 }
 
 
-{/* <defs>
-<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-<stop offset="5%" stopColor="#30cf43" stopOpacity={0.8}/>
-<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-</linearGradient>
-<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-<stop offset="5%" stopColor="#30cf43" stopOpacity={0.2}/>
-<stop offset="95%" stopColor="#30cf43" stopOpacity={0}/>
-</linearGradient>
-</defs> */}
