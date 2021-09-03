@@ -10,7 +10,6 @@ import { useStore } from "../../context/charts";
 import CalenderIcon from "../../assets/icons/calender.icon"
 
 function CustomTooltip({ active, payload, label}){
-  const [date, setDate] = useState(null);
 
   return (
     <div className="bg-selectgray w-72 h-16 border border-gray-700 rounded">
