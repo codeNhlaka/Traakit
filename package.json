@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.2.4",
     "date-fns": "^2.23.0",
+    "dateformat": "^4.5.1",
     "formik": "^2.2.9",
     "js-file-download": "^0.4.12",
     "postcss": "^7",
