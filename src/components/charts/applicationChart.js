@@ -27,7 +27,6 @@ function CustomTooltip({ active, payload, label}){
 
 function Chart() {
   const currentData = useStore(state => state.data.current);
-  const { byMonth, getData } = useContext(ChartContext);
 
   return (
     <ResponsiveContainer width="95%" height={300}>
