@@ -8,10 +8,10 @@ export function ContainedInputField(props){
                     left: '10%',
                     height: '80px'
                 }}
-                className="company-name w-4/5 mt-2 flex"
+                className="flex w-4/5 mt-2 company-name"
             >
                 <div className="w-full ">
-                    <p className="text-gray-400 text-sm">{props.inputLabel}</p>
+                    <p className="text-sm text-gray-400">{props.inputLabel}</p>
                     <InputField 
                         handleChange={ props.handleChange } 
                         label={props.inputLabel} 

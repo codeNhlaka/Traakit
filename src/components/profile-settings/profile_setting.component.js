@@ -151,7 +151,10 @@ function Profile(){
                                             marginTop: '5%'
                                         }
                                     } 
-                                    onClick={() => updateInformation(alterDetails)}
+                                    onClick={() => { 
+                                        updateInformation(alteredDetails) 
+                                        viewThisModal("settings")}
+                                        }
                                     className="h-10 text-white transition-all rounded-md cursor-pointer bg-selectgreen hover:bg-selectgreenhover"
                             >
                                 Update Information

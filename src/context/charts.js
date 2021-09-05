@@ -23,13 +23,12 @@ const ChartContext = createContext(null);
 function ChartProvider({ children }){
     const [chartInfo, setChartInfo] = useState([]);
     const setData = useStore(state => state.setData);
-    let numOfFetchedItems;
 
     const len = (arr) => arr.length;
     const schemaMap = [];
 
     function createData(items, month){
-
+        if (!len(items)) return setData([]);
         items.forEach(item => {
             const { year, day, applicationDate } = item;
             const itemStructure = {
@@ -149,7 +148,6 @@ function ChartProvider({ children }){
         
         if (result.data.listApplicationChartRecords){
             const { items } = result.data.listApplicationChartRecords;
-            numOfFetchedItems = items.length;
             createData(items, month);
         }
     }

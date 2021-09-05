@@ -123,7 +123,6 @@ function ApplicationDetails({ details }){
                 </p>
             </div>
             <div className="w-full cursor-default h-72">
-
                 <ContainedInputField 
                     disabled={ true }
                     handleChange={ handleChange } 
@@ -230,9 +229,9 @@ function TableList(props){
     }, []);
 
     return (
-        <div className="relative flex items-center w-full h-12 overflow-hidden text-sm transition-all cursor-pointer select-none component-table-content-details hover:bg-coolgray">
-        <div onClick={() => toggleApplicationDetails({details: props}) } className="flex items-center w-40 h-full ml-5">
-            <p1 className="text-gray-600">{ props.company }</p1>
+        <div className="relative flex items-center w-full h-12 overflow-hidden text-sm transition-all delay-150 cursor-pointer select-none component-table-content-details hover:bg-coolgray">
+        <div onClick={() => toggleApplicationDetails({details: props}) } className="flex items-center w-40 h-full ml-5 transition-all delay-100 hover:bg-coolgray">
+            <p1 className="flex items-center w-full h-full text-gray-600 hover:text-white">{ props.company }</p1>
         </div>
         <div className="flex items-center w-40 h-full">
             <p1 className="p-1 text-gray-600">{ props.role }</p1>
@@ -277,6 +276,7 @@ function TableComponent(){
         </div>
     )
 }
+
 const Applications = () => {
     const [applicationDetailsVisible, setApplicationVisibility] = useState(false);
     const [currentApplicationDetails, setApplicationDetails] = useState("")
@@ -293,12 +293,12 @@ const Applications = () => {
 
     return (
             <ApplicationsProvider>
-                <div className='relative h-screen overflow-hidden None:container bg-selectgray'>
+                <div className='applications'>
                     <Navigation/>
                     <applicationDetailsContext.Provider value={ toggleApplicationDetails }>
-                    <div className="container absolute w-4/5 h-full left-left-20">
-                        <div className="relative flex items-center w-full h-16 mt-10 component-title">
-                            <h1 className="w-auto ml-5 text-4xl text-white pointer-events-none select-none">Your applications</h1>
+                    <div className="applications-content">
+                        <div className="applications-title">
+                            <h1 className="applications-title-content">Your applications</h1>
                         </div>
                         <Tools toggleCreateApp={ toggleCreateApp }/>
                         { applicationDetailsVisible ? <ApplicationDetails details={ currentApplicationDetails } /> : null}

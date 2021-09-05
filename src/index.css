@@ -72,6 +72,19 @@ body {
   .documents-title-content {
     @apply w-auto ml-5 text-4xl text-white pointer-events-none select-none;
   }
+  /* applications */
+  .applications {
+    @apply relative w-screen h-screen overflow-hidden bg-selectgray;
+  }
+  .applications-content {
+    @apply absolute w-4/5 h-full left-left-20;
+  }
+  .applications-title {
+    @apply relative flex items-center w-full h-16 mt-10;
+  }
+  .applications-title-content {
+    @apply w-auto ml-5 text-4xl text-white pointer-events-none select-none;
+  }
 }
 
 @tailwind utilities;

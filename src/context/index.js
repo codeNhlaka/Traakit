@@ -21,12 +21,11 @@ function IndexProvider({ children }){
 
         // This will look for current viewed modal and close it
         function esc(event){
-            event.preventDefault();
             let key = event.key;
 
             if (event.ctrlKey && event.key === 'c') {
                 viewSettings(false);
-            } else if(event.ctrlKey && event.key === 's') {
+            } else if(event.ctrlKey && event.key === 'x') {
                 viewSettings(true);
             }
         }

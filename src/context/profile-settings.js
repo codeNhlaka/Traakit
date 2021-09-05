@@ -35,8 +35,8 @@ function ProfileSettingsProvider({ children }){
 
             const userData = {
                 id,
-                fullnames: information.fullnames || user.data.employmentStatus,
-                skill: information.skill || user.data.employmentStatus,
+                fullnames: information.fullnames || user.data.fullnames,
+                skill: information.skill || user.data.skill,
                 employmentStatus: information.status || user.data.employmentStatus
             } 
 
@@ -57,8 +57,8 @@ function ProfileSettingsProvider({ children }){
 
             const userData = {
                 id,
-                fullnames: information.fullnames || user.data.employmentStatus,
-                skill: information.skill || user.data.employmentStatus,
+                fullnames: information.fullnames || user.data.fullnames,
+                skill: information.skill || user.data.skill,
                 employmentStatus: information.status || user.data.employmentStatus
             }
 
