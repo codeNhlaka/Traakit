@@ -12,8 +12,8 @@ const componentP = {
     y: 100
 };
 
-function ProfileSettings(){
-    // const { handleImageUpload, updateInformation } = useContext(SettingsContext);
+function Profile(){
+    const { handleImageUpload, updateInformation } = useContext(SettingsContext);
     const { viewThisModal } = useContext(IndexContext);
     let fileInputRef = createRef(null);
     const user = useStore(state => state.about);
@@ -39,7 +39,6 @@ function ProfileSettings(){
     }
 
     return (
-        <ProfileSettingsProvider>
             <div className="container absolute w-1/3 ml-auto transition border border-gray-800 rounded shadow-lg bg-coolgray h-4/5"
                 style={
                     {
@@ -100,6 +99,7 @@ function ProfileSettings(){
                             ref={e => fileInputRef = e} 
                             type="file" 
                             hidden
+                            onChange={ e => handleImageUpload(e) }
                         />
 
                         <button 
@@ -109,6 +109,7 @@ function ProfileSettings(){
                                         marginLeft: '5%'
                                     }
                                     } 
+                            onClick={ e => handleFileUpload(e)}
                             className="h-10 text-white transition-all rounded-md cursor-pointer bg-selectgreen hover:bg-selectgreenhover"
                         >
                             Change Image
@@ -124,8 +125,8 @@ function ProfileSettings(){
                             marginLeft: "2.5%"
                         }
                     }
-                    className="h-full mt-5 status">
-                        <div className="w-full cursor-default content h-72">
+                    className="h-full mt-5 status ">
+                        <div className="w-full cursor-default h-72">
                             <ContainedInputField handleChange={ handleChange } placeholder={ user.data.fullnames || "Oleg Fakeev"} inputLabel="Fullnames"/>
                             <ContainedInputField handleChange={ handleChange } placeholder={ user.data.skill || "Graphic Designer"} inputLabel="Skill"/>
                             
@@ -150,6 +151,7 @@ function ProfileSettings(){
                                             marginTop: '5%'
                                         }
                                     } 
+                                    onClick={() => updateInformation(alterDetails)}
                                     className="h-10 text-white transition-all rounded-md cursor-pointer bg-selectgreen hover:bg-selectgreenhover"
                             >
                                 Update Information
@@ -158,8 +160,13 @@ function ProfileSettings(){
                     </div>
                 </div>  
             </div>
-        </ProfileSettingsProvider>
     )
 }
 
-export default ProfileSettings;
+export default function ProfileSettings(){
+    return (
+        <ProfileSettingsProvider>
+            <Profile/>
+        </ProfileSettingsProvider>
+    )
+}

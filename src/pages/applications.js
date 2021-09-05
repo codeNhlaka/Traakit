@@ -34,7 +34,7 @@ function CreateApplication({ toggleCreateApp }){
 
     return (
         <div className="container absolute z-50 h-64 border border-gray-800 rounded shadow-md bg-coolgray top-32 left-96 w-96">
-            <div className="w-full mt-5 cursor-default content h-72">
+            <div className="w-full mt-5 cursor-default h-72">
                 <ContainedInputField 
                     handleChange={ handleChange } 
                     placeholder="Google"
@@ -122,7 +122,7 @@ function ApplicationDetails({ details }){
                     close
                 </p>
             </div>
-            <div className="w-full cursor-default content h-72">
+            <div className="w-full cursor-default h-72">
 
                 <ContainedInputField 
                     disabled={ true }
