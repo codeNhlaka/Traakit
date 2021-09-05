@@ -12,12 +12,12 @@ import CalenderIcon from "../../assets/icons/calender.icon"
 function CustomTooltip({ active, payload, label}){
   
   return (
-    <div className="bg-selectgray w-72 h-16 border border-gray-700 rounded">
-      <div className="date flex items-center w-full h-full">
-        <div className="h-full w-7 ml-5 flex justify-center items-center">
+    <div className="h-16 border border-gray-700 rounded bg-selectgray w-72">
+      <div className="flex items-center w-full h-full date">
+        <div className="flex items-center justify-center h-full ml-5 w-7">
             <CalenderIcon/>
         </div>
-        <div className="h-full w-auto ml-2 flex justify-center items-center">
+        <div className="flex items-center justify-center w-auto h-full ml-2">
           { payload ? <p className="text-white">{ payload.length ? payload[0].payload.date : null  }</p> : null}
         </div>
       </div>
@@ -28,7 +28,6 @@ function CustomTooltip({ active, payload, label}){
 function Chart() {
   const currentData = useStore(state => state.data.current);
   const { byMonth, getData } = useContext(ChartContext);
-  console.log(currentData, ' uooooo ')
 
   return (
     <ResponsiveContainer width="95%" height={300}>

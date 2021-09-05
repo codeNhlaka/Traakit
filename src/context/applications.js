@@ -4,11 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 import { createApplication, deleteApplication, updateApplication, createApplicationChartRecord } from "../graphql/mutations";
 import { useStore } from "../store/store";
 import dateFormat from "dateformat";
+import * as queries from "../graphql/queries";
 
 const ApplicationsContext = createContext(null);
 
 function ApplicationsProvider({ children }){
     const user = useStore(state => state.about);
+    const { applications } = user;
     const setApplicataionRecord = useStore(state  => state.setApplicationRecord);
     const deleteApplicationRecord = useStore(state => state.deleteApplicationRecord);
 
@@ -90,6 +92,40 @@ function ApplicationsProvider({ children }){
             setApplicataionRecord( updateApplication );
         }
     }
+
+    useEffect(() => {
+        async function fetchUserApplications(){
+            const applicationsList = await API.graphql({query: queries.listApplications});
+            
+            if (applicationsList.data.listApplications){
+                
+                // get applicaations
+                const { items } = applicationsList.data.listApplications;
+                
+                // push each application to global state
+                
+                items.forEach(item => {
+                    const { id } = item;
+    
+                    // check for duplicates
+                    if (applications.length !== 0){
+    
+                        applications.forEach(currentApplication => {
+                            if (currentApplication.id === id) return; 
+                        });
+    
+                    } else {
+                        // push each application record to global state;
+                        return setApplicataionRecord(item);
+                    }
+                })
+            }
+        }
+        
+        if (!applications.length){
+            fetchUserApplications();
+        }
+    }, [])
 
     return (
         <ApplicationsContext.Provider value={{createApp, deleteApp, updateApp }}>

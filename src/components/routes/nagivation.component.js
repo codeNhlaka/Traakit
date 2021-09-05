@@ -15,11 +15,10 @@ import { IndexContext } from "../../context/index";
 
 function UserDetails(){
     const { viewThisModal } = useContext(IndexContext);
-
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
-    const [displayName, setDisplayName] = useState(user.data.fullnames)
+    const [displayName, setDisplayName] = useState(user.data.fullnames);
 
 
     useEffect(() => {
@@ -44,6 +43,7 @@ function UserDetails(){
             // attempt to create signedUrl for userImage
             getUserImage();
         }
+
     }, []);
 
     return (
