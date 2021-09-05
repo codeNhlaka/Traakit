@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './reset.css';
 import './index.css';
+import { IndexProvider } from "./context/index";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <IndexProvider>
+      <App />
+    </IndexProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

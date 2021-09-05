@@ -1,33 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Documents from "./pages/documents";
 import Applications from "./pages/applications";
-import ProfileSettingsModal from "./containers/profileSettings";
 import AuthAPI from "./adapters/auth";
 import { isMobile } from "react-device-detect"; 
-import { authConfirmationContext, profileSettingsContext } from "./context/appContext";
+import { authConfirmationContext } from "./context/appContext";
 import AuthenticateUser from "./components/authentication/authUser.component";
 import { useStore } from "./store/store";
 import * as queries from "./graphql/queries";
 import { API } from "aws-amplify";
+import { IndexContext } from "./context/index";
+import ProfileSettings from "./components/profile-settings/profile_setting.component"
 
 function App() {
-  const [profileSettingsVisible, setProfileSettings] = useState(false);
+  const { settings } = useContext(IndexContext);
   const noAuthenticatedUserMessage = "The user is not authenticated";
   const user = useStore(state => state.about);
   const { applications } = user;
   const setApplicataionRecord = useStore(state  => state.setApplicationRecord);
   const setUserId = useStore(state => state.setId);
   const updateAbout = useStore(state => state.updateAbout);
-
-  /**
-   * Displays the profile settings component
-   * @returns sets the state to the toggle value
-   */
-  function toggleProfileSettings(){
-    return setProfileSettings(!profileSettingsVisible);
-  }
 
   // Check if the current user is authenticated 
   async function confirmAuthentication(){
@@ -128,8 +121,8 @@ function App() {
   } else {
     if (user.id){
       return (
-        <profileSettingsContext.Provider value={ toggleProfileSettings }>
-          {profileSettingsVisible ? <ProfileSettingsModal/> : null}
+        <>
+          { settings ? <ProfileSettings/> : null}
           <Router>
             <Switch>
                 <Route exact path="/">
@@ -143,7 +136,7 @@ function App() {
                 </Route>
               </Switch>
           </Router>
-        </profileSettingsContext.Provider>
+        </>
       )
     } else {
       return (

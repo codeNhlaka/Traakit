@@ -1,11 +1,10 @@
-import ProfileSettingsComponent from "../components/app/profile_setting.component";
-import { useStore } from "../store/store";
-import {API, Storage } from "aws-amplify";
+import { createContext } from 'react';
+import { useStore } from '../store/store';
+import { API, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect } from "react";
 
-// config amplify storage
+// configure storage 
 
 Storage.configure({
     customPrefix: {
@@ -13,7 +12,9 @@ Storage.configure({
     }
 });
 
-function ProfileSettingsModal(){
+const SettingsContext = createContext(null);
+
+function ProfileSettingsProvider({ children }){
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl);
@@ -175,16 +176,11 @@ function ProfileSettingsModal(){
         })
     }
 
-    useEffect(() => {
-        // statement...
-        console.log(user);
-    }, [])
-
-    return <ProfileSettingsComponent
-        handleImageUpload={ handleImageUpload }
-        user={ user }
-        updateInformation={ updateInformation }
-    />
+    return (
+        <SettingsContext.Provider value={{ handleImageUpload, updateInformation, user}}>
+            { children }
+        </SettingsContext.Provider>
+    )
 }
 
-export default ProfileSettingsModal;
+export { ProfileSettingsProvider, SettingsContext }

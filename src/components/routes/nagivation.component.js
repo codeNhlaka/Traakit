@@ -6,16 +6,16 @@ import ApplicationsIcon from "../../assets/icons/applications.icon";
 import UserProfileIcon from "../../assets/icons/userProfile.icon";
 import NotificationsIcon from "../../assets/icons/notifications.icon";
 import DocumentsIcon from "../../assets/icons/documents.icon";
-import { profileSettingsContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { API, Storage } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import TraakitLogo from "../../assets/logo/Traakit";
-
+import { IndexContext } from "../../context/index";
 
 function UserDetails(){
-    const toggleProfileSettings = useContext(profileSettingsContext);
+    const { viewThisModal } = useContext(IndexContext);
+
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
@@ -67,7 +67,7 @@ function UserDetails(){
                 </div>
             </div>
 
-            <div onClick={() => toggleProfileSettings() } className="container flex items-center justify-center max-w-full cursor-pointer h-2/4">
+            <div onClick={() => viewThisModal("settings") } className="container flex items-center justify-center max-w-full cursor-pointer h-2/4">
                 <div className="flex items-center w-4/5 h-10 text-white transition rounded-md bg-selectgreen hover:bg-selectgreenhover">
                     <div className="container flex items-center justify-center h-full ml-5 btn_icon w-11 ">
                         <SettingsIcon/>
