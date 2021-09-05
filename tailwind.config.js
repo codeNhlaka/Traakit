@@ -13,6 +13,12 @@ module.exports = {
     }),
     extend: {
       backgroundColor: ['active'],
+      width: {
+        cw: "904px"
+      },
+      inset: {
+        'left-20': '20%',
+       }
     },
   },
   variants: {
