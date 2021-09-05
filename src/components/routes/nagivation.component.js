@@ -11,7 +11,6 @@ import { useLocation } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { API, Storage } from "aws-amplify";
 import * as queries from "../../graphql/queries";
-import "./styles.css";
 import TraakitLogo from "../../assets/logo/Traakit";
 
 
@@ -48,11 +47,11 @@ function UserDetails(){
     }, []);
 
     return (
-        <div className='container h-1/5 mt-10'>
-            <div className="user_details container cursor-default flex justify-center items-center h-2/4">
-                <div className="profile_image container flex justify-center items-center w-4/5 h-full">
-                    <div className="profile_image_wrapper container flex justify-center items-center h-full w-11">
-                        <div className="image_container overflow-hidden flex justify-center items-center container bg-coolgray rounded-full h-10 w-10">
+        <div className='container mt-10 h-1/5'>
+            <div className="container flex items-center justify-center cursor-default user_details h-2/4">
+                <div className="container flex items-center justify-center w-4/5 h-full profile_image">
+                    <div className="container flex items-center justify-center h-full profile_image_wrapper w-11">
+                        <div className="container flex items-center justify-center w-10 h-10 overflow-hidden rounded-full image_container bg-coolgray">
                             { user.imageKey.key ? (
                                 <img src={ user.imageKey.url } style={{
                                     width: "40px",
@@ -64,16 +63,16 @@ function UserDetails(){
                             )}
                         </div>
                     </div>
-                    <div className="username container ml-2 w-auto "><p className='text-white select-none'>{ displayName }</p></div>
+                    <div className="container w-auto ml-2 username "><p className='text-white select-none'>{ displayName }</p></div>
                 </div>
             </div>
 
-            <div onClick={() => toggleProfileSettings() } className="container cursor-pointer flex justify-center items-center h-2/4 max-w-full">
-                <div className="bg-selectgreen rounded-md hover:bg-selectgreenhover transition flex items-center text-white w-4/5 h-10">
-                    <div className="btn_icon flex justify-center items-center container h-full w-11 ml-5 ">
+            <div onClick={() => toggleProfileSettings() } className="container flex items-center justify-center max-w-full cursor-pointer h-2/4">
+                <div className="flex items-center w-4/5 h-10 text-white transition rounded-md bg-selectgreen hover:bg-selectgreenhover">
+                    <div className="container flex items-center justify-center h-full ml-5 btn_icon w-11 ">
                         <SettingsIcon/>
                     </div>
-                    <p className="w-28 ml-1 select-none pointer-events-none">Edit Profile</p>
+                    <p className="ml-1 pointer-events-none select-none w-28">Edit Profile</p>
                 </div>
             </div>
         </div>
@@ -100,32 +99,32 @@ function DashboardOptions(props){
     return (
         <div className="mt-10">
             <div className="navigationOptions">
-                <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
-                    <div className="icon flex justify-center items-center h-full w-10 ml-5">
+                <div className="flex items-center justify-start w-full h-10 mb-4 navigationOption">
+                    <div className="flex items-center justify-center w-10 h-full ml-5 icon">
                         <DashboardIcon iconColor={isActivePath('/') ? styles.active.color : styles.inactive.color }/>
                     </div>
-                    <Link style={isActivePath('/') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/">Dashboard</Link>
+                    <Link style={isActivePath('/') ? styles.active : styles.inactive} className="ml-2 text-white select-none" to="/">Dashboard</Link>
                 </div>
     
-                <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
-                    <div className="icon flex justify-center items-center h-full w-10 ml-5">
+                <div className="flex items-center justify-start w-full h-10 mb-4 navigationOption">
+                    <div className="flex items-center justify-center w-10 h-full ml-5 icon">
                         <ApplicationsIcon iconColor={isActivePath('/applications') ? styles.active.color : styles.inactive.color }/>
                     </div>
-                    <Link style={isActivePath('/applications') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/applications">Applications</Link>
+                    <Link style={isActivePath('/applications') ? styles.active : styles.inactive} className="ml-2 text-white select-none" to="/applications">Applications</Link>
                 </div>
     
-                {/* <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
-                    <div className="icon flex justify-center items-center h-full w-10 ml-5">
+                {/* <div className="flex items-center justify-start w-full h-10 mb-4 navigationOption">
+                    <div className="flex items-center justify-center w-10 h-full ml-5 icon">
                         <NotificationsIcon iconColor={isActivePath('/notifications') ? styles.active.color : styles.inactive.color }/>
                     </div>
-                    <Link style={isActivePath('/notifications') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/notifications">Notifications</Link>
+                    <Link style={isActivePath('/notifications') ? styles.active : styles.inactive} className="ml-2 text-white select-none" to="/notifications">Notifications</Link>
                 </div> */}
     
-                <div className="navigationOption mb-4 flex justify-start items-center w-full h-10">
-                    <div className="icon flex justify-center items-center h-full w-10 ml-5">
+                <div className="flex items-center justify-start w-full h-10 mb-4 navigationOption">
+                    <div className="flex items-center justify-center w-10 h-full ml-5 icon">
                         <DocumentsIcon iconColor={isActivePath('/documents') ? styles.active.color : styles.inactive.color }/>
                     </div>
-                    <Link style={isActivePath('/documents') ? styles.active : styles.inactive} className="text-white ml-2 select-none" to="/documents">Documents</Link>
+                    <Link style={isActivePath('/documents') ? styles.active : styles.inactive} className="ml-2 text-white select-none" to="/documents">Documents</Link>
                 </div>
             </div>
         </div>
@@ -136,11 +135,11 @@ function DashboardOptions(props){
 function Navigation(){
     const location = useLocation();
     return (
-        <div className='container absolute border-r border-gray-800 border-opacity-50 z-50 h-screen w-1/5'>
+        <div className='container absolute z-50 w-1/5 h-screen border-r border-gray-800 border-opacity-50'>
             <UserDetails/>
             <DashboardOptions activePathname={location.pathname}/>
-            <div className="hover:bg-coolgray cursor-pointer transition-all w-full h-14 absolute bottom-0 mb-5">
-                <div className="w-14 h-full flex items-center justify-center ml-5">
+            <div className="absolute bottom-0 w-full mb-5 transition-all cursor-pointer hover:bg-coolgray h-14">
+                <div className="flex items-center justify-center h-full ml-5 w-14">
                     <TraakitLogo/>
                 </div>
             </div>
