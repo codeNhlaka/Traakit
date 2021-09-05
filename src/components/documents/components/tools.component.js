@@ -1,14 +1,11 @@
-import { useContext } from "react";
-import { fileUploadContext } from "../documents.component";
 import UploadFile from "../../../assets/icons/fileupload.icon";
 
-function Tools(){
-    const toggleFileUpload = useContext(fileUploadContext);
+function Tools(props){
 
     return (
-        <div className="component-title relative flex items-center w-full h-10 mt-3">
-            <div onClick={() => toggleFileUpload() } className="cursor-pointer ml-5 hover:bg-selectgreenhover rounded-md transition-all w-40 h-full flex items-center">
-                <div className="w-9 h-5/6 ml-2 flex justify-center items-center">
+        <div className="relative flex items-center w-full h-10 mt-3 component-title">
+            <div onClick={() => props.toggle() } className="flex items-center w-40 h-full ml-5 transition-all rounded-md cursor-pointer hover:bg-selectgreenhover">
+                <div className="flex items-center justify-center ml-2 w-9 h-5/6">
                     <UploadFile/>
                 </div>
                 <p className="text-white select-none">Upload file</p>

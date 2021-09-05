@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import Documents from "./components/documents/documents.component";
-import Applications from "./components/applications/applications.component";
+import Documents from "./pages/documents";
+import Applications from "./pages/applications";
 import ProfileSettingsModal from "./containers/profileSettings";
 import AuthAPI from "./adapters/auth";
 import { isMobile } from "react-device-detect"; 

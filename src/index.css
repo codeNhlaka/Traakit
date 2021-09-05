@@ -60,6 +60,19 @@ body {
   .widget-chart-title-content {
     @apply flex items-center justify-center w-full h-full text-gray-400 border border-gray-800 rounded;
   }
+  /* documents */
+  .documents {
+    @apply relative w-full h-screen overflow-hidden bg-selectgray;
+  }
+  .documents-content {
+    @apply absolute w-4/5 h-full left-left-20;
+  }
+  .documents-title {
+    @apply flex items-center w-full h-16 mt-10;
+  }
+  .documents-title-content {
+    @apply w-auto ml-5 text-4xl text-white pointer-events-none select-none;
+  }
 }
 
 @tailwind utilities;
