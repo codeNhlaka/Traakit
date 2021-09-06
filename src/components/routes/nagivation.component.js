@@ -18,7 +18,7 @@ function UserDetails(){
     const user = useStore(state => state.about);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
-    const [displayName, setDisplayName] = useState(user.data.fullnames);
+    const [displayName, setDisplayName] = useState(user.data.fullnames || "[Your Name]");
 
 
     useEffect(() => {

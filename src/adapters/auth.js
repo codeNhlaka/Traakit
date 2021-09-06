@@ -36,7 +36,6 @@ class AuthAPI {
   }
 
   static async signUp(username, password, email, userId) {
-    console.log(username, password, email, userId);
 
     try {
       const { user } = await Auth.signUp({
