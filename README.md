@@ -41,6 +41,10 @@ Traakit will watch over all your activity and give your a summery of rejected, p
 Of cause there are extra features that helps simplify your life when it comes to tracking and managing applications, such as `Documents`
 which allows you to store copis of your Resume or Cover letters. And as time progresses, we'll add more features that improves the app and make it be a must have.
 
+![Traakit Screen](/images/1.png)
+![Traakit Screen](/images/2.png)
+![Traakit Screen](/images/3.png)
+
 ### Built With
 
 * [React](https://reactjs.org/)
