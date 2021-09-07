@@ -154,7 +154,6 @@ function Prompt({ username }){
   
   async function resendVerification(){
     setSendingCode(true);
-    console.log(username)
     const code = await AuthAPI.resendConfirmationCode(username);
     if (code && typeof code === "boolean"){
       setSendingCode(false);
@@ -315,12 +314,10 @@ export default function Login(){
             if (authenticatedUser){
                 // no current authenticated user
                   if (typeof authenticatedUser === "string"){
-                    console.log('no authenticaaaated user');
                     return
                   } else {
                     // get user id
                     const userId = authenticatedUser.attributes['custom:userId'];
-                    console.log(authenticatedUser)
                     let userAbout;
           
                     // fetch user data
