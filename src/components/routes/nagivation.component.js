@@ -4,7 +4,6 @@ import SettingsIcon from "../../assets/icons/settings.icon";
 import DashboardIcon from "../../assets/icons/dashboard.icon";
 import ApplicationsIcon from "../../assets/icons/applications.icon";
 import UserProfileIcon from "../../assets/icons/userProfile.icon";
-import NotificationsIcon from "../../assets/icons/notifications.icon";
 import DocumentsIcon from "../../assets/icons/documents.icon";
 import { useLocation } from "react-router-dom";
 import { useStore } from "../../store/store";
