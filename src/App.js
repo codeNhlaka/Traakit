@@ -26,16 +26,20 @@ function App() {
         let id;
 
         try {
-            let authenticatedUser = await Auth.currentAuthenticatedUser();
+            
+          setTimeout(async () => {
+              let authenticatedUser = await Auth.currentAuthenticatedUser();
               
-            if (authenticatedUser){
-                id = authenticatedUser["attributes"]["custom:userId"];
-                
-                // set id to global
-                setId(id);
-                setApp(true);
-                return stopProcessing();
-              } 
+              if (authenticatedUser){
+                  id = authenticatedUser["attributes"]["custom:userId"];
+                  
+                  // set id to global
+                  setId(id);
+                  setApp(true);
+                  return stopProcessing();
+                } 
+            }, 1000);
+
         } catch(error){
             console.log(error);
             return stopProcessing()
