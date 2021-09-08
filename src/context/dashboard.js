@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { useStore } from "../store/store";
+import { API } from "aws-amplify";
+import * as queries from "../graphql/queries";
 
 const DashboardContext = createContext(null);
 
 function DashboardProvider({ children }){
     const user = useStore(state => state.about);
+    const setApplicataionRecord = useStore(state  => state.setApplicationRecord);
     const { applications } = user;
 
     /**
@@ -53,6 +56,42 @@ function DashboardProvider({ children }){
 
         return rejectedApplications;
     }
+    
+    useEffect(() => {
+        async function fetchUserApplications(){
+            const applicationsList = await API.graphql({query: queries.listApplications});
+            
+            if (applicationsList.data.listApplications){
+                
+                // get applicaations
+                const { items } = applicationsList.data.listApplications;
+                
+                // push each application to global state
+                
+                items.forEach(item => {
+                    const { id } = item;
+    
+                    // check for duplicates
+                    if (applications.length !== 0){
+    
+                        applications.forEach(currentApplication => {
+                            if (currentApplication.id === id) return; 
+                        });
+    
+                    } else {
+                        // push each application record to global state;
+                        return setApplicataionRecord(item);
+                    }
+                })
+            }
+        }
+
+        if (!applications.length){
+            fetchUserApplications();
+            return;
+        }
+
+    }, []);
 
     return (
         <DashboardContext.Provider value= {{ 
