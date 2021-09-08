@@ -226,7 +226,7 @@ function TableList(props){
 
         setDate(createdAt.fdate);
         setTime(createdAt.ftime);
-    }, []);
+    }, [props.date]);
 
     return (
         <div className="relative flex items-center w-full h-12 overflow-hidden text-sm transition-all delay-150 cursor-pointer select-none component-table-content-details hover:bg-coolgray">

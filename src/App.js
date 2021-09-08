@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Auth } from "aws-amplify";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Documents from "./pages/documents";
@@ -8,15 +9,50 @@ import { useStore } from "./store/store";
 import { IndexContext } from "./context/index";
 import ProfileSettings from "./components/profile-settings/profile_setting.component"
 import Login from "./pages/login";
+import Spinner from './components/loader/spinner';
 
 function App() {
+  const startProcessing = useStore(state => state.startProcessing);
+  const stopProcessing = useStore(state => state.stopProcessing);
+  const [app, setApp] = useState(false);
   const { settings } = useContext(IndexContext);
   const user = useStore(state => state.about);
+  const { processing } = user;
+  const setId = useStore(state => state.setId);
+
+  useEffect(() => {
+      async function getAuthenticatedUser(){
+        // get user id, if none exists in global state
+        let id;
+
+        try {
+            let authenticatedUser = await Auth.currentAuthenticatedUser();
+              
+            if (authenticatedUser){
+                id = authenticatedUser["attributes"]["custom:userId"];
+                
+                // set id to global
+                setId(id);
+                setApp(true);
+                return stopProcessing();
+              } 
+        } catch(error){
+            console.log(error);
+            return stopProcessing()
+        }
+    }
+
+    if (!user.id){
+        // on load set spinner 
+        startProcessing();
+        getAuthenticatedUser();
+    }
+  }, [startProcessing, stopProcessing])
  
   if (isMobile){
     return <></> // no mobile support for now
   } else {
-    if (user.id){
+    if (app){
       return (
         <>
           { settings ? <ProfileSettings/> : null}
@@ -37,10 +73,11 @@ function App() {
       )
     } else {
       return (
-          <Login />
+          processing ? <Spinner/> : <Login/>
       )
     }
   }
 }
+
 
 export default App;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AuthAPI from "../adapters/auth";
 import { useStore } from '../store/store';
 import { API } from "aws-amplify";

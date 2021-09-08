@@ -1,14 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import { useStore } from "../store/store";
 
 const IndexContext = createContext(null);
 
 function IndexProvider({ children }){
-    const modals = ["profileSettings"];
-    const [settings, viewSettings] = useState(false);
+    const user = useStore(state => state.about);
 
-    /**   
-     * @param { String } modal Specifies which modal should be viewed
-     */
+    const [settings, viewSettings] = useState(false);
 
     function viewThisModal(modal){
         if (modal === "settings"){
@@ -19,10 +17,12 @@ function IndexProvider({ children }){
     useEffect(() => {
         const w = window;
 
+        async function getAuthenticatedUser(){
+            
+        }
+
         // This will look for current viewed modal and close it
         function esc(event){
-            let key = event.key;
-
             if (event.ctrlKey && event.key === 'c') {
                 viewSettings(false);
             } else if(event.ctrlKey && event.key === 'x') {
@@ -31,7 +31,8 @@ function IndexProvider({ children }){
         }
 
         w.addEventListener('keydown', esc);
-        
+
+
     }, []);
 
     return (

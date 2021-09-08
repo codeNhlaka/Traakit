@@ -9,6 +9,7 @@ const initialState = {
     },
     documents: [],
     applications: [],
+    processing: false,
     imageKey: {
         id: null,
         key: null,
@@ -18,6 +19,18 @@ const initialState = {
 
 export const useStore = create(set => ({
     about: initialState,
+    startProcessing: () => set(state => ({
+        about: {
+            ...state.about,
+            processing: true
+        }
+    })),
+    stopProcessing: () => set(state => ({
+        about: {
+            ...state.about,
+            processing: false
+        }
+    })),
     deleteApplicationRecord: (id) => set(state => ({
         about: {
             ...state.about, 
