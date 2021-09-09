@@ -54,7 +54,7 @@ function App() {
   if (isMobile){
     return <></> // no mobile support for now
   } else {
-    if (app){
+    if (app || user.id){
       return (
         <>
           { settings ? <ProfileSettings/> : null}

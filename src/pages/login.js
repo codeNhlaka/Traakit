@@ -293,6 +293,7 @@ export default function Login(){
     }
 
     async function signIn(){
+        console.log("signing in");
         reset();
         setSignIn(true);
         if (!username && !password) {
@@ -312,6 +313,8 @@ export default function Login(){
 
             const authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser();
             if (authenticatedUser){
+                console.log("logged in by now");
+                console.log(authenticatedUser);
                 // no current authenticated user
                   if (typeof authenticatedUser === "string"){
                     return
@@ -348,9 +351,11 @@ export default function Login(){
                       // updateState
                       updateAbout(fetchedData);
                       setSignIn(false);
+                      console.log(fetchedData);
                     } else {
                       // only set id
                       setId(userId);
+                      console.log(userId)
                     }
                   }
                 } 
