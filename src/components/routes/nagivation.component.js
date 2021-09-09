@@ -15,6 +15,7 @@ import { IndexContext } from "../../context/index";
 function UserDetails(){
     const { viewThisModal } = useContext(IndexContext);
     const user = useStore(state => state.about);
+    const updateAbout = useStore(state => state.updateAbout);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
     const [displayName, setDisplayName] = useState(user.data.fullnames || "[Your Name]");
@@ -38,11 +39,27 @@ function UserDetails(){
             }
         }
 
-        if (user.id && !user.imageKey.url){
-            // attempt to create signedUrl for userImage
-            getUserImage();
+        async function getUserInformation(){
+            let id;
+            if (!user.id) return;
+
+            id = user.id;
+            const userPayload = await API.graphql({query: queries.getUser, variables: { id }});
+            
+            if (userPayload){
+               const { getUser } = userPayload.data;
+               
+               // update state
+               updateAbout(getUser);
+
+               if (user.id && !user.imageKey.url){
+                    // attempt to create signedUrl for userImage
+                    return getUserImage();
+               }
+            }          
         }
 
+        getUserInformation();
     }, []);
 
     return (
