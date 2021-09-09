@@ -18,7 +18,6 @@ function UserDetails(){
     const updateAbout = useStore(state => state.updateAbout);
     const setImageKey = useStore(state => state.setImageKey);
     const setImageUrl = useStore(state => state.setImageUrl); 
-    const [displayName, setDisplayName] = useState(user.data.fullnames || "[Your Name]");
 
 
     useEffect(() => {
@@ -63,36 +62,37 @@ function UserDetails(){
     }, []);
 
     return (
-        <div className='container mt-10 h-1/5'>
-            <div className="container flex items-center justify-center cursor-default user_details h-2/4">
-                <div className="container flex items-center justify-center w-4/5 h-full profile_image">
-                    <div className="container flex items-center justify-center h-full profile_image_wrapper w-11">
-                        <div className="container flex items-center justify-center w-10 h-10 overflow-hidden rounded-full image_container bg-coolgray">
-                            { user.imageKey.key ? (
-                                <img src={ user.imageKey.url } style={{
-                                    width: "40px",
-                                    height: "40px",
-                                    objectFit: "cover"
-                                }}/>
-                            ) : (
-                                <UserProfileIcon/>
-                            )}
+            <div className='container mt-10 h-1/5'>
+                <div className="container flex items-center justify-center cursor-default user_details h-2/4">
+                    <div className="container flex items-center justify-center w-4/5 h-full profile_image">
+                        <div className="container flex items-center justify-center h-full profile_image_wrapper w-11">
+                            <div className="container flex items-center justify-center w-10 h-10 overflow-hidden rounded-full image_container bg-coolgray">
+                                { user.imageKey.key ? (
+                                    <img src={ user.imageKey.url } style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        objectFit: "cover"
+                                    }}/>
+                                ) : (
+                                    <UserProfileIcon/>
+                                )}
+                            </div>
                         </div>
+                        <div className="container w-auto ml-2 username "><p className='text-white select-none'>{ user.data.fullnames || "Your name" }</p></div>
                     </div>
-                    <div className="container w-auto ml-2 username "><p className='text-white select-none'>{ displayName }</p></div>
+                </div>
+    
+                <div onClick={() => viewThisModal("settings") } className="container flex items-center justify-center max-w-full cursor-pointer h-2/4">
+                    <div className="flex items-center w-4/5 h-10 text-white transition rounded-md bg-selectgreen hover:bg-selectgreenhover">
+                        <div className="container flex items-center justify-center h-full ml-5 btn_icon w-11 ">
+                            <SettingsIcon/>
+                        </div>
+                        <p className="ml-1 pointer-events-none select-none w-28">Edit Profile</p>
+                    </div>
                 </div>
             </div>
+        )
 
-            <div onClick={() => viewThisModal("settings") } className="container flex items-center justify-center max-w-full cursor-pointer h-2/4">
-                <div className="flex items-center w-4/5 h-10 text-white transition rounded-md bg-selectgreen hover:bg-selectgreenhover">
-                    <div className="container flex items-center justify-center h-full ml-5 btn_icon w-11 ">
-                        <SettingsIcon/>
-                    </div>
-                    <p className="ml-1 pointer-events-none select-none w-28">Edit Profile</p>
-                </div>
-            </div>
-        </div>
-    )
 }
 
 const styles = {
@@ -150,6 +150,7 @@ function DashboardOptions(props){
 
 function Navigation(){
     const location = useLocation();
+    
     return (
         <div className='container absolute z-50 w-1/5 h-screen border-r border-gray-800 border-opacity-50'>
             <UserDetails/>
