@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect } from "react";
 import { API } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
 import { createApplication, deleteApplication, updateApplication, createApplicationChartRecord } from "../graphql/mutations";
@@ -125,7 +125,7 @@ function ApplicationsProvider({ children }){
         if (!applications.length){
             fetchUserApplications();
         }
-    }, [])
+    }, [applications, setApplicataionRecord])
 
     return (
         <ApplicationsContext.Provider value={{createApp, deleteApp, updateApp }}>

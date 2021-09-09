@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SettingsIcon from "../../assets/icons/settings.icon";
 import DashboardIcon from "../../assets/icons/dashboard.icon";
@@ -59,7 +59,7 @@ function UserDetails(){
         }
 
         getUserInformation();
-    }, []);
+    }, [updateAbout, user.id, user.imageKey.url, setImageKey, setImageUrl]);
 
     return (
             <div className='container mt-10 h-1/5'>
