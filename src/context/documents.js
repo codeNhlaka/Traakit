@@ -27,16 +27,12 @@ const DocumentsProvider = ({ children }) => {
         Storage.remove(key);
   
         // delete document record from dynamodb
-        alert("attempting to delete file from dynamodb")
         const deletedRecord = await API.graphql({
                 query: deleteDocument,
                 variables: { input: { id } }
             });
 
         if (deletedRecord.data.deleteDocument){
-                const { deleteDocument } = deletedRecord.data;
-                console.log(deleteDocument);
-
                 // delete item from global state
                 return deleteDocumentRecord(id);
             }
@@ -87,9 +83,7 @@ const DocumentsProvider = ({ children }) => {
 
             const uploadDocument = await API.graphql({query: createDocument, variables: {input: documentData }})
 
-            if (uploadDocument.data.createDocument){
-                console.log('we uploaded your file ', uploadDocument.data.createDocument);
-                
+            if (uploadDocument.data.createDocument){                
                 // get uploaded file
                 uploadedFile = uploadDocument.data.createDocument;
 
@@ -145,7 +139,7 @@ const DocumentsProvider = ({ children }) => {
 
         fetchDocuments();
         
-    }, []);
+    }, [user, setDocumentRecord]);
 
     return (
         <DocumentsContext.Provider value={ {uploadDoc, deleteDoc, downloadDoc} }>

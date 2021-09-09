@@ -1,10 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-import { useStore } from "../store/store";
 
 const IndexContext = createContext(null);
 
 function IndexProvider({ children }){
-    const user = useStore(state => state.about);
 
     const [settings, viewSettings] = useState(false);
 
@@ -16,10 +14,6 @@ function IndexProvider({ children }){
 
     useEffect(() => {
         const w = window;
-
-        async function getAuthenticatedUser(){
-            
-        }
 
         // This will look for current viewed modal and close it
         function esc(event){
