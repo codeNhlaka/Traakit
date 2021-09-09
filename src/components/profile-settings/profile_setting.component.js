@@ -8,7 +8,7 @@ import { IndexContext } from "../../context/index";
 
 const componentP = {
     x: 100,
-    y: 100
+    y: 60
 };
 
 function Profile(){
@@ -38,12 +38,13 @@ function Profile(){
     }
 
     return (
-            <div className="container absolute w-1/3 ml-auto transition border border-gray-800 rounded shadow-lg bg-coolgray h-4/5"
+            <div className="absolute w-1/3 ml-auto transition border border-gray-800 rounded shadow-lg bg-coolgray"
                 style={
                     {
                         top: componentPosition.y,
                         left: componentPosition.x,
-                        zIndex: 1000
+                        zIndex: 1000,
+                        height: "520px"
                     }
                 }
             >
