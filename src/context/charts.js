@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback, useMemo } from "react";
 import dateFormat from "dateformat";
 import { API } from "aws-amplify";
 import { listApplicationChartRecords } from "../graphql/queries";
@@ -24,9 +24,9 @@ function ChartProvider({ children }){
     const setData = useStore(state => state.setData);
 
     const len = (arr) => arr.length;
-    const schemaMap = [];
+    const schemaMap = useMemo(() => [], []);
 
-    function createData(items, month){
+    const createData = useCallback((items, month) => {
         if (!len(items)) return setData([]);
         items.forEach(item => {
             const { year, day, applicationDate } = item;
@@ -105,7 +105,7 @@ function ChartProvider({ children }){
         }
 
         setData(chartInfo);
-    }
+    }, [setData, schemaMap, chartInfo]);
 
     function getData(year, month){
         if(!len(schemaMap)){
@@ -136,7 +136,7 @@ function ChartProvider({ children }){
         }
     }
 
-    async function byMonth(month){
+    const byMonth = useCallback(async (month) => {
         let filter = {
             month: {
                 eq: month 
@@ -149,12 +149,12 @@ function ChartProvider({ children }){
             const { items } = result.data.listApplicationChartRecords;
             createData(items, month);
         }
-    }
+    }, [createData]);
 
     useEffect(() => {
         const month = dateFormat(new Date(), "mmmm");
         byMonth(month);
-    }, []);
+    }, [byMonth]);
 
     return (
         <ChartContext.Provider value={{ byYear, byMonth, getData }}>
