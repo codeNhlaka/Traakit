@@ -1,10 +1,9 @@
-import { useState, useContext, useEffect, createRef } from "react";
+import { useState, useContext, createRef } from "react";
 import Select from "../form/dropdown.component";
 import { ContainedInputField } from "../form/input.component";
 import AccountIcon from "../../assets/icons/account.icon";
 import { useStore } from "../../store/store";
 import { SettingsContext, ProfileSettingsProvider } from "../../context/profile-settings";
-import { updateUserImage } from '../../graphql/mutations';
 import { IndexContext } from "../../context/index";
 
 const componentP = {
@@ -71,7 +70,7 @@ function Profile(){
                                 }
                                 className="container overflow-hidden">
                                 { user.imageKey.key ? (
-                                    <img src={ user.imageKey.url } style={{
+                                    <img src={ user.imageKey.url } alt="" style={{
                                         width: "90px",
                                         height: "90px",
                                         objectFit: "cover"

@@ -1,11 +1,10 @@
-import { useContext, useState , useEffect} from "react";
 import {
   CartesianGrid,
   YAxis,
   Tooltip,
   ResponsiveContainer, AreaChart, Area
 } from "recharts";
-import { ChartProvider, ChartContext } from "../../context/charts";
+import { ChartProvider } from "../../context/charts";
 import { useStore } from "../../context/charts";
 import CalenderIcon from "../../assets/icons/calender.icon"
 
@@ -27,7 +26,6 @@ function CustomTooltip({ active, payload, label}){
 
 function Chart() {
   const currentData = useStore(state => state.data.current);
-  const { byMonth, getData } = useContext(ChartContext);
 
   return (
     <ResponsiveContainer width="95%" height={300}>

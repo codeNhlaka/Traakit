@@ -35,12 +35,12 @@ function Options(props){
         } else {
             setOptions(['Pending', 'Rejected', 'Interview', 'Offer']);
         }
-    }, [])
+    }, [props.options])
 
     return (
         <div 
             style={ {width: '50%', marginLeft: '5%'} } 
-            className="menu mt-2 bg-selectgray rounded-md overflow-hidden border border-gray-800  h-auto"
+            className="h-auto mt-2 overflow-hidden border border-gray-800 rounded-md menu bg-selectgray"
         >
             <ul>
                 {options.map(option => {
@@ -79,24 +79,24 @@ function Select(props){
 
     return (
         <div 
-            className="control w-full h-auto mt-2 transition-all">
+            className="w-full h-auto mt-2 transition-all control">
             <div 
                 style={ menuActive ? activeStyle : defaultStyle} 
-                className="input-area rounded-md bg-selectgray flex items-center w-11/12 h-10"
+                className="flex items-center w-11/12 h-10 rounded-md input-area bg-selectgray"
                 >
                 <div 
                     onClick={() => setMenuActive(!menuActive)} 
-                    className="input h-full"
+                    className="h-full input"
                 >
                     <input 
                         disabled 
                         value={ value }
-                        className="px-5 text-sm text-gray-700 cursor-pointer bg-transparent border-none outline-none rounded-none h-full w-4/5" 
+                        className="w-4/5 h-full px-5 text-sm text-gray-700 bg-transparent border-none rounded-none outline-none cursor-pointer" 
                         placeholder={currentVal || "Select"}
                     />
                 </div>
                 
-                <div className="seperator ml-2 w-2 h-full flex justify-center items-center">
+                <div className="flex items-center justify-center w-2 h-full ml-2 seperator">
                     <div 
                         style={ customStyle } 
                         className="h-3/6">
@@ -105,7 +105,7 @@ function Select(props){
                 
                 <div 
                     onClick={() => setMenuActive(!menuActive)} 
-                    className="indicator ml-2 cursor-pointer w-10 h-full flex justify-center items-center"
+                    className="flex items-center justify-center w-10 h-full ml-2 cursor-pointer indicator"
                 >
                     <Expand />
                 </div>

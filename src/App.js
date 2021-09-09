@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
 import {  BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Documents from "./pages/documents";
@@ -49,7 +48,7 @@ function App() {
         startProcessing();
         getAuthenticatedUser();
     }
-  }, [startProcessing, stopProcessing])
+  }, [startProcessing, stopProcessing, setId, user.id])
  
   if (isMobile){
     return <></> // no mobile support for now
