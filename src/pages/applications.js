@@ -229,15 +229,15 @@ function TableList(props){
     }, [props.date]);
 
     return (
-        <div className="relative flex items-center w-full h-12 overflow-hidden text-sm transition-all delay-150 cursor-pointer select-none component-table-content-details hover:bg-coolgray">
-        <div onClick={() => toggleApplicationDetails({details: props}) } className="flex items-center w-40 h-full ml-5 transition-all delay-100 hover:bg-coolgray">
-            <p1 className="flex items-center w-full h-full text-gray-600 hover:text-white">{ props.company }</p1>
+        <div className="relative flex items-center w-full h-12 overflow-hidden text-sm transition-all delay-150 cursor-pointer select-none hover:bg-coolgray component-table-content-details">
+        <div  className="flex items-center w-40 h-full ml-5">
+            <p1 className="flex items-center w-full h-full text-gray-600">{ props.company }</p1>
         </div>
         <div className="flex items-center w-40 h-full">
             <p1 className="p-1 text-gray-600">{ props.role }</p1>
         </div>
-        <div className="flex items-center w-40 h-full">
-            <p1 className="text-gray-600">{ props.progress }</p1>
+        <div onClick={() => toggleApplicationDetails({details: props}) } className="flex items-center w-40 h-full hover:bg-coolgray">
+            <p1 className="flex items-center w-full h-full text-gray-600 transition-all delay-100 hover:text-white hover:ml-2">{ props.progress }</p1>
         </div>
         <div className="flex items-center w-40 h-full">
             <p1 className="text-gray-600">{ date }</p1>
