@@ -206,7 +206,7 @@ function Prompt({ username }){
 const SignIn = ({ handleUsername, handlePassword, signingIn, error, authMode, signIn, forgotPassword}) => (
   <div className="flex items-center justify-center w-1/2 h-3/4 ">
     <div className="w-3/6 h-full">
-        <h1 className="flex justify-center w-full h-auto text-lg text-white select-none">Traakit v0.02-alpha</h1>
+        <h1 className="flex justify-center w-full h-auto text-lg text-white select-none">Traakit v0.03-alpha</h1>
         <div className="w-full h-auto">
             <input onChange={e => handleUsername(e)} className="w-full px-4 mt-10 h-9" type="text" placeholder="Username"/>
             <input onChange={e => handlePassword(e)} className="w-full px-4 mt-2 h-9" type="password" placeholder="Password"/>
@@ -382,7 +382,7 @@ export default function Login(){
           { userVerified ? ( 
             <div className="flex items-center justify-center w-1/2 h-3/4 ">
                 <div className="w-3/6 h-full">
-                    <h1 className="flex justify-center w-full h-auto text-lg text-white select-none">Traakit v0.02-alpha</h1>
+                    <h1 className="flex justify-center w-full h-auto text-lg text-white select-none">Traakit v0.03-alpha</h1>
                     <div className="w-full h-auto">
                         <input onChange={e => handleUsername(e)} className="w-full px-4 mt-10 h-9" type="text" placeholder="Username"/>
                         <input onChange={e => handleEmail(e) } className="w-full px-4 mt-2 h-9" type="email" placeholder="Email"/>
