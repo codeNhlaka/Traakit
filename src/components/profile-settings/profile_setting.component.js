@@ -70,7 +70,7 @@ function Profile(){
                                 }
                                 className="container overflow-hidden">
                                 { user.imageKey.key ? (
-                                    <img src={ user.imageKey.url } alt="" style={{
+                                    <img src={ user.imageKey.url } style={{
                                         width: "90px",
                                         height: "90px",
                                         objectFit: "cover"

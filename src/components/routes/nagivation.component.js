@@ -68,7 +68,7 @@ function UserDetails(){
                         <div className="container flex items-center justify-center h-full profile_image_wrapper w-11">
                             <div className="container flex items-center justify-center w-10 h-10 overflow-hidden rounded-full image_container bg-coolgray">
                                 { user.imageKey.key ? (
-                                    <img src={ user.imageKey.url } alt="" style={{
+                                    <img src={ user.imageKey.url } style={{
                                         width: "40px",
                                         height: "40px",
                                         objectFit: "cover"
