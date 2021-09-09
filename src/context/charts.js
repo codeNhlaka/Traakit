@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { format, parseISO, subDays } from "date-fns";
 import dateFormat from "dateformat";
 import { API } from "aws-amplify";
 import { listApplicationChartRecords } from "../graphql/queries";
@@ -21,7 +20,7 @@ export const useStore = create(set => ({
 const ChartContext = createContext(null);
 
 function ChartProvider({ children }){
-    const [chartInfo, setChartInfo] = useState([]);
+    const [ chartInfo ] = useState([]);
     const setData = useStore(state => state.setData);
 
     const len = (arr) => arr.length;

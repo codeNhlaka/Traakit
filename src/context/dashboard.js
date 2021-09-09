@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect } from "react";
 import { useStore } from "../store/store";
 import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
@@ -91,7 +91,7 @@ function DashboardProvider({ children }){
             return;
         }
 
-    }, []);
+    }, [applications, setApplicataionRecord]);
 
     return (
         <DashboardContext.Provider value= {{ 
