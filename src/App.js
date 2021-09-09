@@ -10,6 +10,7 @@ import { IndexContext } from "./context/index";
 import ProfileSettings from "./components/profile-settings/profile_setting.component"
 import Login from "./pages/login";
 import Spinner from './components/loader/spinner';
+import AuthAPI from './adapters/auth';
 
 function App() {
   const startProcessing = useStore(state => state.startProcessing);
@@ -24,26 +25,23 @@ function App() {
       async function getAuthenticatedUser(){
         // get user id, if none exists in global state
         let id;
-
-        try {
+   
+        setTimeout(async () => {
+            let authenticatedUser = await AuthAPI.getCurrentAuthenticatedUser()
             
-          setTimeout(async () => {
-              let authenticatedUser = await Auth.currentAuthenticatedUser();
-              
-              if (authenticatedUser){
-                  id = authenticatedUser["attributes"]["custom:userId"];
-                  
-                  // set id to global
-                  setId(id);
-                  setApp(true);
-                  return stopProcessing();
-                } 
-            }, 1000);
+            if (authenticatedUser){
+              if (typeof authenticatedUser === "string" && authenticatedUser === "The user is not authenticated"){
+                setApp(false);
+                return stopProcessing();
+              }
 
-        } catch(error){
-            console.log(error);
-            return stopProcessing()
-        }
+              id = authenticatedUser["attributes"]["custom:userId"];
+              setId(id);
+              setApp(true);
+              return stopProcessing();
+            }
+        }, 1000);
+
     }
 
     if (!user.id){
