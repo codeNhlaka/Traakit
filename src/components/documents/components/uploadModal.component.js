@@ -109,8 +109,8 @@ function UploadFileModal(props){
                 </div>
                 <div className="w-full mt-2">
                     <h1 className="text-center text-white">
-                        <span className="p-1 text-white bg-selectblue">PDF</span> 
-                        <span className="p-1 ml-2 text-white bg-selectblue">Microsoft Word Docs</span>
+                        <span className="p-1 text-white bg-opacity-60 bg-selectgreen">PDF</span> 
+                        <span className="p-1 ml-2 text-white bg-opacity-60 bg-selectgreen">Microsoft Word Docs</span>
                     </h1>
                 </div>
             </div>
