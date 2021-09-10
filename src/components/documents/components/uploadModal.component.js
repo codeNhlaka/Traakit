@@ -102,10 +102,19 @@ function UploadFileModal(props){
             onDragLeave={(e) => handleDragLeave(e)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e)}
-            className="container absolute z-50 flex items-center justify-center w-2/3 transition-all border border-gray-800 rounded shadow-md left-48 top-24 h-3/5 bg-coolgray">
-            <div className="container flex items-center justify-center w-full">
-                { dragging ? <h1 className="text-4xl text-white pointer-events-none select-none">Drop here :)</h1> : <h1 className="text-4xl text-white pointer-events-none select-none">Drag and drop your files here</h1>}
+            className="absolute z-50 flex items-center justify-center w-2/3 transition-all border border-gray-800 rounded shadow-md left-48 top-24 h-3/5 bg-coolgray">
+            <div className="w-full h-auto">
+                <div className="w-full">
+                    { dragging ? <h1 className="w-full text-4xl text-center text-white pointer-events-none">Drop here :)</h1> : <h1 className="text-4xl text-center text-white pointer-events-none select-none">Drag and drop your files here</h1>}
+                </div>
+                <div className="w-full mt-2">
+                    <h1 className="text-center text-white">
+                        <span className="p-1 text-white bg-selectblue">PDF</span> 
+                        <span className="p-1 ml-2 text-white bg-selectblue">Microsoft Word Docs</span>
+                    </h1>
+                </div>
             </div>
+            
         </div>
     )
 }
