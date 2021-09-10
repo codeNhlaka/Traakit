@@ -5,6 +5,7 @@ module.exports = {
     backgroundColor: theme => ({
       transparent: 'transparent',
       selectgray: '#15171A',
+      selectblue: '#0556e3',
       selectgreen: '#30cf43',
       selectgreenhover: '#21a731',
       white: '#ffffff',
@@ -28,11 +29,3 @@ module.exports = {
     require('tailwind-forms'),
   ],
 }
-
-
-// colors: {
-//   transparent: 'transparent',
-//   selectgray: '#15171A',
-//   selectgreen: '#30cf43',
-//   white: '#ffffff'
-// }
