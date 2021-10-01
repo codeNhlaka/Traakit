@@ -53,7 +53,8 @@ function UserDetails(){
 
                if (user.id && !user.imageKey.url){
                     // attempt to create signedUrl for userImage
-                    return getUserImage();
+                    // return getUserImage();
+                    return;
                }
             }          
         }
