@@ -26,7 +26,8 @@ function Profile(){
     const [componentPosition] = useState(componentP);
 
     function handleFileUpload(){
-        fileInputRef.click();
+        alert('Sorry... feature not enabled yet.');
+        // fileInputRef.click();
     }
 
     function handleChange(forInput, value){
