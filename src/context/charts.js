@@ -93,7 +93,7 @@ function ChartProvider({ children }){
 
         const targ = schemaMap[0][2021][month]
 
-        for(let i = 0; i <= 30; i++){
+        for(let i = 0; i <= 31; i++){
             if (targ[i]){
                 let pushData = {
                     date: targ[i][0].date,
